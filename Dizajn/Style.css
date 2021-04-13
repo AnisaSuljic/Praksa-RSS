@@ -1,0 +1,786 @@
+@import url('https://fonts.googleapis.com/css2?family=Orelega+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orelega+One&family=Poppins&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 10px;
+    scroll-behavior: smooth;
+}
+.container{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+p{
+    font-size: 1.5rem;
+    margin-top: 5px;
+    line-height: 2rem;
+    font-weight: 300px;
+    letter-spacing: .05rem;
+    color:black;
+}
+li{
+    list-style-type: none;
+}
+li a{
+    text-decoration: none;
+}
+
+/*header*/
+
+#header{
+    position: fixed;
+    z-index: 1000;
+    left:0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    
+}
+#header .header{
+    min-height: 8vh;
+    background-color: rgb(31, 30, 30);
+    transition: .3s ease background-color;
+}
+#header .nav-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    max-width: 1300px;
+    padding: 0 10px;
+}
+#header .brand{
+    margin-left: 50px;
+}
+#header .brand:hover{
+    transform: scale(1.1);
+}
+#header .brand a{
+    text-decoration: none;
+    color: white;
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+#header .brand span{
+    color:#dba6f4;
+    font-size: 5rem;
+    font-family: 'Orelega One', cursive;
+}
+#header .nav-list ul{
+    list-style: none;
+    position: absolute;
+    background-color: rgba(21, 9, 36, 0.993);
+    width: 100%;
+    height: 100vh;  
+    left: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: .3s ease left;
+}
+#header .nav-list ul.active{
+    left: 0;
+}
+#header .nav-list ul li{
+    padding: 15px;
+}
+#header .nav-list ul li a{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+    display: block;
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+#header .nav-list ul li a:hover{
+    transform: scale(1.2);
+}
+#header .nav-list ul li a::after{
+    content: attr(data-after);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    color: #2b163656;
+    font-size: 7rem;
+    letter-spacing: 50px;
+    z-index: -1;
+    transition: .3s ease letter-spacing;
+    text-align: center;
+}
+#header .nav-list ul li .tryfree{
+    border:1px solid #8c3cb1;
+    background-color:#b69ec273;
+    border-radius: 15px;
+    padding: 15px;
+}
+#header .nav-list ul .tryfree:hover{
+    background-color:#8c3cb1 ;
+    color:#550979 ;
+}
+#header .nav-list ul li:hover a::after{
+    transform: translate(-50%,-50%) scale(1);
+    letter-spacing: initial;
+}
+#header .hamburger{
+    height: 60px;
+    width: 60px;
+    display:inline-block;
+    border: 3px solid white;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    cursor: pointer;
+    z-index: 100;
+    transform: scale(.8);
+}
+#header .hamburger::after{
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border:10px solid rgba(255, 255, 255, 0.363);
+    animation: hamburger_circle 3s ease infinite;
+}
+@keyframes hamburger_circle{
+    0%{
+        opacity: 1;
+        transform: scale(1);
+    }
+    100%{
+        opacity:0 ;
+        transform: scale(1.5);
+    }
+}
+#header .hamburger .bar{
+    height: 2px;
+    width: 30px;
+    position: relative;
+    background-color: white;
+    z-index: -1;
+}
+#header .hamburger .bar::after,
+#header .hamburger .bar::before{
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left:0 ;
+    background-color: white;
+    transition: .3s ease;
+    transition-property: top,bottom;
+}
+#header .hamburger .bar::after{
+    top: 8px;
+}
+#header .hamburger .bar::before{
+    bottom: 8px;
+}
+#header .hamburger.active .bar::before,
+#header .hamburger.active .bar::after{
+    top: 0;
+    bottom: 0;
+}
+/*end header*/
+
+
+
+/*Početa */
+
+#homeFrame{
+    padding: 25px;
+    margin-top: 55px;
+
+}
+#home{
+    background-image: url(./img/anisa-01.jpg);
+    background-size: cover;
+    background-position:top center;
+    position: relative;
+    text-align: center;
+
+}
+#home h1{
+    display: block;
+    width: fit-content;
+    font-size: 3rem;
+    position: relative;
+    color: transparent;    
+    animation: text_reveal .5s ease forwards;
+    animation-delay: 1s; 
+}
+#home h3{
+    display: block;
+    width: fit-content;
+    font-size: 1.5rem;
+    position: relative;
+    color: transparent;    
+    margin-top: 20px;
+    animation: text_reveal .5s ease forwards;
+    animation-delay: 1s; 
+}
+#home h1:nth-child(1){
+    animation-delay: .5s;
+}
+#home h3:nth-child(2){
+    animation-delay: 2s;
+}
+#home h3 span{
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 0;
+    background-color:#8c3cb1 ;
+    animation:text_reveal_box 1s ease;
+    animation-delay: 1.5s;
+}
+#home h3:nth-child(1) span{
+    animation-delay: 1s;
+}
+.Buttons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+}
+#header .nav-list ul li .tryfree{
+    border:1px solid white;
+    padding: 15px;
+}
+#header .nav-list ul li .tryfree:hover{
+    background-color:#dba6f444 ;
+    color:white ;
+    transform: scale(1.1);
+
+}
+#home .Buttons a{
+    display: inline-block;
+    padding: 10px 30px;
+    color: #8c3cb1;    
+    background-color:rgba(255, 255, 255, 0.39) ;
+    border: 1px solid #d1b2df;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    margin-top: 30px;
+    transition:.3s ease;
+    transition-property: background-color,color;
+    margin-right: 10px;
+    text-decoration: none;
+}
+#home .Buttons a:hover{
+    background-color: #8c3cb1;
+    color: white;
+}
+.row{
+    width: 100%;
+}
+#home.home.container{
+    flex-direction: column;
+}
+.homeMockupDesktop img{
+    width:250px ;
+    height: 220px;
+    animation: bounceTop_01 3s ease infinite;
+}
+@keyframes text_reveal_box{
+    50%{
+        width: 100%;
+        left: 0;
+    }
+    100%{
+        width: 0;
+        left: 100%;
+    }
+}
+@keyframes text_reveal{
+    100%{
+        color: white;
+    }
+}
+@keyframes bounceTop_01{
+    0%,100%{
+        transform: translateY(-15px);
+    }
+    50%{
+        transform: translateY(0px);
+    }
+}
+
+/*Zašto Faktura.ba section*/
+
+#why .why{
+    flex-direction: column;
+    text-align: center;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 100px 0 50px 0px;
+}
+#why .why-title, #features .features-header-heading{
+    font-size: 3rem;
+    font-weight: 300;
+    color: black;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;    
+}
+#why .why-title span{
+    color:#8c3cb1 ;
+}
+.why .why-bottom, #features .features-top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+#why .why-item{
+    flex-basis: 80%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 10px;
+    background-size: cover;
+    margin: 10px 5%;
+    position: relative;    
+    z-index: 100;
+    overflow: hidden;
+    box-shadow: 20px 20px 50px rgba(135, 58, 218, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top:1px solid rgba(110, 18, 216, 0.1);
+    border-left:1px solid rgba(110, 18, 216, 0.1);
+}
+#why .why-item{
+    animation: bounceTop_01 3s ease infinite;
+}
+#why .why-bottom .icon img{
+    height: 64px;
+    width: 64px;
+    margin-bottom: 20px;
+}
+#why .why-bottom .icon img:hover{
+
+    transform: scale(1.1);
+}
+#why .why-item h2{
+    font-size: 2rem;
+    color: #8c3cb1;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+#why .why-item p{
+    text-align: left;
+}
+/*End Zašto Faktura.ba section*/
+
+/*Zasto Fabktura.ba section => Free-Version*/
+.freeVersion-item{
+    background-color:#8c3cb1 ;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 45px 0px 45px 0px;
+}
+.freeVersion-item h2{
+    padding: 25px;    
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+.freeVersion-item .FreeVersionButton{
+    width: 30%;
+    padding: 12px;
+    font-size:1.1rem;
+    margin: auto;    
+    background-color: transparent;
+    border:1px solid white;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 15px;
+    
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+.freeVersion-item .FreeVersionButton:hover{
+    background-color:#dba6f444 ;
+    color:white ;
+    transform: scale(1.1);
+}    
+/*End Zasto Fabktura.ba section => Free-Version*/
+
+.features{
+    flex-direction: column;
+    min-height: 60vh;
+    padding:5rem 5rem;
+}
+.features .features-header{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 70px;
+}
+.features .features-header h1{
+    margin: 50px;
+}
+/*.features-header-heading(h1) same as #way .way-title*/
+
+.features .features-info{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;    
+}
+.features .features-info .feature{
+    width: 80%;
+    min-height: 250px;
+    position: relative;
+    transition: .3s ease transform;
+    margin:15px;
+}
+.features .features-info .feature .feature-card{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: .3s ease transform;
+    display: block;
+    border-radius: 15px;
+    box-shadow: 20px 20px 50px rgba(135, 58, 218, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top:1px solid rgba(110, 18, 216, 0.1);
+    border-left:1px solid rgba(110, 18, 216, 0.1);
+}
+.features .features-info .feature .feature-card .feature-front,
+.features .features-info .feature .feature-card .feature-back{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+    border-radius: 10px;
+}
+.features .features-info .feature .feature-card .feature-back{
+    transform: rotateY(180deg);
+}
+.features .features-info .feature .feature-card .feature-front img{    
+    margin: 30px;
+}
+.features .features-info .feature .feature-card .feature-front .feature-front-heading,
+.features .features-info .feature .feature-card .feature-back .feature-back-heading{
+    font-size: 2.5rem;
+    text-transform: capitalize;    
+}
+.features .features-info .feature:hover .feature-card{
+    transform: rotateY(180deg);
+}  
+/*offers*/
+#offers .offers{
+    flex-direction: column;
+    text-align: center;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 100px 0 50px 0px;
+}
+#offers .offers-title{
+    font-size: 3rem;
+    font-weight: 300;
+    color: black;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;    
+}
+#offers .offers-title span, #offers .offers-title1 span{
+    color: #8c3cb1;
+}
+.offers .offers-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+#offers .offers-item{
+    flex-basis: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 10px;
+    background-size: cover;
+    margin: 10px 5%;
+    position: relative;    
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 20px 20px 50px rgba(135, 58, 218, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top:1px solid rgba(110, 18, 216, 0.1);
+    border-left:1px solid rgba(110, 18, 216, 0.1);
+    
+}
+#offers .offers-item:hover{
+    transform: scale(1.1);
+}
+#offers .offers-item .offerBtn{
+    background-color:rgba(255, 255, 255, 0.39) ;
+    border: 1px solid #d1b2df;
+    border-radius: 15px;
+    margin-top: 25px;
+    padding: 10px;
+    color:#8c3cb1 ;
+}
+#offers .offers-item .offerBtn:hover{
+    transform: scale(1.2);
+    background-color:#8c3cb1 ;
+    color: white;
+}
+#offers .offers-item h3{
+    font-size: 2rem;
+    color: #8c3cb1;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+/*video*/
+
+   /*Video*/
+
+   .video .container
+   {
+    max-width: 750px;
+   }
+.videoContent{
+    width:90%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.videoContent iframe
+{
+    width: 100%;
+    height: 50%;
+}
+/*footer*/
+footer{
+    background: #8c3cb1;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    color: #fff;
+}
+.col-md-6 {
+    padding: 10px;
+}
+footer .left-side{
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+footer .right-side{
+    text-align: end;
+}
+footer .right-side img
+{
+    width: 55px;
+    height: 25px;
+}
+
+/*TABLET*/
+@media only screen and (min-width: 768px)
+{
+    /*Početa */
+    .container{
+        padding: 20px 60px;
+    }
+    #home .col-md-6{
+        width: 100%;
+    }
+    .textBox{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .Buttons{
+        justify-content: center;
+    }
+    .homeMockupDesktop{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    /*Zasto Fabktura.ba?*/
+    #why .why-bottom .why-item{
+        flex-basis:45% ;
+        margin:2.5%;
+    }
+    /*features*/
+    .features .features-info .feature .feature-card .feature-back{
+        flex-direction: row;
+    }
+    /*Reviews*/
+    #offers .offers-bottom .offers-item{
+        flex-basis:45% ;
+        margin:2.5%;
+    }
+    /*video*/
+    .videoContent iframe
+    {
+        height: 80%;    
+    }
+   
+    
+}
+
+/*DESKTOP*/
+@media only screen and (min-width: 1200px)
+{
+/*navbar*/
+#header .nav-list ul li .tryfree{
+    border:1px solid white;
+    background-color:#8c3cb117 ;
+    padding: 15px;
+}
+#header .nav-list ul li .tryfree:hover{
+    background-color:#dba6f444 ;
+    color:white ;
+}
+
+    #header .nav-list ul{
+        margin-top: 15px;
+    }
+    #header .hamburger{
+        display: none;
+    }
+    #header .nav-list ul{
+        position: initial;
+        display: block;
+        height: auto;
+        width: fit-content;
+        background-color: transparent;
+    }
+    #header .nav-list ul li{
+        display: inline-block;
+    };
+    #header .nav-list ul li a{
+        font-size: 20px;
+    }
+    #header .nav-list ul a::after{
+        display: none;
+    }
+    /*Početa */
+    .container{
+        align-items: center;
+        justify-content: center;
+    }
+    #home{
+        text-align:start;
+    }
+    #home .col-md-6{
+        width: 50%;
+    }
+    .textBox{
+        display: unset;
+    }
+    #homeFrame{
+        margin-top:0;    
+        padding:25px;
+    }
+    .Buttons{
+        justify-content: unset;
+    }
+    .homeMockupDesktop{
+        width: 100%;
+        height: 100%;
+    }
+    .row{
+        align-items:center;
+    }
+    .homeMockupDesktop img{
+        width:450px ;
+        height: 400px;
+    }
+
+    /*Zasto Fabktura.ba?*/
+    #why .why-bottom .why-item{
+        flex-basis:16% ;
+        margin:1%;
+    }
+    /*Zasto Fabktura.ba?//FreeVersion*/
+
+    .freeVersion-item{
+        flex-direction: row;
+    }
+    .freeVersion-item .FreeVersionButton{
+        width: 13%;
+    }
+    /*Features*/
+    .features{
+        flex-direction: row;
+    }
+    #features .container{
+        padding-top: 150px;
+    }
+    .features .features-info{
+        flex-direction: row;
+        margin-bottom: 50px;
+    }
+    .featuresFrame{
+        width: 100%;
+    }
+    .features .features-info .feature .feature-card .feature-back{
+        flex-direction: column;
+    }
+    /*Reviews*/
+    #offers .container
+    {
+        padding-top: 150px;
+    }
+    #offers .offers-bottom .offers-item{
+        flex-basis:30% ;
+        margin:1%;
+        height: 60vh;
+    }
+
+    /*video*/
+    .video .container
+   {
+        width: 1170px;
+   }
+   .videoContent iframe
+   {
+       height: 600px;    
+   }
+
+}
