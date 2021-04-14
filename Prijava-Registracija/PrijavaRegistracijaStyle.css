@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+html{
+    font-family: 'Orelega One', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+#header1{
+    height: 100vh;
+    width: 100%;
+    background:url("./img/anisa-01.jpg");
+    background-size: cover;
+    background-position:top center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    overflow-y: scroll;
+}
+.main-header{
+    text-align: center;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 20px 20px 50px rgba(135, 58, 218, 0.3);
+    background-color: rgba(255, 255, 255, 0.568);
+    border-top:2px solid rgba(255, 255, 255, 0.486);
+    border-left:2px solid rgba(255, 255, 255, 0.425);
+    margin: auto;
+}
+.main-header h1 {
+    font-size: 2rem;
+}
+.main-header span{
+    color:#8c3cb1 ;
+}
+.main-header hr{
+    width: 70%;
+    margin: auto;
+    padding: 2px;
+    background-color: #8c3cb1;
+    border: none;
+    border-radius: 15px;
+}
+.main-header h3{
+    margin: 20px;
+    color: #8c3cb1;
+    font-size: 1.2rem;
+}
+.main-header input{
+    width: 100%;
+    padding: .5rem;
+    border: none;
+    border-bottom: 2px solid #8c3cb1;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.589);
+    outline: none;
+}
+.main-header button{
+    padding: .5rem 3rem;
+    font-size: 1.1rem;
+    background-color:rgb(255, 255, 255) ;
+    color:#8c3cb1;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    box-shadow: 20px 20px 50px rgba(135, 58, 218, 0.507);
+
+    border-bottom: 2px solid rgba(135, 58, 218, 0.507);
+    border-right: 1px solid rgba(135, 58, 218, 0.507);
+    margin-top: 20px;
+    cursor: pointer;
+}
+.main-header button:hover{
+    transform: scale(1.1);
+    background-color: rgba(234, 233, 235, 0.3);
+}
