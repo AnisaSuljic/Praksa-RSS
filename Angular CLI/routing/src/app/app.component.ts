@@ -7,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'routing';
-  ngOnInit():void{
 
-  }
-  ToSection(id:string){
-    document.getElementById(id)?.scrollIntoView();
-  }
+
+  ngOnInit():void{}
+
 }

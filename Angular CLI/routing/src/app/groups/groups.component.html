@@ -1,0 +1,179 @@
+
+            <div class="add">
+                <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+            </div>
+
+            <!-- Add modal -->
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Dodavanje grupe</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Naziv</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                  </div>
+          
+                  <div class="form-group" style="width: 50%;float: left;">
+                    <label for="exampleFormControlSelect2">Vrsta</label>
+                    <div class="dropdown">
+                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odaberite vrstu
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Vrsta1</a></li>
+                        <li><a class="dropdown-item" href="#">Vrsta2</a></li>
+                        <li><a class="dropdown-item" href="#">Vrsta3</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="width: 50%;float: left;">
+                    <label for="exampleFormControlSelect2">Porez</label>
+                    <div class="dropdown">
+                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odaberite vrstu
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Porez1</a></li>
+                        <li><a class="dropdown-item" href="#">Porez2</a></li>
+                        <li><a class="dropdown-item" href="#">Porez3</a></li>
+                      </ul>
+                    </div>
+                  </div>
+              </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+              </div>
+            </ng-template>
+
+            <!--Update modal-->
+            <ng-template #content1 let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Naziv</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" value="Alatni čelik">
+                  </div>
+          
+                  <div class="form-group" style="width: 50%;float: left;">
+                    <label for="exampleFormControlSelect2">Vrsta</label>
+                    <div class="dropdown">
+                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odaberite vrstu
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Vrsta1</a></li>
+                        <li><a class="dropdown-item" href="#">Vrsta2</a></li>
+                        <li><a class="dropdown-item" href="#">Vrsta3</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="width: 50%;float: left;">
+                    <label for="exampleFormControlSelect2">Porez</label>
+                    <div class="dropdown">
+                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odaberite vrstu
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Porez1</a></li>
+                        <li><a class="dropdown-item" href="#">Porez2</a></li>
+                        <li><a class="dropdown-item" href="#">Porez3</a></li>
+                      </ul>
+                    </div>
+                  </div>
+              </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>
+              </div>
+            </ng-template>
+
+             <!--Delete modal-->
+             <ng-template #content2 let-modal>
+              <div class="modal-header">
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-append">
+                        <h6>Da li ste sigurni da želite obrisati?</h6>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+              </div>
+            </ng-template>
+
+            <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Naziv grupe</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Alatni čelik</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Dobavne komponente</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Vijci</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Konstruktor</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Kaljenje</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Carina</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Slanje kupcu</td>
+                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                  </tr>
+                </tbody>
+              </table>

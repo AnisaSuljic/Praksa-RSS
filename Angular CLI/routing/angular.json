@@ -32,7 +32,9 @@
             ],
             "scripts": [    
               "src/assets/scripts/landing-page.component.js",
-              "src/assets/scripts/admin-panel.component.js"
+              "src/assets/scripts/admin-panel.component.js",
+              "./node_modules/jquery/dist/jquery.js",
+   "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -94,9 +96,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           }
         },
         "lint": {

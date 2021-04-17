@@ -1,179 +1,87 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--icons-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <title>AdminPanel</title>
-    </head>
-    <body>
-        <!--header section-->
-        <header class="header">
-            <div class="header__container">
-                <!--<img src="./img/log-out.png" alt="" class="header__img1">-->
-                <a class="header__img" href="#"><img class="profileImg" src="../../assets/img/profile.png" alt="" ></a>
-                <a routerLink="/prijava" class="logout"><span >Odjavi se</span></a>
-
-               
-                <div class="header__toggle">
-                    <i class='bx bx-menu' id="header-toggle"></i>
-                </div>
-            </div>
-        </header>
-        <!--end header section-->
-
-        <!--navigation section-->
-
-        <div class="nav1" id="navbar">
-            <nav class="nav__container">
-                <div>
-                    <a href="#" class="nav__link nav__logo">
-                        <span class="nav__logo-name">Faktura.ba</span>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        
+    <title>Document</title>
+</head>
+<body>
+    <input type="checkbox"id="sidebar-toggle">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a routerLink="/adminpanel/companyProfile">
+                <span class="nav__logo-name">Faktura.ba</span>
+            </a>
+            <label for="sidebar-toggle"><i class='bx bxs-grid' ></i></label>
+            
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a routerLink="/adminpanel/companyProfile" class="nav__link active">
+                        <i class='bx bx-user nav__icon' ></i>
+                        <span class="nav__name">Profil</span>
                     </a>
-    
-                    <div class="nav__list">
-                        <div class="nav__items">    
-                            <a href="#" class="nav__link active">
-                                <i class='bx bx-user nav__icon' ></i>
-                                <span class="nav__name">Profil</span>
-                            </a>
-                            
-                            <div class="nav__dropdown">
-                                <a href="#" class="nav__link">
-                                    <i class='bx bx-data nav__icon' ></i>
-                                    <span class="nav__name">Podaci</span>
-                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
-                                </a>
+                 </li>
+                 <li>
+                    <div class="nav__dropdown">
+                        <a class="nav__link">
+                            <i class='bx bx-data nav__icon' ></i>
+                            <span class="nav__name">Vrste</span>
+                            <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                        </a>
 
-                                <div class="nav__dropdown-collapse">
-                                    <div class="nav__dropdown-content">
-                                        <a href="#" class="nav__dropdown-item">Vrste</a>
-                                        <a href="#" class="nav__dropdown-item">Grupe</a>
-                                        <a href="#" class="nav__dropdown-item">Artikli</a>
-                                        <a href="#" class="nav__dropdown-item">Kupci</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nav__dropdown">
-                                <a href="#" class="nav__link">
-                                    <i class='bx bx-library nav__icon' ></i>
-                                    <span class="nav__name">Dokumenti</span>
-                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
-                                </a>
-
-                                <div class="nav__dropdown-collapse">
-                                    <div class="nav__dropdown-content">
-                                        <a href="#" class="nav__dropdown-item">Izlazni računi</a>
-                                        <a href="#" class="nav__dropdown-item">Ulazni računi</a>
-                                    </div>
-                                </div>
+                        <div class="nav__dropdown-collapse">
+                            <div class="nav__dropdown-content">
+                                <a routerLink="/adminpanel/groups" class="nav__dropdown-item">Grupe</a>
+                                <a routerLink="/adminpanel/items" class="nav__dropdown-item">Artikli</a>
+                                <a routerLink="/adminpanel/customers" class="nav__dropdown-item">Kupci</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                            
-            </nav>
-        </div>
-        <!--end navigation section-->
+                 </li>
+                 <li>
+                    <div class="nav__dropdown">
+                        <a class="nav__link">
+                            <i class='bx bx-library nav__icon' ></i>
+                            <span class="nav__name">Dokumenti</span>
+                            <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                        </a>
 
-        <!--content section-->
-        <main>
-            <section id="bodysec">
-                
-                <div class="frame container">
-                    <div class="add">
-                        <a href="#" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+                        <div class="nav__dropdown-collapse">
+                            <div class="nav__dropdown-content">
+                                <a routerLink="/adminpanel/outputs" class="nav__dropdown-item">Izlazni računi</a>
+                                <a routerLink="/adminpanel/inputs">Ulazni računi</a>
+                            </div>
+                        </div>
                     </div>
-                    <table class="table">
-                        <thead class="thead-light">
-                          <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Naziv</th>
-                            <th scope="col"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Alatni čelik</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Dobavne komponente</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Vijci</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>Konstruktor</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                          <tr>
-                            <th scope="row">5</th>
-                            <td>Kaljenje</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                          <tr>
-                            <th scope="row">6</th>
-                            <td>Carina</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                          <tr>
-                            <th scope="row">7</th>
-                            <td>Slanje kupcu</td>
-                            <td><a href=""><i class='bx bx-edit'></i></a>
-                            <a href=""><i class='bx bx-trash'></i></a></td>
-
-                          </tr>
-                        </tbody>
-                      </table>
-                </div>
-            </section>
-        </main>
-        <!--end content section
-
-        <script>
-            //KOD ZA ADMIN PANEL NAVIGACIJU
-
-    /*==================== SHOW NAVBAR ====================*/
-    const showMenu = (headerToggle, navbarId) =>{
-            const toggleBtn = document.getElementById(headerToggle),
-            nav = document.getElementById(navbarId)
+                 </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <div class="search-wrapper">
+                <span class="ti-search"></span>
+                <input type="text" placeholder="Pretraživač">
+            </div>
+            <div class="social-icons">
+               <a routerLink="/adminpanel/companyProfile" ><img src="../../assets/img/profile.png" alt=""></a> 
+               <a routerLink="/prijava"><img src="../../assets/img/logout.png" alt=""></a> 
+            </div>
+        </header>
+        <main>
+                <router-outlet></router-outlet>
+           
             
-            // Validate that variables exist
-            if(headerToggle && navbarId){
-                toggleBtn.addEventListener('click', ()=>{
-                    // We add the show-menu class to the div tag with the nav__menu class
-                    nav.classList.toggle('show-menu')
-                    // change icon
-                    toggleBtn.classList.toggle('bx-x')
-                })
-            }
-            }
-            showMenu('header__toggle','navbar')
-        </script>-->
-    </body>
+        </main>
+    </div>
+
+
+
     
+</body>
 </html>
