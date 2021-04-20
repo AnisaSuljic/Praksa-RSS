@@ -32,7 +32,6 @@ namespace RSS_backend.Services
             var list = set.Where(x=>x.Obrisan==false).ToList(); //samo ako nije obrisan da se prikazuje
             return _mapper.Map<List<Faktura.Model.JedinicaMjere>>(list);
         }
-
         public override Faktura.Model.JedinicaMjere Insert(JedinicaMjereInsert request)
         {
             var set = Context.Set<Database.JedinicaMjere>();
@@ -45,13 +44,25 @@ namespace RSS_backend.Services
 
             return _mapper.Map<Faktura.Model.JedinicaMjere>(entity);
         }
-
         public override Faktura.Model.JedinicaMjere GetById(int id)
         {
             var set = Context.Set<Database.JedinicaMjere>();
-            var entity = set.Where(x=>x.JedinicaMjereId==id && x.Obrisan==false).FirstOrDefault();
+            var entity = set.Where(x => x.JedinicaMjereId == id && x.Obrisan == false).FirstOrDefault();
             return _mapper.Map<Faktura.Model.JedinicaMjere>(entity);
         }
-        
+        public override Faktura.Model.JedinicaMjere Delete(int id)
+        {
+            var set = Context.Set<Database.JedinicaMjere>();
+            var entity = set.Find(id);
+
+            if(entity!=null)
+            {
+                entity.Obrisan = true;
+            }
+            Context.SaveChanges();
+            return _mapper.Map<Faktura.Model.JedinicaMjere>(entity);
+        }
     }
+
 }
+

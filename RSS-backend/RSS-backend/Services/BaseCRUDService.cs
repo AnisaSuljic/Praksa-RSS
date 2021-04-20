@@ -13,6 +13,7 @@ namespace RSS_backend.Services
         {
         }
 
+
         public virtual T Insert(TInsert request)
         {
             var set = Context.Set<Tdb>();
@@ -23,7 +24,6 @@ namespace RSS_backend.Services
 
             return _mapper.Map<T>(entity);
         }
-
         public virtual T Update(int id, TUpdate request)
         {
             var set = Context.Set<Tdb>();
@@ -34,6 +34,10 @@ namespace RSS_backend.Services
             Context.SaveChanges();
 
             return _mapper.Map<T>(entity);
+        }
+        public virtual T Delete(int id)
+        {
+            return null;
         }
 
        
