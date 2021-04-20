@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSS-backend", "RSS-backend\RSS-backend.csproj", "{055CAC7B-961C-4FA6-8987-2D185852D8D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE48FBBB-541E-43C1-9B15-D6C0E01EB1FF}
+	EndGlobalSection
+EndGlobal
