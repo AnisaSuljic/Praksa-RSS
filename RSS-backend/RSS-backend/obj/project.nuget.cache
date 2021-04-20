@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GWOq6RD6Xc83Dkl0fwD4C95f0dBuy0prMF/2ZnjUaGZe1Uwk3h8oGAeIMrzMS+o6nmx94RPQzPmLsHMj42krjw==",
+  "dgSpecHash": "K0wD7AgB8sbNDDqi0VZme1ZZBzg+7RDzEer0LHpu2HkmXMU7ylD/U15BBkJ3BBOMHs4EaBotgu6g19f2ENZ/cQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.5\\microsoft.entityframeworkcore.design.5.0.5.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.5\\microsoft.entityframeworkcore.relational.5.0.5.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.5\\microsoft.entityframeworkcore.sqlserver.5.0.5.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.5\\microsoft.entityframeworkcore.tools.5.0.5.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
