@@ -63,6 +63,18 @@ namespace RSS_backend.Mapping
             //valuta
             CreateMap<Database.Valutum, Faktura.Model.Valuta>();
             CreateMap<Faktura.Model.Requests.ValutaInsertUpdate, Valutum>();
+
+            //dokument
+            CreateMap<Database.Dokument, Faktura.Model.Dokument>();
+            CreateMap<Faktura.Model.Requests.DokumentInsertDelete, Dokument>();
+
+            //stavke
+            CreateMap<Database.Stavke, Faktura.Model.Stavke>();
+            CreateMap<Faktura.Model.Requests.SkladisteInsertUpdate, Stavke>();
+
+            //porez
+            CreateMap<Database.Porez, Faktura.Model.Porez>();
+            CreateMap<Faktura.Model.Requests.PorezInsertUpdate, Porez>();
         }
     }
 }

@@ -12,11 +12,11 @@ namespace RSS_backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ArtiklController : BaseCRUDController<Faktura.Model.Artikl, object,
-        Faktura.Model.Requests.ArtiklInsertUpdate, Faktura.Model.Requests.ArtiklInsertUpdate>
+    public class DokumentController : BaseCRUDController<Faktura.Model.Dokument, object,
+        Faktura.Model.Requests.DokumentInsertDelete, Faktura.Model.Requests.DokumentInsertDelete>
     {
 
-        public ArtiklController(IArtiklService service) : base(service)
+        public DokumentController(IDokumentService service) : base(service)
         {
         }
        
