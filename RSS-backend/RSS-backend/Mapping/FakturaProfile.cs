@@ -18,7 +18,11 @@ namespace RSS_backend.Mapping
 
             //klijent
             CreateMap<Database.Klijent, Faktura.Model.Klijent>();
-            CreateMap<Faktura.Model.Requests.KlijentInsertUpdate, Klijent>();//ako bude bio potreban insert/update novi model//
+            CreateMap<Faktura.Model.Requests.KlijentInsertUpdate, Klijent>();
+
+            //korisnik
+            CreateMap<Database.Korisnik, Faktura.Model.Korisnik>();
+            CreateMap<Faktura.Model.Requests.KorisnikInsertUpdate, Korisnik>();
         }
     }
 }

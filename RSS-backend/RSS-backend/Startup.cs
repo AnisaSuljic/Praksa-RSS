@@ -49,6 +49,7 @@ namespace RSS_backend
 
             services.AddScoped<IJedinicaMjereService, JedinicaMjereService>();
             services.AddScoped<IKlijentService, KlijentService>();
+            services.AddScoped<IKorisnikService, KorisnikService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
