@@ -12,8 +12,7 @@ namespace RSS_backend.Services
 {
     public class JedinicaMjereService : BaseCRUDService<Faktura.Model.JedinicaMjere, JedinicaMjere, Faktura.Model.JedinicaMjereSearch,
         Faktura.Model.Requests.JedinicaMjereInsert, Faktura.Model.Requests.JedinicaMjereUpdate>, IJedinicaMjereService
-    {
-   
+    {  
 
         public JedinicaMjereService(FakturaContext context, IMapper mapper):
             base(context,mapper)

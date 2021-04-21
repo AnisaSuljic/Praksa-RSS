@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faktura.Model.Requests
+namespace Faktura.Model
 {
-    public class JedinicaMjereUpdate
+    public class KlijentSearch
     {
-        [Required]
         public string Naziv { get; set; }
+        public string Mjesto { get; set; }
+        public string Idbroj { get; set; }
 
     }
 }
