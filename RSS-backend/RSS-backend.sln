@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSS-backend", "RSS-backend\RSS-backend.csproj", "{055CAC7B-961C-4FA6-8987-2D185852D8D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSS-backend", "RSS-backend\RSS-backend.csproj", "{055CAC7B-961C-4FA6-8987-2D185852D8D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faktura.Model", "Faktura.Model\Faktura.Model.csproj", "{F3079501-68E4-407E-AC16-B73D273C042C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055CAC7B-961C-4FA6-8987-2D185852D8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3079501-68E4-407E-AC16-B73D273C042C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3079501-68E4-407E-AC16-B73D273C042C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3079501-68E4-407E-AC16-B73D273C042C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3079501-68E4-407E-AC16-B73D273C042C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

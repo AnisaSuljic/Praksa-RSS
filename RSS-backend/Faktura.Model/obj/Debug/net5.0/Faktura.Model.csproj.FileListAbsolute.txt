@@ -1,0 +1,12 @@
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.deps.json
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\ref\Faktura.Model.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.pdb
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.csprojAssemblyReference.cache
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.AssemblyInfo.cs
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\ref\Faktura.Model.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.pdb
