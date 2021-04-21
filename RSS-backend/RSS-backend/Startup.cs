@@ -58,6 +58,8 @@ namespace RSS_backend
             services.AddScoped<IGradService, GradService>();
             services.AddScoped<IRacunService, RacunService>();
             services.AddScoped<IVrstaPlacanjaService, VrstaPlacanjaService>();
+            services.AddScoped<ISkladisteService, SkladisteService>();
+            services.AddScoped<IValutaService, ValutaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

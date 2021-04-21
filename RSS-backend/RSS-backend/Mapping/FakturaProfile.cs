@@ -55,6 +55,14 @@ namespace RSS_backend.Mapping
             //vrsta placanja
             CreateMap<Database.VrstaPlacanja, Faktura.Model.VrstaPlacanja>();
             CreateMap<Faktura.Model.Requests.VrstaPlacanjaInsertUpdate, VrstaPlacanja>();
+
+            //skladiste
+            CreateMap<Database.Skladiste, Faktura.Model.Skladiste>();
+            CreateMap<Faktura.Model.Requests.SkladisteInsertUpdate, Skladiste>();
+
+            //valuta
+            CreateMap<Database.Valutum, Faktura.Model.Valuta>();
+            CreateMap<Faktura.Model.Requests.ValutaInsertUpdate, Valutum>();
         }
     }
 }
