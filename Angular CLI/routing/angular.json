@@ -30,11 +30,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [    
-              "src/assets/scripts/landing-page.component.js",
-              "src/assets/scripts/admin-panel.component.js",
+            "scripts": [              
               "./node_modules/jquery/dist/jquery.js",
-   "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./src/assets/scripts/landing.js"
             ]
           },
           "configurations": {

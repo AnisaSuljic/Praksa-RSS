@@ -47,7 +47,7 @@ li a{
 }
 #header .header{
     min-height: 8vh;
-    background-color: #8c3cb1;
+    background-color: transparent;
     transition: .3s ease background-color;
 }
 #header .nav-bar{
@@ -118,7 +118,6 @@ li a{
     font-family: 'Poppins', sans-serif;
 }
 #header .nav-list ul li a:hover{
-    transform: scale(1.2);
 }
 #header .nav-list ul li a::after{
     content: attr(data-after);
@@ -129,9 +128,10 @@ li a{
     color: #2b163656;
     font-size: 7rem;
     letter-spacing: 50px;
-    z-index: -1;
+    z-index: -1000;
     transition: .3s ease letter-spacing;
     text-align: center;
+    line-height: 90%;
 }
 #header .nav-list ul li .tryfree{
     border:1px solid #8c3cb1;
@@ -439,6 +439,16 @@ li a{
     color:white ;
     transform: scale(1.1);
 }    
+
+.freeVersion-item .FreeVersionButton span{
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .02rem;
+    text-transform: uppercase;
+}
+
+
 /*End Zasto Fabktura.ba section => Free-Version*/
 
 .features{
@@ -690,9 +700,6 @@ footer .right-side img
     color:white ;
 }
 
-    #header .nav-list ul{
-        margin-top: 15px;
-    }
     #header .hamburger{
         display: none;
     }

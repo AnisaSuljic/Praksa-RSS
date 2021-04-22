@@ -23,13 +23,13 @@
                 </div>
                 <div class="nav-list">
                     <div class="hamburger"><div class="bar"></div></div>
-                    <ul>
+                    <ul class="headerNav">
                         <li (click)="ToSection('why')"><a  data-after="Zašto?">Zašto?</a></li>
                         <li (click)="ToSection('features')"><a data-after="Mogućnosti">Mogućnosti</a></li>
                         <li (click)="ToSection('offers')"><a data-after="Ponuda">Ponuda</a></li>
                         <li ><a href="https://blog.faktura.ba/"data-after="Blog">Blog</a></li>
                         <li ><a href="https://partner.faktura.ba/"data-after="Postani partner">Postani partner</a></li>
-                        <li ><a class="tryfree" href="https://probajte.faktura.ba/"data-after="Probajte besplatno">Probajte besplatno</a></li>
+                        <li ><a class="tryfree" href="https://probajte.faktura.ba/">Probajte besplatno</a></li>
                     </ul>                
                 </div>
             </div>
@@ -109,7 +109,7 @@
         <div class="freeVersion-item">
             <h2>Besplatna verzija je tu! Napravi fakturu, ponudu ili predračun odmah i uvjeri se u pogodnosti koje nudimo.</h2>
             <a class="FreeVersionButton" href="https://napravi.faktura.ba"
-            target="_blank">NAPRAVI FAKTURU</a>
+            target="_blank"><span>NAPRAVI FAKTURU</span></a>
         </div>
     </section>
 <!--End Zašto Faktura.ba section-->
@@ -300,29 +300,34 @@
                 </div>
             </div>
         </footer>
- <!--End Footer section
-<script type="text/javascript">
-    const hamburger = document.querySelector('#header .header .nav-bar .nav-list .hamburger');
-    const mobile = document.querySelector('.header .nav-bar .nav-list ul');
-    const header = document.querySelector('.header');
+ <!--End Footer section-->
 
-    hamburger.addEventListener('click',() => {
-        hamburger.classList.toggle('active');
-        mobile.classList.toggle('active');
-    });
 
-    document.addEventListener('scroll',()=>{
-        var scroll_pos=window.scrollY;
-        if(scroll_pos>100)
-        {
-            header.style.backgroundColor="#8c3cb1";
-        }
-        else{
-            header.style.backgroundColor="transparent";
-        }
-    });
-</script>
--->
-
+<!--
+ <script type="text/javascript">
+     const hamburger = document.querySelector('#header .header .nav-bar .nav-list .hamburger');
+     const mobile = document.querySelector('.header .nav-bar .nav-list ul');
+     const header = document.querySelector('.header');
+ 
+ alert("anisaa");
+ 
+     console.log(hamburger);
+ 
+     hamburger.addEventListener('click',() => {
+         hamburger.classList.toggle('active');
+         mobile.classList.toggle('active');
+     });
+ 
+     document.addEventListener('scroll',()=>{
+         var scroll_pos=window.scrollY;
+         if(scroll_pos>100)
+         {
+             header.style.backgroundColor="#8c3cb1";
+         }
+         else{
+             header.style.backgroundColor="transparent";
+         }
+     });
+ </script>-->
 </body>
 </html>
