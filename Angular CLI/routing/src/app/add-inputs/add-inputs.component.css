@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    height: 55px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom:1px solid grey;
+}
+.header span{
+    color: #4c2083;
+    float: left;
+    margin: 10px 0px 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
+
+}
