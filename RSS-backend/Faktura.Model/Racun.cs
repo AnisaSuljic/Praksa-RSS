@@ -10,7 +10,6 @@ namespace Faktura.Model
     {
         public Racun()
         {
-            //Stavkes = new HashSet<Stavke>();
         }
 
         public int RacunId { get; set; }
@@ -32,16 +31,5 @@ namespace Faktura.Model
         public int? ValutaId { get; set; }
         public bool? Placen { get; set; }
         public string Napomena { get; set; }
-        //public bool? Obrisan { get; set; }
-
-        //public virtual Dokument Dokument { get; set; }
-        //public virtual Klijent Klijent { get; set; }
-        //public virtual Korisnik Korisnik { get; set; }
-        //public virtual Kupac Kupac { get; set; }
-        //public virtual Skladiste SkladisteIzlaz { get; set; }
-        //public virtual Skladiste SkladisteUlaz { get; set; }
-        //public virtual Valutum Valuta { get; set; }
-        //public virtual VrstaPlacanja VrstaPlacanja { get; set; }
-        //public virtual ICollection<Stavke> Stavkes { get; set; }
     }
 }

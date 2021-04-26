@@ -25,13 +25,5 @@ namespace Faktura.Model
         public int? PorezId { get; set; }
         public DateTime? Datum { get; set; }
         public int? SkladisteIzlazId { get; set; }
-        //public bool? Obrisan { get; set; }
-
-        //public virtual Artikl Artikl { get; set; }
-        //public virtual Dokument Dokument { get; set; }
-        //public virtual Klijent Klijent { get; set; }
-        //public virtual Porez Porez { get; set; }
-        //public virtual Racun Racun { get; set; }
-        //public virtual Skladiste SkladisteIzlaz { get; set; }
     }
 }

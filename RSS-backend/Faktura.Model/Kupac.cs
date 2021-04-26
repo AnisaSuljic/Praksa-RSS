@@ -10,7 +10,6 @@ namespace Faktura.Model
     {
         public Kupac()
         {
-            //Racuns = new HashSet<Racun>();
         }
 
         public int KupacId { get; set; }
@@ -22,10 +21,5 @@ namespace Faktura.Model
         public string Pdvbroj { get; set; }
         public int? GradId { get; set; }
         public int? KlijentId { get; set; }
-        //public bool? Obrisan { get; set; }
-
-        //public virtual Grad Grad { get; set; }
-        //public virtual Klijent Klijent { get; set; }
-        //public virtual ICollection<Racun> Racuns { get; set; }
     }
 }

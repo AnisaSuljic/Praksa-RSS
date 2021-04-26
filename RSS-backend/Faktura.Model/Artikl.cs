@@ -10,7 +10,6 @@ namespace Faktura.Model
     {
         public Artikl()
         {
-            //Stavkes = new HashSet<Stavke>();
         }
 
         public int ArtiklId { get; set; }
@@ -30,12 +29,5 @@ namespace Faktura.Model
         public decimal? CijenaHh { get; set; }
         public decimal? MinKolNaSkladistu { get; set; }
         public string Opis { get; set; }
-        //public bool? Obrisan { get; set; }
-
-        //public virtual Grupa Grupa { get; set; }
-        //public virtual JedinicaMjere JedinicaMjere { get; set; }
-        //public virtual Klijent Klijent { get; set; }
-        //public virtual Proizvodjac Proizvodjac { get; set; }
-        //public virtual ICollection<Stavke> Stavkes { get; set; }
     }
 }
