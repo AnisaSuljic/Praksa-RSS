@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddInputsComponent } from './add-inputs/add-inputs.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CustomersComponent } from './customers/customers.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'groups', component:GroupsComponent},
   {path: 'items', component:ItemsComponent},
   {path: 'inputs', component:InputsComponent},
-  {path: 'outputs', component:OutputsComponent}
+  {path: 'outputs', component:OutputsComponent},
+  {path: 'addInputs', component:AddInputsComponent}
 ]},
   {path: '', component:LandingPageComponent}
 ];
@@ -32,4 +34,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const RoutingComponents=[PrijavaComponent,RegistracijaComponent,AdminPanelComponent,LandingPageComponent,CompanyProfileComponent,
-  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent]
+  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,AddInputsComponent]
