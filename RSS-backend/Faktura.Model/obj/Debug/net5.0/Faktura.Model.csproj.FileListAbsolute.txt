@@ -10,3 +10,15 @@ C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktur
 C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.dll
 C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\ref\Faktura.Model.dll
 C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.pdb
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.deps.json
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.dll
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\ref\Faktura.Model.dll
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\bin\Debug\net5.0\Faktura.Model.pdb
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.csprojAssemblyReference.cache
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.AssemblyInfoInputs.cache
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.AssemblyInfo.cs
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.dll
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\ref\Faktura.Model.dll
+C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\Faktura.Model\obj\Debug\net5.0\Faktura.Model.pdb
