@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IRacun } from '../racun';
+import { RacunService } from '../racun.service';
 
 @Component({
   selector: 'app-inputs',
@@ -7,35 +8,15 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls:['/inputs.component.css']
 })
 export class InputsComponent implements OnInit {
-  closeResult:string='';
-  constructor(private modalService: NgbModal) { }
+  public racuni : IRacun[] = [];
+  public racunPost: IRacun | undefined;
+  constructor(private _racunService: RacunService) { }
 
   ngOnInit(): void {
+    this._racunService.getRacuni()
+        .subscribe(data => this.racuni = data);
   }
-/**Modal Add */
-Add(content:any) {
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-/**Modal Delete */
-
-Delete(content2:any) {
-  this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
+  addRacun(){
+    this._racunService.addRacun(this.racunPost).subscribe(data => this.racunPost = data);
   }
-}
 }

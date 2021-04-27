@@ -30,7 +30,14 @@ namespace RSS_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(o => 
+            o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            }
+            ));
             services.AddControllers(x=>
             {
                 x.Filters.Add<ErrorFilter>();
@@ -39,7 +46,6 @@ namespace RSS_backend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RSS_backend", Version = "v1" });
             });
-
             services.AddDbContext<FakturaContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -75,7 +81,7 @@ namespace RSS_backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RSS_backend v1"));
             }
 
-
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();
