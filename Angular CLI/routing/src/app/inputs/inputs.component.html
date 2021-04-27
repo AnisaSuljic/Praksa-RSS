@@ -1,3 +1,10 @@
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
 <div class="tableFrame">
     <div class="header">
         <span>Ulazni račun</span>
@@ -28,9 +35,9 @@
                 <td data-label="Iznos">1025.55</td>
                 <td data-label="Plaćen"><input type="checkbox" name="" id=""></td>
                 <td class="actions">
-                    <button >Stavke</button>
-                    <button >Uredi</button>
-                    <button >Obriši</button>
+                    <button (click)="Add(content)">Stavke</button>
+                    <button type="button" routerLink="/adminpanel/editInputs">Uredi</button>
+                    <button (click)="Delete(content2)">Obriši</button>
                 </td>
             </tr>
 
@@ -44,11 +51,78 @@
                 <td data-label="Iznos">1025.55</td>
                 <td data-label="Plaćen"><input type="checkbox" name="" id=""></td>
                 <td class="Akcije">
-                    <button >Stavke</button>
-                    <button >Uredi</button>
-                    <button >Obriši</button>
+                    <button (click)="Add(content)">Stavke</button>
+                    <button type="button" routerLink="/adminpanel/editInputs" >Uredi</button>
+                    <button (click)="Delete(content2)">Obriši</button>
                 </td>
             </tr>
         </tbody>
     </table>
+<!--Modal stavke-->
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Stavke računa</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Naziv</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1">
+            </div>
+    
+            <div class="form-group" style="width: 50%;float: left;">
+              <label for="exampleFormControlSelect2">Vrsta</label>
+              <div class="dropdown">
+                <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Odaberite vrstu
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Vrsta1</a></li>
+                  <li><a class="dropdown-item" href="#">Vrsta2</a></li>
+                  <li><a class="dropdown-item" href="#">Vrsta3</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="form-group" style="width: 50%;float: left;">
+              <label for="exampleFormControlSelect2">Porez</label>
+              <div class="dropdown">
+                <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Odaberite vrstu
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Porez1</a></li>
+                  <li><a class="dropdown-item" href="#">Porez2</a></li>
+                  <li><a class="dropdown-item" href="#">Porez3</a></li>
+                </ul>
+              </div>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+        </div>
+      </ng-template>
+
+      <!--Delete modal-->
+      <ng-template #content2 let-modal>
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <h6>Da li ste sigurni da želite obrisati?</h6>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+        </div>
+      </ng-template>
 </div>

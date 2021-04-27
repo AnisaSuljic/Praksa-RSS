@@ -1,0 +1,107 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<div class="Frame">
+    <div class="header">
+        <span>Ulazni račun</span>
+    </div>
+    <div class="mainsection">
+        <!--firs red-->
+            <div class="form-row">
+              <div class="col-4">
+                <label>Broj računa</label>
+                <input type="text" class="form-control" placeholder="Broj računa" readonly>
+              </div>
+              <div class="col-4">
+                <label>Evidencijski broj</label>
+                <input type="text" class="form-control" placeholder="Evidencijski broj" readonly>
+              </div>
+            </div>
+            <hr>
+        <!--second row-->
+
+            <div class="form-row">
+                <div class="col">
+                  <label>Današnji datum</label>
+                  <input type="date" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Datum računa</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Datum dospjeća</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+        <!--third row-->
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="inputState">Skladište</label>
+                    <select id="inputState" class="custom-select" >
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Vrsta plaćanja</label>
+                    <select id="inputState" class="custom-select">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Valuta</label>
+                    <select id="inputState" class="custom-select">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+            </div>
+        <!--fourth row-->
+        <div class="form-row">
+            <div class="col-2">
+                <label>PDV</label>
+                <input type="number" class="form-control">
+            </div>
+            <div class="col-2">
+              <label>Iznos bez PDV</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-2">
+                <label>Iznos sa PDV</label>
+                <input type="text" class="form-control">
+              </div>     
+        </div>
+        <!--fifth row-->
+        <div class="form-row">
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">Plaćen račun
+                    </label>
+                  </div>
+            </div>
+        </div>
+        <!--Sixth row-->
+        <div class="form-row">
+            <div class="col">
+                <label for="exampleFormControlTextarea1">Napomena</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+        <!--Buttons-->
+
+        <div class="form-row">
+            <div class="col">
+                <button type="button" class="btn btn-danger">Otkaži</button>
+                <button routerLink="/adminpanel/inputs" type="button" class="btn btn-info">Sačuvaj</button>
+            </div>
+        </div>
+    </div>
+</div>
