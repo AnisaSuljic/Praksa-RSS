@@ -1,0 +1,250 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<div class="Frame">
+    <div class="header">
+        <div class="headerSpan">
+            <span>Ulazni račun</span>
+        </div>
+        <div class="actionButtons">
+            <button (click)=Get(content) class="addInputs">Pregled stavki</button>
+            <button (click)="ToSection('AddItems')" class="addInputs">Dodaj stavke</button>
+            <button routerLink="/adminpanel/addInputs" class="addInputs">Dodaj račun</button>
+            <button routerLink="/adminpanel/addInputs" class="addInputs">Printaj račun</button>
+        </div>
+    </div>
+    <div class="mainsection">
+        <!--firs red-->
+            <div class="form-row">
+              <div class="col-4">
+                <label>Broj računa</label>
+                <input type="text" class="form-control" placeholder="Broj računa" readonly>
+              </div>
+              <div class="col-4">
+                <label>Evidencijski broj</label>
+                <input type="text" class="form-control" placeholder="Evidencijski broj" readonly>
+              </div>
+            </div>
+            <hr>
+        <!--second row-->
+
+            <div class="form-row">
+                <div class="col">
+                  <label>Današnji datum</label>
+                  <input type="date" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Datum računa</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Datum dospjeća</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+        <!--third row-->
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="inputState">Skladište</label>
+                    <select id="inputState" class="custom-select" >
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Vrsta plaćanja</label>
+                    <select id="inputState" class="custom-select">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Valuta</label>
+                    <select id="inputState" class="custom-select">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+            </div>
+        <!--fourth row-->
+        <div class="form-row">
+            <div class="col-2">
+                <label>PDV</label>
+                <input type="number" class="form-control">
+            </div>
+            <div class="col-2">
+              <label>Iznos bez PDV</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-2">
+                <label>Iznos sa PDV</label>
+                <input type="text" class="form-control">
+              </div>     
+        </div>
+        <!--fifth row-->
+        <div class="form-row">
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">Plaćen račun
+                    </label>
+                  </div>
+            </div>
+        </div>
+        <!--Sixth row-->
+        <div class="form-row">
+            <div class="col">
+                <label for="exampleFormControlTextarea1">Napomena</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+        <!--Buttons-->
+
+        <div class="form-row">
+            <div class="col">
+                <button type="button" class="btn btn-danger">Otkaži</button>
+                <button routerLink="/adminpanel/inputs" type="button" class="btn btn-info">Sačuvaj</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Add items-->
+    <div class="header">
+        <div class="headerSpan">
+            <span>Dodaj stavku</span>
+        </div>
+    </div>
+    <div id="AddItems" class="mainsection">
+         <!--firs row-->
+        <div class="form-row">
+            <div class="col-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Artikl">
+                    <div class="input-group-prepend">                        
+                            <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+         <!--second row-->
+        <div class="form-row">
+            <div class="col-4">
+                <label>Naziv</label>
+                <input type="text" class="form-control" placeholder="Naziv stavke" readonly>
+            </div>
+            <div class="col-2">
+                <label>Marža</label>
+                <input type="text" class="form-control" placeholder="Marža" readonly>
+            </div>
+        </div>
+        <!--third row-->
+        <div class="form-row">            
+            <div class="col-2">
+                <label>NC</label>
+                <input type="text" class="form-control" placeholder="Nabavna cijena" readonly>
+            </div>
+            <div class="col-2">
+                <label>VPC</label>
+                <input type="text" class="form-control" placeholder="Veleprodajna cijena" readonly>
+            </div>
+            <div class="col-2">
+                <label>MPC</label>
+                <input type="text" class="form-control" placeholder="Maloprodajna cijena" readonly>
+            </div>
+        </div>
+        <!--fourth row-->
+        <div class="form-row">
+            <div class="col-2">
+                <label>Količina</label>
+                <input type="number" class="form-control" placeholder="Količina">
+            </div>
+            <div class="col-2">
+                <label>Cijena</label>
+                <input type="text" class="form-control" placeholder="Cijena">
+            </div>
+        </div>
+        <!--Fifth row-->
+        <div class="form-row">
+            <div class="col-2">
+                <label>Rabat</label>
+                <input type="number" class="form-control" placeholder="Rabat">
+            </div>
+            <div class="col-2">
+                <label>Rabat1</label>
+                <input type="text" class="form-control" placeholder="Rabat1">
+            </div>
+            <div class="col-2">
+                <label>Rabat2</label>
+                <input type="text" class="form-control" placeholder="Rabat2">
+            </div>
+        </div>
+        <!--Buttons-->
+
+        <div class="form-row">
+            <div class="col">
+                <button type="button" class="btn btn-danger">Otkaži</button>
+                <button routerLink="/adminpanel/inputs" type="button" class="btn btn-info">Sačuvaj</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Get stavke-->
+    <ng-template #content let-modal >
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Stavke računa</h4>
+        </div>
+        <div class="modal-body">
+          <form>          
+                <table class="tableModalItems">
+                  <thead>
+                      <tr>
+                          <th>Rbr</th>
+                          <th>Šifra</th>
+                          <th>Naziv</th>
+                          <th>Grupa</th>
+                          <th>Kol</th>
+                          <th>JMJ</th>
+                          <th>UC</th>
+                          <th>Rabat</th>
+                          <th>NBC</th>
+                          <th>NBV</th>
+                          <th>Marža</th>
+                          <th>VPC</th>
+                          <th>MPC</th>
+                          <th>PDV</th>
+                          <th>P</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                      <tr *ngFor="">
+                          <td data-label="Rbr">{{1}}</td>
+                          <td data-label="Šifra">{{4653}}</td>
+                          <td data-label="Naziv">Artikl1</td>
+                          <td data-label="Grupa">Grupa1</td>
+                          <td data-label="Kol">20</td>
+                          <td data-label="JMJ">23</td>
+                          <td data-label="UC">23</td>
+                          <td data-label="Rabat">12</td>
+                          <td data-label="NBC">23</td>
+                          <td data-label="NBV">43</td>
+                          <td data-label="Marža">24</td>
+                          <td data-label="VPC">42</td>
+                          <td data-label="MPC">43</td>
+                          <td data-label="PDV">17</td>
+                          <td data-label="P"><input type="checkbox" name="" id=""></td>
+                          
+                      </tr>
+                  </tbody>
+              </table>
+          </form>
+        </div>
+      </ng-template>
+</div>

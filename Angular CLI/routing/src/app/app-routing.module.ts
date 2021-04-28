@@ -4,6 +4,7 @@ import { AddInputsComponent } from './add-inputs/add-inputs.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CustomersComponent } from './customers/customers.component';
+import { EditInputsComponent } from './edit-inputs/edit-inputs.component';
 import { GroupsComponent } from './groups/groups.component';
 import { InputsComponent } from './inputs/inputs.component';
 import { ItemsComponent } from './items/items.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'items', component:ItemsComponent},
   {path: 'inputs', component:InputsComponent},
   {path: 'outputs', component:OutputsComponent},
-  {path: 'addInputs', component:AddInputsComponent}
+  {path: 'addInputs', component:AddInputsComponent},
+  {path: 'editInputs', component:EditInputsComponent}
 ]},
   {path: '', component:LandingPageComponent}
 ];
@@ -34,4 +36,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const RoutingComponents=[PrijavaComponent,RegistracijaComponent,AdminPanelComponent,LandingPageComponent,CompanyProfileComponent,
-  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,AddInputsComponent]
+  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,AddInputsComponent,EditInputsComponent]
