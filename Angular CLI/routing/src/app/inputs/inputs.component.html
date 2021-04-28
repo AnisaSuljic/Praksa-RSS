@@ -41,6 +41,28 @@
                     <button routerLink="/adminpanel/editInputs/{{item.racunId}}">Uredi</button>
                     <button (click)="Delete(content2)">Obriši</button>
                 </td>
+
+              <!--Delete modal-->
+              <ng-template #content2 let-modal>
+                  <div class="modal-header">
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-append">
+                            <h6>Da li ste sigurni da želite obrisati?</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+                    <button type="button" class="btn btn-outline-dark" routerLink="/adminpanel/inputs" (click)="DeleteRacun(item.racunId)">Da</button>
+                  </div>
+                </ng-template>
+                <!--End delete modal-->
             </tr>
         </tbody>
     </table>
@@ -95,26 +117,4 @@
         </form>
       </div>
     </ng-template>
-
-<!--Delete modal-->
-<ng-template #content2 let-modal>
-    <div class="modal-header">
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-append">
-              <h6>Da li ste sigurni da želite obrisati?</h6>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
-    </div>
-  </ng-template>
-
 </div>
