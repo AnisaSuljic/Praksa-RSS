@@ -25,7 +25,9 @@ const routes: Routes = [
   {path: 'inputs', component:InputsComponent},
   {path: 'outputs', component:OutputsComponent},
   {path: 'addInputs', component:AddInputsComponent},
-  {path: 'editInputs', component:EditInputsComponent}
+  {path: 'editInputs', component:EditInputsComponent},
+  {path: 'editInputs/:id', component:EditInputsComponent}
+
 ]},
   {path: '', component:LandingPageComponent}
 ];

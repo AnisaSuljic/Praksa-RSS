@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { IRacun } from '../models/racun.model';
+import { RacunService } from '../services/racun.service';
 
 @Component({
   selector: 'app-edit-inputs',
@@ -8,9 +12,17 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EditInputsComponent implements OnInit {
   closeResult:string='';
-  constructor(private modalService: NgbModal) { }
+  id:number = 0;
+  racun!: IRacun;
+  private routeSub!: Subscription;
+  constructor(private _racunService: RacunService,private modalService: NgbModal, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe(params => {
+      this.id=params['id'] //log the value of id
+    });
+    this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
+    console.log(this.racun);
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
