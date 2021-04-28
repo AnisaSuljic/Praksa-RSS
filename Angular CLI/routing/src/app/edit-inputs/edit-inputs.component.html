@@ -126,7 +126,14 @@
     </div>
     <div id="AddItems" class="mainsection">
          <!--firs row-->
+         
         <div class="form-row">
+            <div class="col-6">
+                <label for="inputState">Odaberite artikl</label>
+                <select id="inputState" name="vrstaPlacanja" (change)="getArtiklById($event.target)" class="custom-select">
+                    <option *ngFor="let item of artikli" >{{item.naziv}}</option>
+                </select>
+            </div>
             <div class="col-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Artikl">
@@ -141,26 +148,30 @@
         <div class="form-row">
             <div class="col-4">
                 <label>Naziv</label>
-                <input type="text" class="form-control" placeholder="Naziv stavke" readonly>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Naziv stavke" readonly>
+                <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.naziv" name="naziv" class="form-control" placeholder="Naziv stavke" readonly>
             </div>
             <div class="col-2">
                 <label>Marža</label>
-                <input type="text" class="form-control" placeholder="Marža" readonly>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Marža" readonly>
+                <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.marza" name="marza" class="form-control" placeholder="Marža" readonly>
             </div>
         </div>
         <!--third row-->
         <div class="form-row">            
             <div class="col-2">
                 <label>NC</label>
-                <input type="text" class="form-control" placeholder="Nabavna cijena" readonly>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Nabavna cijena" readonly>
+                <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.nc" name="nc" class="form-control" placeholder="Nabavna cijena" readonly>
             </div>
             <div class="col-2">
                 <label>VPC</label>
-                <input type="text" class="form-control" placeholder="Veleprodajna cijena" readonly>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Veleprodajna cijena" readonly>
+                <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.vpc" name="vpc" class="form-control" placeholder="Veleprodajna cijena" readonly>
             </div>
             <div class="col-2">
                 <label>MPC</label>
-                <input type="text" class="form-control" placeholder="Maloprodajna cijena" readonly>
+                <input type="text"  class="form-control" placeholder="Maloprodajna cijena" readonly>
             </div>
         </div>
         <!--fourth row-->
