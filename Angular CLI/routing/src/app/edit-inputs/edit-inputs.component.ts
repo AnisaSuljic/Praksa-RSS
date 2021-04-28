@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { IArtikl } from '../models/artikl.model';
 import { IRacun } from '../models/racun.model';
+import { ArtiklService } from '../services/artikl.service';
 import { RacunService } from '../services/racun.service';
 
 @Component({
@@ -14,15 +16,28 @@ export class EditInputsComponent implements OnInit {
   closeResult:string='';
   id:number = 0;
   racun!: IRacun;
+  artikl!: IArtikl;
+  public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
-  constructor(private _racunService: RacunService,private modalService: NgbModal, private route: ActivatedRoute) { }
+  constructor(private _racunService: RacunService,
+    private modalService: NgbModal,
+    private route: ActivatedRoute,
+    private _artiklService: ArtiklService) { }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'] //log the value of id
     });
     this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
-    console.log(this.racun);
+    this._artiklService.getArtikli()
+        .subscribe(data => this.artikli = data);
+  }
+  getArtiklById(target: any){
+    for(var item of this.artikli){
+      if(item.naziv == (target as HTMLSelectElement).value) {
+        this._artiklService.getArtiklById(item.artiklId).subscribe(data => this.artikl = data);
+      }
+    }
   }
   updateRacun(){
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
