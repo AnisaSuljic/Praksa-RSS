@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RacunService {
-  private _url: string = "https://localhost:44300/racun";
+  private _url: string = "http://rsspraksa-api.ml/racun";
   racuni: IRacun[] = [];
   constructor(private http: HttpClient) { this.racuni = []; }
   getRacuni(): Observable<IRacun[]>{
@@ -16,5 +16,9 @@ export class RacunService {
   }
   addRacun(racun: IRacun) {
     return this.http.post<any>(this._url, racun);
-  } 
+  }
+  getRacunById(id: number): Observable<IRacun>{
+    const url = `${this._url}/${id}`;
+    return this.http.get<IRacun>(url);
+  }
 }

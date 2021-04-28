@@ -38,7 +38,7 @@
                 <td data-label="Plaćen"><input type="checkbox" name="" id=""></td>
                 <td class="actions">
                     <button (click)="Get(content)">Stavke</button>
-                    <button routerLink="/adminpanel/editInputs">Uredi</button>
+                    <button routerLink="/adminpanel/editInputs/{{item.racunId}}">Uredi</button>
                     <button (click)="Delete(content2)">Obriši</button>
                 </td>
             </tr>
@@ -73,8 +73,8 @@
                 </thead>
                 <tbody >
                     <tr *ngFor="let item of racuni">
-                        <td data-label="Rbr">{{1}}</td>
-                        <td data-label="Šifra">{{4653}}</td>
+                        <td data-label="Rbr">{{item.racunId}}</td>
+                        <td data-label="Šifra">{{item.brojRacuna}}</td>
                         <td data-label="Naziv">Artikl1</td>
                         <td data-label="Grupa">Grupa1</td>
                         <td data-label="Kol">20</td>
