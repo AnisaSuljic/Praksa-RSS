@@ -15,6 +15,7 @@ export class InputsComponent implements OnInit {
   public racuni : IRacun[] = [];
   closeResult:string='';
   racun!: IRacun;
+  idRacuna:number=0;
 
   constructor(private _racunService: RacunService,private modalService: NgbModal) { }
 
@@ -23,10 +24,16 @@ export class InputsComponent implements OnInit {
         .subscribe(data => this.racuni = data);
   }
 
-  DeleteRacun(id:number) {
-    this._racunService.deleteRacun(id)
+  DeleteRacun() {
+    this._racunService.deleteRacun(this.idRacuna)
     .subscribe(data => this.racun = data);
-    return this._racunService.getRacuni().subscribe(data=>this.racuni=data);
+    return this._racunService.getRacuni()
+    .subscribe(
+      (result)=>{
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      }
+    );
   }
 
 
@@ -40,7 +47,9 @@ Get(content:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any) {
+Delete(content2:any,item:IRacun) {
+  console.log(item.racunId);
+  this.idRacuna=item.racunId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
