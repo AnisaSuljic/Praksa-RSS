@@ -39,7 +39,7 @@
                 <td class="actions">
                     <button (click)="Get(content)">Stavke</button>
                     <button routerLink="/adminpanel/editInputs/{{item.racunId}}">Uredi</button>
-                    <button (click)="Delete(content2)">Obriši</button>
+                    <button (click)="Delete(content2,item)">Obriši</button>
                 </td>
 
               <!--Delete modal-->
@@ -59,7 +59,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                    <button type="button" class="btn btn-outline-dark" routerLink="/adminpanel/inputs" (click)="DeleteRacun(item.racunId)">Da</button>
+                    <button type="button" class="btn btn-outline-dark"  (click)="DeleteRacun()" routerLink="/adminpanel/inputs">Da</button>
                   </div>
                 </ng-template>
                 <!--End delete modal-->
