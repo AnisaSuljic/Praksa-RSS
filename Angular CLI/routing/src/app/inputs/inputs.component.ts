@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IRacun } from '../models/racun.model';
 import { RacunService } from '../services/racun.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { data } from 'jquery';
+
 
 
 @Component({
@@ -12,12 +14,22 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class InputsComponent implements OnInit {
   public racuni : IRacun[] = [];
   closeResult:string='';
+  racun!: IRacun;
+
   constructor(private _racunService: RacunService,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni()
         .subscribe(data => this.racuni = data);
   }
+
+  DeleteRacun(id:number) {
+    this._racunService.deleteRacun(id)
+    .subscribe(data => this.racun = data);
+    return this._racunService.getRacuni().subscribe(data=>this.racuni=data);
+  }
+
+
   /**Modal GetItems */
 Get(content:any) {
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
