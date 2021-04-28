@@ -21,4 +21,8 @@ export class RacunService {
     const url = `${this._url}/${id}`;
     return this.http.get<IRacun>(url);
   }
+  deleteRacun(id:number):Observable<IRacun>{
+    const url = `${this._url}/${id}`;
+    return this.http.delete<IRacun>(url);
+  }
 }
