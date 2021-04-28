@@ -24,6 +24,9 @@ export class EditInputsComponent implements OnInit {
     this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
     console.log(this.racun);
   }
+  updateRacun(){
+    this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
+  }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
   }
