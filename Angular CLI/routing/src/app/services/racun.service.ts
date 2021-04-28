@@ -17,6 +17,10 @@ export class RacunService {
   addRacun(racun: IRacun) {
     return this.http.post<any>(this._url, racun);
   }
+  updateRacun(id: number, item: IRacun){
+    const url = `${this._url}/${id}`;
+    return this.http.put<IRacun>(url,item);
+  }
   getRacunById(id: number): Observable<IRacun>{
     const url = `${this._url}/${id}`;
     return this.http.get<IRacun>(url);
