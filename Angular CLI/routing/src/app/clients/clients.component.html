@@ -1,0 +1,42 @@
+<div class="tableFrame">
+    <div class="header">
+        <span>Klijenti</span>
+        <button routerLink="/adminpanel/addclient">Dodaj klijenta</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Redni broj</th>
+                <th>Naziv</th>
+                <th>Adresa</th>
+                <th>Mjesto</th>
+                <th>PDV broj</th>
+                <th>ID broj</th>
+                <th>Telefon</th>
+                <th>Odgovorna osoba</th>
+                <th>Email</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of this.service.clients">
+                <td data-label="Redni broj">{{item.klijentId}}</td>
+                <td data-label="Naziv">{{item.naziv}}</td>
+                <td data-label="Adresa">{{item.adresa}}</td>
+                <td data-label="Mjesto">{{item.mjesto}}</td>
+                <td data-label="PDV broj">{{item.pdvbroj}}</td>
+                <td data-label="ID broj">{{item.idbroj}}</td>
+                <td data-label="Telefon">{{item.telefon}}</td>
+                <td data-label="Odgovorna osoba">{{item.odgovornaOsoba}}</td>
+                <td data-label="Email">{{item.email}}</td>
+                <td class="actions">
+                    <button>Stavke</button>
+                    <button (click)="uredi(item)">Uredi</button>
+                    <button (click)="obrisi(item.klijentId)">Obriši</button>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>

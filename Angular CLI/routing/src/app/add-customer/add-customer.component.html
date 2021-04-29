@@ -1,0 +1,59 @@
+<div class="Frame">
+    <div class="header">
+        <span>Kupac</span>
+    </div>
+    <form action="" #form="ngForm" (submit)="onSubmit(form)">
+        <div class="mainsection">
+            <!--firs red-->
+            <div class="form-row">
+                <input type="hidden" name="kupacID" [value]="service.formData.kupacId">
+                <div class="col-8 form-group">
+                    <label>Naziv</label>
+                    <input type="text" class="form-control" placeholder="Naziv" name="naziv" #naziv="ngModel" [(ngModel)]="service.formData.naziv">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Adresa</label>
+                    <input type="text" class="form-control" placeholder="Adresa" name="adresa" #adresa="ngModel" [(ngModel)]="service.formData.adresa">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="service.formData.email">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Sifra</label>
+                    <input type="text" class="form-control" placeholder="Sifra" name="sifra" #mjesto="ngModel" [(ngModel)]="service.formData.sifra">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Telefon</label>
+                    <input type="text" class="form-control" placeholder="Telefon" name="telefon" #telefon="ngModel" [(ngModel)]="service.formData.telefon">
+                </div>
+                <div class="col-8 form-group">
+                    <label>PDV broj</label>
+                    <input type="text" class="form-control" placeholder="PDV broj" name="pdvbroj" #pdvbroj="ngModel" [(ngModel)]="service.formData.pdvbroj">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Grad</label>
+                    <input type="text" class="form-control" placeholder="Grad ID" name="gradId" #idbroj="ngModel" [(ngModel)]="service.formData.gradId">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Klijent</label>
+                    <!-- <input type="text" class="form-control" placeholder="Klijent ID" name="klijentId" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId"> -->
+                    <select name="klijentId" class="form-control" #klijentId="ngModel"
+                        [(ngModel)]="service.formData.klijentId">
+                        <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
+                        <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId"> {{klijent.naziv}} </option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <!--Buttons-->
+
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

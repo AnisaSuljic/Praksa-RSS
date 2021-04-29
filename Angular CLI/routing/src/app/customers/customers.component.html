@@ -1,5 +1,5 @@
 <div class="add">
-    <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+  <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
 </div>
 
 <!-- Add modal -->
@@ -9,49 +9,51 @@
   </div>
   <div class="modal-body">
     <form>
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Naziv</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Naziv</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Adresa</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Email</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="faktura@gmail.com">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Telefon</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">PDV broj</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+
+      <div class="form-group" style="width: 45%;float: right;">
+        <label for="exampleFormControlSelect1">ID broj</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect2">Grad</label>
+        <div class="dropdown">
+          <button class="btn button-transparent dropdown-toggle"
+            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Odaberite grad
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Grad1</a></li>
+            <li><a class="dropdown-item" href="#">Grad2</a></li>
+            <li><a class="dropdown-item" href="#">Grad3</a></li>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Adresa</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1">
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="faktura@gmail.com">
-          </div>
-          
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Telefon</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1">
-          </div>
-
-          <div class="form-group" style="width: 45%;float: left;">
-            <label for="exampleFormControlSelect1">PDV broj</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1">
-          </div>
-
-          <div class="form-group" style="width: 45%;float: right;">
-            <label for="exampleFormControlSelect1">ID broj</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1">
-          </div>
-
-        <div class="form-group" style="width: 50%;float: left;">
-          <label for="exampleFormControlSelect2">Grad</label>
-          <div class="dropdown">
-            <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Odaberite grad
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Grad1</a></li>
-              <li><a class="dropdown-item" href="#">Grad2</a></li>
-              <li><a class="dropdown-item" href="#">Grad3</a></li>
-            </ul>
-          </div>
-        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
@@ -67,59 +69,62 @@
   </div>
   <div class="modal-body">
     <form>
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Naziv</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" value="Kupac1">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Naziv</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" value="Kupac1">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Adresa</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" value="Ulica bb">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Email</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" value="kupac1@gmail.com">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Telefon</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" value="95629946">
+      </div>
+
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">PDV broj</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" value="#84659">
+      </div>
+
+      <div class="form-group" style="width: 45%;float: right;">
+        <label for="exampleFormControlSelect1">ID broj</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" value="ID46946">
+      </div>
+
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect2">Grad</label>
+        <div class="dropdown">
+          <button class="btn button-transparent dropdown-toggle"
+            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Odaberite grad
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Grad1</a></li>
+            <li><a class="dropdown-item" href="#">Grad2</a></li>
+            <li><a class="dropdown-item" href="#">Grad3</a></li>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Adresa</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" value="Ulica bb">
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" value="kupac1@gmail.com">
-          </div>
-          
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Telefon</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="95629946">
-          </div>
-
-          <div class="form-group" style="width: 45%;float: left;">
-            <label for="exampleFormControlSelect1">PDV broj</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="#84659">
-          </div>
-
-          <div class="form-group" style="width: 45%;float: right;">
-            <label for="exampleFormControlSelect1">ID broj</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="ID46946">
-          </div>
-
-        <div class="form-group" style="width: 50%;float: left;">
-          <label for="exampleFormControlSelect2">Grad</label>
-          <div class="dropdown">
-            <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Odaberite grad
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Grad1</a></li>
-              <li><a class="dropdown-item" href="#">Grad2</a></li>
-              <li><a class="dropdown-item" href="#">Grad3</a></li>
-            </ul>
-          </div>
-        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
 
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>
+  </div>
 </ng-template>
 
- <!--Delete modal-->
- <ng-template #content2 let-modal>
+<!--Delete modal-->
+<ng-template #content2 let-modal>
   <div class="modal-header">
   </div>
   <div class="modal-body">
@@ -139,51 +144,93 @@
   </div>
 </ng-template>
 
-<table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">No.</th>
-        <th scope="col">Naziv</th>
-        <th scope="col">Adresa</th>
-        <th scope="col">Email</th>
-        <th scope="col">Telefon</th>
-        <th scope="col">PDV broj</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Kupac1</td>
-        <td>Ulica bb</td>
-        <td>kupac1@gmail.com</td>
-        <td>6154146</td>
-        <td>#956dfcs8</td>
-        <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Kupac2</td>
-        <td>Ulica bb</td>
-        <td>Kupac2@gmail.com</td>
-        <td>68564146</td>
-        <td>#48962</td>
-        <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+<table class="table" style="display: none;">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Naziv</th>
+      <th scope="col">Adresa</th>
+      <th scope="col">Email</th>
+      <th scope="col">Telefon</th>
+      <th scope="col">PDV broj</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Kupac1</td>
+      <td>Ulica bb</td>
+      <td>kupac1@gmail.com</td>
+      <td>6154146</td>
+      <td>#956dfcs8</td>
+      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Kupac2</td>
+      <td>Ulica bb</td>
+      <td>Kupac2@gmail.com</td>
+      <td>68564146</td>
+      <td>#48962</td>
+      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
+      </td>
 
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Kupac3</td>
-        <td>Ulica bb</td>
-        <td>Kupac3@gmail.com</td>
-        <td>5659416</td>
-        <td>#sdefe5</td>
-        <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Kupac3</td>
+      <td>Ulica bb</td>
+      <td>Kupac3@gmail.com</td>
+      <td>5659416</td>
+      <td>#sdefe5</td>
+      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
+        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-      </tr>
-
-    </tbody>
+<div class="tableFrame">
+  <div class="header">
+      <span>Kupci</span>
+      <button (click)="dodaj()">Dodaj kupca</button>
+  </div>
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Redni broj</th>
+              <th>Naziv</th>
+              <th>Adresa</th>
+              <th>Email</th>
+              <th>Sifra</th>
+              <th>Telefon</th>
+              <th>PDV broj</th>
+              <th>Grad</th>
+              <th>Klijent</th>
+              <th>Akcije</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of this.service.customers">
+              <td data-label="Redni broj">{{item.kupacId}}</td>
+              <td data-label="Naziv">{{item.naziv}}</td>
+              <td data-label="Adresa">{{item.adresa}}</td>
+              <td data-label="Email">{{item.email}}</td>
+              <td data-label="Sifra">{{item.sifra}}</td>
+              <td data-label="Telefon">{{item.telefon}}</td>
+              <td data-label="PDV broj">{{item.pdvbroj}}</td>
+              <td data-label="Grad">{{item.gradId}}</td>
+              <td data-label="Klijent">{{item.klijentId}}</td>
+              <td class="actions">
+                  <button>Stavke</button>
+                  <button (click)="uredi(item)">Uredi</button>
+                  <button (click)="obrisi(item.kupacId)">Obriši</button>
+              </td>
+          </tr>
+      </tbody>
   </table>
+</div>
