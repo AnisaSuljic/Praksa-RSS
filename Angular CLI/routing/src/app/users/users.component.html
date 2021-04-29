@@ -1,0 +1,34 @@
+<div class="tableFrame">
+    <div class="header">
+        <span>Korisnici</span>
+        <button routerLink="/adminpanel/adduser">Dodaj korisnika</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Redni broj</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Korisnicko ime</th>
+                <th>Klijent</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of this.service.users">
+                <td data-label="Redni broj">{{item.korisnikId}}</td>
+                <td data-label="Ime">{{item.ime}}</td>
+                <td data-label="Prezime">{{item.prezime}}</td>
+                <td data-label="Korisnicko ime">{{item.korisnickoIme}}</td>
+                <td data-label="PDV broj">{{item.klijentId}}</td>
+                <td class="actions">
+                    <button>Stavke</button>
+                    <button (click)="uredi(item)">Uredi</button>
+                    <button (click)="obrisi(item.korisnikId)">Obriši</button>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>

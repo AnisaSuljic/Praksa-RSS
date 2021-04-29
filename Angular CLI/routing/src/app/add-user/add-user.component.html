@@ -1,0 +1,47 @@
+<div class="Frame">
+    <div class="header">
+        <span>Korisnik</span>
+    </div>
+    <form action="" #form="ngForm" (submit)="onSubmit(form)">
+        <div class="mainsection">
+            <!--firs red-->
+            <div class="form-row">
+                <input type="hidden" name="kupacID" [value]="service.formData.korisnikId">
+                <div class="col-8 form-group">
+                    <label>Ime</label>
+                    <input type="text" class="form-control" placeholder="Ime" name="ime" #ime="ngModel" [(ngModel)]="service.formData.ime">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Prezime</label>
+                    <input type="text" class="form-control" placeholder="Prezime" name="prezime" #Prezime="ngModel" [(ngModel)]="service.formData.prezime">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Korisnicko ime</label>
+                    <input type="text" class="form-control" placeholder="Korisnicko Ime" name="korisnickoIme" #korisnickoIme="ngModel" [(ngModel)]="service.formData.korisnickoIme">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Lozinka</label>
+                    <input type="text" class="form-control" placeholder="Lozinka" name="lozinka" #lozinka="ngModel" [(ngModel)]="service.formData.lozinka">
+                </div>
+                <div class="col-8 form-group">
+                    <label>Klijent</label>
+                    <!-- <input type="text" class="form-control" placeholder="Klijent ID" name="klijentId" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId"> -->
+                    <select name="klijentId" class="form-control" #klijentId="ngModel"
+                        [(ngModel)]="service.formData.klijentId">
+                        <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
+                        <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId"> {{klijent.naziv}} </option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <!--Buttons-->
+
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

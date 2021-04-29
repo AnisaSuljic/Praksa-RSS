@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    height: 55px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom:1px solid rgba(160, 160, 160, 0.384);
+}
+.header span{
+    color: #4c2083;
+    float: left;
+    margin: 10px 0px 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.mainsection{
+    padding: 15px;
+    background-color: #7b6c8110;
+    border-radius: 25px;
+}
+.mainsection .form-row{
+    text-align: start;
+}
+.form-row {
+    margin:20px;
+}
+.form-row .col,.form-row .col-2,.form-row .col-4{
+    margin:5px;
+}
+.form-row .col label,.form-row .col-2 label,.form-row .col-4 label{
+    margin-left: 5px;
+    font-size: 14px;
+}
+.form-row .col input, .form-row .col select, .form-row .col-2 input,.form-row .col-4 input, .form-row .col textarea{
+    font-size: 12px;    
+}
+.form-row .col button:last-child{
+    float: right;
+}
