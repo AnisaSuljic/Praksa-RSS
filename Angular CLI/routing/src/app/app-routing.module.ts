@@ -41,7 +41,7 @@ const routes: Routes = [
   {path: 'manufacturers', component:ManufacturersComponent},
   {path: 'addmanufacturer', component:AddManufacturerComponent},
   {path: 'users', component:UsersComponent},
-  {path: 'adduser', component:AddUserComponent}
+  {path: 'adduser', component:AddUserComponent},
 
   {path: 'addInputs', component:AddInputsComponent},
   {path: 'editInputs', component:EditInputsComponent},
