@@ -65,7 +65,7 @@
     margin-left: 5px;
     font-size: 14px;
 }
-.form-row .col input, .form-row .col select, .form-row .col-2 input,.form-row .col-4 input, .form-row .col textarea{
+.form-row .col input, .form-row .col select, .form-row .col-2 input,.form-row .col-4 input, .form-row .col textarea,.form-row .col-4 .input-group .input-group-prepend a span{
     font-size: 12px;    
 }
 .form-row .col button:last-child{
@@ -87,6 +87,17 @@
 }
 .tableModalItems tbody tr td{
     border-right: 1px solid #e3cee43d;
+}
+
+.rowActions{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+.rowActions .input-group{
+    width: 70%;
 }
 
 

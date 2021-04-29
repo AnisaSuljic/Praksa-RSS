@@ -136,9 +136,9 @@
             </div>
             <div class="col-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Artikl">
+                    <input type="text" class="form-control" placeholder="Naziv artikla">
                     <div class="input-group-prepend">                        
-                            <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                            <a type="button" (click)="Get(content)"><span class="input-group-text" id="basic-addon1">Artikli</span></a>
                     </div>
                 </div>
             </div>
@@ -211,51 +211,47 @@
     </div>
 
 
-    <!--Get stavke-->
+    <!--Get artikle-->
     <ng-template #content let-modal >
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Stavke računa</h4>
+          <h4 class="modal-title" id="modal-basic-title">Artikli</h4>
         </div>
         <div class="modal-body">
-          <form>          
+          <form>     
+              <div class="rowActions">     
+<!--dropdowngrupa-->
+
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Grupe</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Grupa1</button>
+                    <button ngbDropdownItem>Grupa2</button>
+                    <button ngbDropdownItem>Grupa3</button>
+                    </div>
+                </div>
+<!--Search-->
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Artikli">
+                    <div class="input-group-prepend">                        
+                            <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                    </div>
+                </div>
+
+
+              </div>
                 <table class="tableModalItems">
                   <thead>
                       <tr>
                           <th>Rbr</th>
-                          <th>Šifra</th>
                           <th>Naziv</th>
-                          <th>Grupa</th>
-                          <th>Kol</th>
-                          <th>JMJ</th>
-                          <th>UC</th>
-                          <th>Rabat</th>
-                          <th>NBC</th>
-                          <th>NBV</th>
-                          <th>Marža</th>
-                          <th>VPC</th>
                           <th>MPC</th>
-                          <th>PDV</th>
-                          <th>P</th>
                       </tr>
                   </thead>
                   <tbody >
                       <tr *ngFor="">
                           <td data-label="Rbr">{{1}}</td>
-                          <td data-label="Šifra">{{4653}}</td>
                           <td data-label="Naziv">Artikl1</td>
-                          <td data-label="Grupa">Grupa1</td>
-                          <td data-label="Kol">20</td>
-                          <td data-label="JMJ">23</td>
-                          <td data-label="UC">23</td>
-                          <td data-label="Rabat">12</td>
-                          <td data-label="NBC">23</td>
-                          <td data-label="NBV">43</td>
-                          <td data-label="Marža">24</td>
-                          <td data-label="VPC">42</td>
-                          <td data-label="MPC">43</td>
-                          <td data-label="PDV">17</td>
-                          <td data-label="P"><input type="checkbox" name="" id=""></td>
-                          
+                          <td data-label="MPC">43</td>                          
                       </tr>
                   </tbody>
               </table>
