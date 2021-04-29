@@ -117,6 +117,60 @@
         </form>
     </div>
 
+<!--stavke lista -->
+<div class="mainsection">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Redni broj</th>
+                <th>Evidencijski broj</th>
+                <th>Datum</th>
+                <th>Rok plaćanja</th>
+                <th>Sk</th>
+                <th>Dobavljač</th>
+                <th>Iznos</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr>
+                <td data-label="Redni broj">1</td>
+                <td data-label="Evidencijski broj">Anisa</td>
+                <td data-label="Datum">je</td>
+                <td data-label="Rok plaćanja">kraljica</td>
+                <td data-label="Skladište">!</td>
+                <td data-label="Dobavljač">!</td>
+                <td data-label="Iznos">!</td>
+                <td class="actions">
+                    <button >Uredi</button>
+                    <button (click)="Delete(content2)">Obriši</button>
+                </td>
+
+              <!--Delete modal-->
+              <ng-template #content2 let-modal>
+                  <div class="modal-header">
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-append">
+                            <h6>Da li ste sigurni da želite obrisati?</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+                    <button type="button" class="btn btn-outline-dark" >Da</button>
+                  </div>
+                </ng-template>
+                <!--End delete modal-->
+            </tr>
+        </tbody>
+    </table>
+</div>
 
     <!--Add items-->
     <div class="header">
