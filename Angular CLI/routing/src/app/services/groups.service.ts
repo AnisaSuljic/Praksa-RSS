@@ -7,7 +7,7 @@ import { Groups } from '../models/grupe.model';
   providedIn: 'root'
 })
 export class GroupsService {
-  private _url = 'https://localhost:44300/grupa';
+  private _url = 'http://rsspraksa-api.ml/grupa';
   grupe: Groups[] = [];
   constructor(private http:HttpClient) { this.grupe = []; }
 

@@ -6,7 +6,7 @@ import { Grad } from '../models/grad.model';
   providedIn: 'root'
 })
 export class GradService {
-  private _url = 'https://localhost:44300/grad';
+  private _url = 'http://rsspraksa-api.ml/grad';
   grad: Grad[] = [];
   constructor(private http:HttpClient) { this.grad = []; }
 

@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ArtiklService {
-  private _url: string = 'https://localhost:44300/artikl';
+  private _url: string = 'http://rsspraksa-api.ml/artikl';
   Artikli: IArtikl[] = [];
   constructor(private http: HttpClient) { this.Artikli = []; }
   getArtikli(): Observable<IArtikl[]>{

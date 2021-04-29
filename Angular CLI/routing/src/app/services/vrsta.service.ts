@@ -10,7 +10,7 @@ import { Vrsta } from '../models/vrsta.model';
 })
 export class VrstaService {
 
-  private _url: string = 'https://localhost:44300/vrsta';
+  private _url: string = 'http://rsspraksa-api.ml/vrsta';
   Vrsta: Vrsta[] = [];
   constructor(private http: HttpClient) { this.Vrsta = []; }
   getVrsta(): Observable<Vrsta[]>{
