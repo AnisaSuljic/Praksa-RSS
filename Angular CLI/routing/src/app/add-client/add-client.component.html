@@ -1,0 +1,54 @@
+<div class="Frame">
+    <div class="header">
+        <span>Klijent</span>
+    </div>
+    <form action="" #form="ngForm" (submit)="onSubmit(form)">
+        <div class="mainsection">
+            <!--firs red-->
+            <div class="form-row">
+                <input type="hidden" name="clientID" [value]="service.formData.klijentId"> 
+                <div class="col-4 form-group">
+                    <label>Naziv</label>
+                    <input type="text" class="form-control" placeholder="Naziv" name="naziv" #naziv="ngModel" [(ngModel)]="service.formData.naziv">
+                </div>
+                <div class="col-4 form-group">
+                    <label>Adresa</label>
+                    <input type="text" class="form-control" placeholder="Adresa" name="adresa" #adresa="ngModel" [(ngModel)]="service.formData.adresa">
+                </div>
+                <div class="col-4 form-group">
+                    <label>Mjesto</label>
+                    <input type="text" class="form-control" placeholder="Mjesto" name="mjesto" #mjesto="ngModel" [(ngModel)]="service.formData.mjesto">
+                </div>
+                <div class="col-4 form-group">
+                    <label>PDV broj</label>
+                    <input type="text" class="form-control" placeholder="PDV broj" name="pdvbroj" #pdvbroj="ngModel" [(ngModel)]="service.formData.pdvbroj">
+                </div>
+                <div class="col-4 form-group">
+                    <label>ID broj</label>
+                    <input type="text" class="form-control" placeholder="ID broj" name="idbroj" #idbroj="ngModel" [(ngModel)]="service.formData.idbroj">
+                </div>
+                <div class="col-4 form-group">
+                    <label>Telefon</label>
+                    <input type="text" class="form-control" placeholder="Telefon" name="telefon" #telefon="ngModel" [(ngModel)]="service.formData.telefon">
+                </div>
+                <div class="col-4 form-group">
+                    <label>Odgovorna osoba</label>
+                    <input type="text" class="form-control" placeholder="Odgovorna osoba" name="odgovornaOsoba" #odgovornaOsoba="ngModel" [(ngModel)]="service.formData.odgovornaOsoba">
+                </div>
+                <div class="col-4 form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="service.formData.email">
+                </div>
+            </div>
+            <hr>
+            <!--Buttons-->
+
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
