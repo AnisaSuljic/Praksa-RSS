@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddInputsComponent } from './add-inputs/add-inputs.component';
+import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CustomersComponent } from './customers/customers.component';
 import { EditInputsComponent } from './edit-inputs/edit-inputs.component';
+import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
 import { GroupsComponent } from './groups/groups.component';
 import { InputsComponent } from './inputs/inputs.component';
 import { ItemsComponent } from './items/items.component';
@@ -26,7 +28,10 @@ const routes: Routes = [
   {path: 'outputs', component:OutputsComponent},
   {path: 'addInputs', component:AddInputsComponent},
   {path: 'editInputs', component:EditInputsComponent},
-  {path: 'editInputs/:id', component:EditInputsComponent}
+  {path: 'editInputs/:id', component:EditInputsComponent},
+  {path: 'addOutputs', component:AddOutputsComponent},
+  {path: 'editOutputs', component:EditOutputsComponent},
+  {path: 'editOutputs/:id', component:EditOutputsComponent}
 
 ]},
   {path: '', component:LandingPageComponent}
