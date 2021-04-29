@@ -8,7 +8,7 @@ import { Skladiste } from '../models/skladiste.model';
 })
 export class SkladisteService {
 
-  private _url = 'https://localhost:44300/skladiste';
+  private _url = 'http://rsspraksa-api.ml/skladiste';
   skladiste: Skladiste[] = [];
   constructor(private http:HttpClient) { this.skladiste = []; }
 

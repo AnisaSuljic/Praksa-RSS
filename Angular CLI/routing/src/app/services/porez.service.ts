@@ -7,7 +7,7 @@ import { Porez } from '../models/porez.model';
   providedIn: 'root'
 })
 export class PorezService {
-  private _url = 'https://localhost:44300/porez';
+  private _url = 'http://rsspraksa-api.ml/porez';
   porez: Porez[] = [];
   constructor(private http:HttpClient) { this.porez = []; }
 
