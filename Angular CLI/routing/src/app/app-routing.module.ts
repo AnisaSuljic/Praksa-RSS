@@ -10,6 +10,16 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { OutputsComponent } from './outputs/outputs.component';
 import { PrijavaComponent } from './prijava/prijava.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { ClientsComponent } from './clients/clients.component';
+import { AddClientComponent } from './add-client/add-client.component';
+import { ManufacturersComponent } from './manufacturers/manufacturers.component';
+import { AddManufacturerComponent } from './add-manufacturer/add-manufacturer.component';
+import { UsersComponent } from './users/users.component';
+import { AddUserComponent } from './add-user/add-user.component';
+
+
+
 
 const routes: Routes = [
   {path: 'prijava', component: PrijavaComponent},
@@ -21,7 +31,15 @@ const routes: Routes = [
   {path: 'groups', component:GroupsComponent},
   {path: 'items', component:ItemsComponent},
   {path: 'inputs', component:InputsComponent},
-  {path: 'outputs', component:OutputsComponent}
+  {path: 'outputs', component:OutputsComponent},
+  {path: 'addcustomer', component:AddCustomerComponent},
+  {path: 'clients', component:ClientsComponent},
+  {path: 'addclient', component:AddClientComponent},
+  {path: 'manufacturers', component:ManufacturersComponent},
+  {path: 'addmanufacturer', component:AddManufacturerComponent},
+  {path: 'users', component:UsersComponent},
+  {path: 'adduser', component:AddUserComponent}
+
 ]},
   {path: '', component:LandingPageComponent}
 ];
@@ -32,4 +50,5 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const RoutingComponents=[PrijavaComponent,RegistracijaComponent,AdminPanelComponent,LandingPageComponent,CompanyProfileComponent,
-  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent]
+  CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,AddCustomerComponent,ClientsComponent,AddClientComponent,
+  ManufacturersComponent,AddManufacturerComponent,UsersComponent,AddUserComponent]
