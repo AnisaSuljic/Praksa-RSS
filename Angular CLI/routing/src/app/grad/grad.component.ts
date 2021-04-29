@@ -1,34 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Groups } from '../models/grupe.model';
-import { GroupsService } from '../services/groups.service';
+import { Grad } from '../models/grad.model';
+import { GradService } from '../services/grad.service';
 import { data } from 'jquery';
-import { ActivatedRoute } from '@angular/router';
-import { Subscriber, Subscription } from 'rxjs';
-
 @Component({
-  selector: 'app-groups',
-  templateUrl:'/groups.component.html',
-  styleUrls:['/groups.component.css']
+  selector: 'app-grad',
+  templateUrl: './grad.component.html',
+  styleUrls: ['./grad.component.css']
 })
-export class GroupsComponent implements OnInit {
-  public grupe : Groups[] = [];
+export class GradComponent implements OnInit {
+
+  public grad: Grad[] = [];
   closeResult:string='';
-  grupa!: Groups;
-  idgroup: number=0;
-  private routeSub!:Subscription;
-  constructor(private _groupService: GroupsService, private modalService: NgbModal, private route:ActivatedRoute) { }
+  grad2!: Grad;
+  idGrada:number=0;
+  constructor(private _gradService: GradService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params=>{this.idgroup=params['id']});
-    this._groupService.getGroups().subscribe(data => this.grupe = data);
-console.log(this.grupa);
+    this._gradService.getGrad().subscribe(data=>this.grad = data);
   }
-  
-  DeleteGroup() {
-    this._groupService.deleteGroups(this.idgroup)
-    .subscribe(data => this.grupa = data);
-    return this._groupService.getGroups()
+
+  DeleteGrad() {
+    this._gradService.deleteGrad(this.idGrada)
+    .subscribe(data => this.grad2 = data);
+    return this._gradService.getGrad()
     .subscribe(
       (result)=>{
         this.ngOnInit();
@@ -36,7 +31,6 @@ console.log(this.grupa);
       }
     );
   }
-
 
 /**Modal Add */
 Add(content:any) {
@@ -57,9 +51,7 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any, item:Groups) {
-  console.log(item.id);
-  this.idgroup=item.id;
+Delete(content2:any) {
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

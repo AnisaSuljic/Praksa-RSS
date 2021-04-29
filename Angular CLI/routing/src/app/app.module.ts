@@ -8,11 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule, RoutingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ArtiklComponent } from './artikl/artikl.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RoutingComponents
+    RoutingComponents,
+    ArtiklComponent
     ],
   imports: [
     BrowserModule,
