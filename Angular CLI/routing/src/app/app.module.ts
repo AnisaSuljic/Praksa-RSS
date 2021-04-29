@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule, RoutingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ArtiklComponent } from './artikl/artikl.component';
 import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
 
@@ -17,6 +18,7 @@ import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
   declarations: [
     AppComponent,
     RoutingComponents,
+    ArtiklComponent,
     AddOutputsComponent,
     EditOutputsComponent
     ],

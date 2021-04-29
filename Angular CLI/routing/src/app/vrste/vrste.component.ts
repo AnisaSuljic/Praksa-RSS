@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Groups } from '../models/grupe.model';
-import { GroupsService } from '../services/groups.service';
-import { data } from 'jquery';
-import { ActivatedRoute } from '@angular/router';
+import { IArtikl } from '../models/artikl.model';
 import { Subscriber, Subscription } from 'rxjs';
+import { ArtiklService } from '../services/artikl.service';
+import { ActivatedRoute } from '@angular/router';
+import { Vrsta } from '../models/vrsta.model';
+import { VrstaService } from '../services/vrsta.service';
 
 @Component({
-  selector: 'app-groups',
-  templateUrl:'/groups.component.html',
-  styleUrls:['/groups.component.css']
+  selector: 'app-vrste',
+  templateUrl: './vrste.component.html',
+  styleUrls: ['./vrste.component.css']
 })
-export class GroupsComponent implements OnInit {
-  public grupe : Groups[] = [];
+export class VrsteComponent implements OnInit {
+  public vrste : Vrsta[] = [];
   closeResult:string='';
-  grupa!: Groups;
-  idgroup: number=0;
+  vrsta!: Vrsta;
+  idvrsta: number=0;
   private routeSub!:Subscription;
-  constructor(private _groupService: GroupsService, private modalService: NgbModal, private route:ActivatedRoute) { }
+  constructor(private _vrsteService: VrstaService, private modalService: NgbModal,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params=>{this.idgroup=params['id']});
-    this._groupService.getGroups().subscribe(data => this.grupe = data);
-console.log(this.grupa);
+    this.routeSub = this.route.params.subscribe(params=>{this.idvrsta=params['id']});
+    this._vrsteService.getVrsta().subscribe(data => this.vrste = data);
+    console.log(this.vrsta);
   }
-  
-  DeleteGroup() {
-    this._groupService.deleteGroups(this.idgroup)
-    .subscribe(data => this.grupa = data);
-    return this._groupService.getGroups()
+
+  DeleteVrsta() {
+    this._vrsteService.deleteVrsta(this.idvrsta)
+    .subscribe(data => this.vrsta = data);
+    return this._vrsteService.getVrsta()
     .subscribe(
       (result)=>{
         this.ngOnInit();
@@ -36,8 +37,6 @@ console.log(this.grupa);
       }
     );
   }
-
-
 /**Modal Add */
 Add(content:any) {
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -57,9 +56,7 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any, item:Groups) {
-  console.log(item.id);
-  this.idgroup=item.id;
+Delete(content2:any) {
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

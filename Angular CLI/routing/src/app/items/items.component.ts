@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IArtikl } from '../models/artikl.model';
+import { Subscriber, Subscription } from 'rxjs';
+import { ArtiklService } from '../services/artikl.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-items',
@@ -7,10 +11,29 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls:['/items.component.css']
 })
 export class ItemsComponent implements OnInit {
+  public artikli : IArtikl[] = [];
   closeResult:string='';
-  constructor(private modalService: NgbModal) { }
+  artikl!: IArtikl;
+  idartikl: number=0;
+  private routeSub!:Subscription;
+
+  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
+    this._artiklService.getArtikli().subscribe(data => this.artikli = data);
+    console.log(this.artikl);
+  }
+  DeleteArtikl() {
+    this._artiklService.deleteArtikl(this.idartikl)
+    .subscribe(data => this.artikl = data);
+    return this._artiklService.getArtikli()
+    .subscribe(
+      (result)=>{
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      }
+    );
   }
 /**Modal Add */
 Add(content:any) {

@@ -25,6 +25,14 @@ import { AddUserComponent } from './add-user/add-user.component';
 
 
 
+import { VrsteComponent } from './vrste/vrste.component';
+import { GradComponent } from './grad/grad.component';
+import { SkladisteComponent } from './skladiste/skladiste/skladiste.component';
+import { PorezComponent } from './porez/porez/porez.component';
+import { ArtiklComponent } from './artikl/artikl.component';
+
+
+
 const routes: Routes = [
   {path: 'prijava', component: PrijavaComponent},
   {path: 'registracija', component:RegistracijaComponent},
@@ -48,6 +56,11 @@ const routes: Routes = [
   {path: 'addInputs', component:AddInputsComponent},
   {path: 'editInputs', component:EditInputsComponent},
   {path: 'editInputs/:id', component:EditInputsComponent},
+  {path: 'grad', component:GradComponent},
+  {path: 'vrste', component:VrsteComponent},
+  {path: 'skladiste', component:SkladisteComponent},
+  {path: 'porez', component:PorezComponent},
+  {path: 'artikl', component:ArtiklComponent},
   {path: 'addOutputs', component:AddOutputsComponent},
   {path: 'editOutputs', component:EditOutputsComponent},
   {path: 'editOutputs/:id', component:EditOutputsComponent}
@@ -63,7 +76,8 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const RoutingComponents=[PrijavaComponent,RegistracijaComponent,AdminPanelComponent,LandingPageComponent,CompanyProfileComponent,
-
+  VrsteComponent, GradComponent, PorezComponent, SkladisteComponent, ArtiklComponent,
   AddCustomerComponent,ClientsComponent,AddClientComponent,
-  ManufacturersComponent,AddManufacturerComponent,UsersComponent,AddUserComponent,CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,AddInputsComponent,EditInputsComponent]
+  ManufacturersComponent,AddManufacturerComponent,UsersComponent,AddUserComponent,CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,
+  AddInputsComponent,EditInputsComponent]
 

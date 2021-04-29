@@ -265,44 +265,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#9626</td>
-                    <td>Artikl1</td>
-                    <td>kg</td>
-                    <td>5.4</td>
-                    <td>3.4</td>
-                    <td>3.5</td>
-                    <td>3</td>
+                  <tr *ngFor="let item of artikli">
+                    <th scope="row">{{item.artiklId}}</th>
+                    <td data-label="Šifra">{{item.sifra}}</td>
+                    <td data-label="Naziv">{{item.naziv}}</td>
+                    <td data-label="Naziv">{{item.jedinicaMjereId}}</td>
+                    <td data-label="Naziv">{{item.nc}}</td>
+                    <td data-label="Naziv">{{item.vpc}}</td>
+                    <td data-label="Naziv">{{item.marza}}</td>
+                    <td data-label="Naziv">{{item.cijenaHh}}</td>
                     <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
                     <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>#4962</td>
-                    <td>Artikl2</td>
-                    <td>kg</td>
-                    <td>4.4</td>
-                    <td>7.4</td>
-                    <td>1.5</td>
-                    <td>1</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>#795</td>
-                    <td>Artikl3</td>
-                    <td>l</td>
-                    <td>24.4</td>
-                    <td>72.4</td>
-                    <td>14.5</td>
-                    <td>12</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
-
-                  </tr>
+              
+          
             
                 </tbody>
               </table>
