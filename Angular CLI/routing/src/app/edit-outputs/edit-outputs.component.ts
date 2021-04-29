@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
@@ -19,14 +19,15 @@ export class EditOutputsComponent implements OnInit {
   id:number = 0;
   racun!: IRacun;
   artikl: any;
-  stavka: IStavka;
+  stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private _artiklService: ArtiklService,
-    private _stavkaService: StavkaService) { 
+    private _stavkaService: StavkaService,
+    private router: Router) { 
       this.artikl = null; 
       this.stavka = new IStavka();
     }
@@ -50,9 +51,11 @@ export class EditOutputsComponent implements OnInit {
     this.stavka.skladisteIzlazId = 1;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
+    this.router.navigate(["/adminpanel/outputs"]);
   }
   updateRacun(){
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
+    this.router.navigate(["/adminpanel/outputs"]);
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();

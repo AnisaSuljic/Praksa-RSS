@@ -13,6 +13,10 @@
     align-items: center;
     justify-content: space-between; 
 }
+#trArtikl:hover{
+    background-color:rgba(160, 160, 160, 0.384);
+    cursor: pointer;
+}
 .header .headerSpan{
     
     color: #4c2083;
