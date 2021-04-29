@@ -21,6 +21,8 @@ export class EditOutputsComponent implements OnInit {
   artikl: any;
   stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
+  public stavke : IStavka[] = [];
+  public stavkeZaPrikazSaId : IStavka[] = [];
   private routeSub!: Subscription;
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -39,19 +41,29 @@ export class EditOutputsComponent implements OnInit {
     this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
+    this._stavkaService.getStavke().subscribe(data => this.stavke = data);
+    for(let item of this.stavke){
+      if(item.racunId == this.id){
+        console.log("1");
+        this.stavkeZaPrikazSaId.push(item);
+      }
+    }
   }
   getArtiklById(id: any){
     console.log(id);
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
     this.modalService.dismissAll();
   }
-  addStavka(){
+  addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = 1;
     this.stavka.skladisteIzlazId = 1;
+    this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
-    this.router.navigate(["/adminpanel/outputs"]);
+    this.router.navigate(["/adminpanel/outputs"]).then(()=> {
+      window.location.reload();
+    });
   }
   updateRacun(){
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);

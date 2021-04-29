@@ -132,15 +132,15 @@
                 <th>Akcije</th>
             </tr>
         </thead>
-        <tbody >
-            <tr>
-                <td data-label="Redni broj">1</td>
-                <td data-label="Evidencijski broj">Anisa</td>
-                <td data-label="Datum">je</td>
-                <td data-label="Rok plaćanja">kraljica</td>
-                <td data-label="Skladište">!</td>
-                <td data-label="Dobavljač">!</td>
-                <td data-label="Iznos">!</td>
+        <tbody *ngFor="let item of stavke">
+            <tr *ngIf="item.racunId==racun.racunId">
+                <td data-label="Redni broj">{{item.redniBroj}}</td>
+                <td data-label="Racun Id">{{item.racunId}}</td>
+                <td data-label="Datum">{{item.datum}}</td>
+                <td data-label="Ulazna cijena">{{item.ulaznaCijena}}</td>
+                <td data-label="Rabat">{{item.rabat}}</td>
+                <td data-label="Stopa poreza">{{item.stopaPoreza}}</td>
+                <td data-label="Iznos">{{item.cijenaBezPdv}}</td>
                 <td class="actions">
                     <button >Uredi</button>
                     <button (click)="Delete(content2)">Obriši</button>
@@ -180,7 +180,7 @@
     </div>
     <div id="AddItems" class="mainsection">
          <!--firs row-->
-        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka()">
+        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)">
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
