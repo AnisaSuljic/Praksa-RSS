@@ -4,8 +4,10 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
 import { IRacun } from '../models/racun.model';
+import { IStavka } from '../models/stavka.model';
 import { ArtiklService } from '../services/artikl.service';
 import { RacunService } from '../services/racun.service';
+import { StavkaService } from '../services/stavka.service';
 
 @Component({
   selector: 'app-edit-inputs',
@@ -16,13 +18,18 @@ export class EditInputsComponent implements OnInit {
   closeResult:string='';
   id:number = 0;
   racun!: IRacun;
-  artikl!: IArtikl;
+  artikl: any;
+  stavka: IStavka;
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private _artiklService: ArtiklService) { }
+    private _artiklService: ArtiklService,
+    private _stavkaService: StavkaService) { 
+      this.artikl = null; 
+      this.stavka = new IStavka();
+    }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -32,12 +39,17 @@ export class EditInputsComponent implements OnInit {
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
   }
-  getArtiklById(target: any){
-    for(var item of this.artikli){
-      if(item.naziv == (target as HTMLSelectElement).value) {
-        this._artiklService.getArtiklById(item.artiklId).subscribe(data => this.artikl = data);
-      }
-    }
+  getArtiklById(id: any){
+    console.log(id);
+    this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
+    this.modalService.dismissAll();
+  }
+  addStavka(){
+    this.stavka.artiklId = this.artikl.artiklId;
+    this.stavka.klijentId = 1;
+    this.stavka.skladisteIzlazId = 1;
+    console.log(this.stavka);
+    this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
   }
   updateRacun(){
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
