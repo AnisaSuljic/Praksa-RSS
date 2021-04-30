@@ -29,27 +29,25 @@ export class OutputsComponent implements OnInit {
      private _skladisteService: SkladisteService) { }
 
   ngOnInit(): void {
-    this._racunService.getRacuni()
-        .subscribe(data => {
+    this._racunService.getRacuni().subscribe(data => {
           console.log(data);
           for (let i = 0; i < data.length; i++){
-            this.racuni.push(data[i])
-            this._skladisteService.getSkladisteById(this.racuni[i].skladisteIzlazId).subscribe(l=>{
-              this.racuni[i].nazivSkladista = l.naziv
-            })
+            this.racuni.push(data[i]);
+            if(this.racuni[i].skladisteIzlazId != null){
+              this._skladisteService.getSkladisteById(this.racuni[i].skladisteIzlazId).subscribe(l=>{
+                this.racuni[i].nazivSkladista = l.naziv;
+              });
+            }
           }
         });
-    this._stavkaService.getStavke()
-        .subscribe(data => this.stavkeBaza = data);
+    this._stavkaService.getStavke().subscribe(data => this.stavkeBaza = data);
   }
 
   DeleteRacun() {
-    this._racunService.deleteRacun(this.idRacuna)
-    .subscribe(data => this.racun = data);
-    return this._racunService.getRacuni()
-    .subscribe(
+    this._racunService.deleteRacun(this.idRacuna).subscribe(data => this.racun = data);
+    return this._racunService.getRacuni().subscribe(
       (result)=>{
-        this.ngOnInit();
+        window.location.reload();
         this.modalService.dismissAll();
       }
     );
