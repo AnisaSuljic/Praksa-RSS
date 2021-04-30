@@ -22,11 +22,8 @@ export class SkladisteComponent implements OnInit {
       this._skladisteService.addSkladiste(this.skladiste2).subscribe(data=> this.skladiste = data);
     }
     DeleteSkladiste() {
-      this._skladisteService.deleteSkladiste(this.idSkladista)
-      .subscribe(data => this.skladiste2 = data);
-      return this._skladisteService.getSkladiste()
-      .subscribe(
-        (result)=>{
+      return this._skladisteService.deleteSkladiste(this.idSkladista)
+      .subscribe((result)=>{
           this.ngOnInit();
           this.modalService.dismissAll();
         }
@@ -53,8 +50,8 @@ export class SkladisteComponent implements OnInit {
   /**Modal Delete */
   
   Delete(content2:any, item:Skladiste) {
-    console.log(item.id);
-    this.idSkladista=item.id;
+    console.log(item.skladisteId);
+    this.idSkladista=item.skladisteId;
     this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

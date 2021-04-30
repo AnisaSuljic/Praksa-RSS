@@ -46,22 +46,19 @@
                         <div class="col">
                             <label for="inputState">Skladište</label>
                             <select id="inputState" [(ngModel)]="racuni.skladisteUlazId" name="skladisteUlaz"class="custom-select" >
-                                <option selected>1</option>
-                                <option>...</option>
+                                <option *ngFor="let item of skladista" selected value="item.skladisteId">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Vrsta plaćanja</label>
                             <select id="inputState" [(ngModel)]="racuni.vrstaPlacanjaId" name="vrstaPlacanja" class="custom-select">
-                                <option selected>1</option>
-                                <option>...</option>
+                                <option *ngFor="let item of vrstaPlacanja" selected value="item.vrstaPlacanjaId">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Valuta</label>
                             <select id="inputState" [(ngModel)]="racuni.valutaId" name="valuta" class="valuta" class="custom-select">
-                                <option selected>1</option>
-                                <option>...</option>
+                                <option *ngFor="let item of valuta" selected value="item.valutaId">{{item.oznaka}}</option>
                             </select>
                         </div>
                     </div>
