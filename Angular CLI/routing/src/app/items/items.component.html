@@ -1,25 +1,25 @@
 
             <div class="add">
-                <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+              <button (click)="Add(content)" class="adding">Dodaj artikl</button>
             </div>
 
             <!-- Add modal -->
             <ng-template #content let-modal>
+              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
               <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Dodavanje novog artikla</h4>
               </div>
               <div class="modal-body">
-                <form>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Šifra artikla</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="#00000">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.sifra" name="sifra" id="exampleFormControlInput1" placeholder="#00000">
                   </div>
                   <div class="form-group">
                     <label for="exampleFormControlSelect1">Naziv artikla</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.naziv" name="naziv" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group" style="width: 50%;float: left;">
-                    <label for="exampleFormControlSelect2">Grupa</label>
+                    <label for="exampleFormControlSelect2" >Grupa</label>
                     <div class="dropdown">
                       <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Odaberite grupu
@@ -33,27 +33,27 @@
                   </div>
                   <div class="form-group" style="width: 50%;float: left;">
                     <label for="exampleFormControlSelect1">Kataloški broj</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.kataloskiBroj" name="kataloskiBroj" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group">
                     <label for="exampleFormControlSelect1">FIS broj</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.fisbroj" name="fisBroj" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group" style="width: 45%;float: left;">
                     <label for="exampleFormControlSelect1">NC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.nc" name="nc" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group" style="width: 50%;float: right;">
                     <label for="exampleFormControlSelect1">Marža</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.marzaIznos" name="marzaIznos" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group" style="width: 45%;float: left;">
                     <label for="exampleFormControlSelect1">VPC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1">
                   </div>
                   <div class="form-group" style="width: 50%;float: right;">
                     <label for="exampleFormControlSelect1">Cijena</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="artikl.mpc" name="mpc" id="exampleFormControlInput1">
                   </div>
                   <div>
                     <div class="form-group" style="width: 50%;float: left;">
@@ -73,7 +73,7 @@
                       <label for="exampleFormControlSelect2">Jedinica mjere</label>
                       <div class="dropdown">
                         <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite grupu
+                          Odaberite jedinicu mjere
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                           <li><a class="dropdown-item" href="#">kg</a></li>
@@ -85,34 +85,34 @@
 
                     <div class="form-group" style="width: 45%;float: left;">
                       <label for="exampleFormControlInput1">Min kol.(skladište)</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" >
+                      <input type="text" class="form-control" [(ngModel)]="artikl.minKolNaSkladistu" name="minKolNaSkladistu" id="exampleFormControlInput1" >
                     </div>
 
                     <div class="form-group" style="width: 45%;float: right;">
                       <label for="exampleFormControlInput1">Cijena HH</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" >
+                      <input type="text" class="form-control" [(ngModel)]="artikl.cijenaHh" name="cijenaHh" id="exampleFormControlInput1" >
                     </div>
 
                     <div class="form-group" style="width: 45%;float: left;">
                       <label for="exampleFormControlInput1">Loyalty %</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" >
+                      <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1" >
                     </div>
 
-                    <div class="form-group" style="width: 45%;float: right;">
+                   <!-- <div class="form-group" style="width: 45%;float: right;">
                       <label for="exampleFormControlInput1">Prioritet</label>
                       <input type="text" class="form-control" id="exampleFormControlInput1" >
-                    </div>
+                    </div> -->
                     <div class="form-group" >
                       <label for="exampleFormControlInput1">Opis artikla</label>
-                      <textarea type="text" class="form-control" id="exampleFormControlInput1" ></textarea>
+                      <textarea type="text" class="form-control" [(ngModel)]="artikl.opis" name="opis" id="exampleFormControlInput1" ></textarea>
                     </div>                    
                   </div>
-                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
               </div>
+            </form>
             </ng-template>
 
             <!--Update modal-->
@@ -226,7 +226,7 @@
               <div class="modal-footer">
 
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
             </ng-template>
 
              <!--Delete modal-->
@@ -246,7 +246,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+                <button type="button" class="btn btn-outline-dark" (click)="DeleteArtikl()">Da</button>
               </div>
             </ng-template>
 
@@ -274,8 +274,10 @@
                     <td data-label="Naziv">{{item.vpc}}</td>
                     <td data-label="Naziv">{{item.marza}}</td>
                     <td data-label="Naziv">{{item.cijenaHh}}</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+                    <td class="actions">
+                      <button (click)="Update(content1)">Uredi</button>
+                      <button (click)="Delete(content2,item)">Obriši</button>
+                  </td>
                   </tr>
               
           

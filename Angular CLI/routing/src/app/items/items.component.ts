@@ -17,12 +17,18 @@ export class ItemsComponent implements OnInit {
   idartikl: number=0;
   private routeSub!:Subscription;
 
-  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute) { }
+  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute)
+  {
+    this.artikl = new IArtikl();
+  }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
     this._artiklService.getArtikli().subscribe(data => this.artikli = data);
     console.log(this.artikl);
+  }
+  onSubmit(){
+    this._artiklService.addArtikl(this.artikl).subscribe(data=> this.artikli = data);
   }
   DeleteArtikl() {
     this._artiklService.deleteArtikl(this.idartikl)
@@ -54,7 +60,9 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any) {
+Delete(content2:any, item:IArtikl) {
+  console.log(item.artiklId);
+  this.idartikl=item.artiklId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

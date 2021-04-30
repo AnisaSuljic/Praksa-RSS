@@ -14,12 +14,14 @@ export class PorezComponent implements OnInit {
   closeResult:string='';
   porez2!: Porez;
   idPoreza:number=0;
-  constructor(private _porezService: PorezService, private modalService: NgbModal) { }
+  constructor(private _porezService: PorezService, private modalService: NgbModal) { this.porez2=new Porez(); }
 
   ngOnInit(): void {
     this._porezService.getPorez().subscribe(data=>this.porez = data);
   }
-
+  onSubmit(){
+    this._porezService.addPorez(this.porez2).subscribe(data=> this.porez = data);
+  }
   DeletePorez() {
     this._porezService.deletePorez(this.idPoreza)
     .subscribe(data => this.porez2 = data);
@@ -51,7 +53,9 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any) {
+Delete(content2:any, item:Porez) {
+  console.log(item.id);
+  this.idPoreza=item.id;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

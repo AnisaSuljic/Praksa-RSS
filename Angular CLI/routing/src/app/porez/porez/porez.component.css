@@ -9,3 +9,15 @@
 .form-group{
     padding-bottom: 20px;
 }
+
+button{
+    width: 140px;
+    background-color:white ;
+    border-radius: 15px;
+    border:1px solid #4c2083;
+    color: #4c2083;
+    text-align: center;
+    outline: none;    
+    outline: none;
+    font-size: 14px;
+}

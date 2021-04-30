@@ -1,29 +1,29 @@
 
             <div class="add">
-                <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+              <button (click)="Add(content)" class="adding">Dodaj porez</button>
             </div>
 
             <!-- Add modal -->
             <ng-template #content let-modal>
+              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
               <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Dodavanje poreza</h4>
               </div>
               <div class="modal-body">
-                <form>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Naziv poreza</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <input type="text" class="form-control" [(ngModel)]="porez2.nazivPoreza" name="nazivPoreza" id="exampleFormControlInput1" placeholder="">
                   </div>
                   <div class="form-group">
                     <label for="exampleFormControlSelect1">Stopa</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                    <input type="text" class="form-control" [(ngModel)]="porez2.stopa" name="stopa" id="exampleFormControlInput1">
                   </div>
-                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
               </div>
+            </form>
             </ng-template>
 
             <!--Update modal-->
@@ -66,7 +66,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+                <button type="button" class="btn btn-outline-dark" (click)="DeletePorez()" routerLink="/adminpanel/porez">Da</button>
               </div>
             </ng-template>
 
@@ -82,8 +82,11 @@
                   <tr *ngFor="let item of porez">
                     <td data-label="Naziv poreza">{{item.nazivPoreza}}</td>
                     <td data-label="Stopa">{{item.stopa}}</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+                    <td class="actions">
+                      <button (click)="Update(content1)">Uredi</button>
+                      <button (click)="Delete(content2,item)">Obriši</button>
+                  </td>
+
                   </tr>
                 </tbody>
               </table>

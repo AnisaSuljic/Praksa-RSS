@@ -7,3 +7,18 @@
 .add img{
     width: 30px;
 }
+
+button{
+    width: 140px;
+    background-color:white ;
+    border-radius: 15px;
+    border:1px solid #4c2083;
+    color: #4c2083;
+    text-align: center;
+    outline: none;    
+    outline: none;
+    font-size: 14px;
+}
+#dropdownMenuButton1{
+    margin-bottom: 1.3vh;
+}

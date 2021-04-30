@@ -18,14 +18,22 @@ export class VrsteComponent implements OnInit {
   vrsta!: Vrsta;
   idvrsta: number=0;
   private routeSub!:Subscription;
-  constructor(private _vrsteService: VrstaService, private modalService: NgbModal,private route:ActivatedRoute) { }
+  constructor(private _vrsteService: VrstaService, private modalService: NgbModal,private route:ActivatedRoute) 
+  {
+    this.vrsta = new Vrsta();
+   }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idvrsta=params['id']});
     this._vrsteService.getVrsta().subscribe(data => this.vrste = data);
     console.log(this.vrsta);
   }
-
+  onSubmit(){
+    this._vrsteService.addVrsta(this.vrsta).subscribe(data=> this.vrste = data);
+  }
+  updateVrsta(){
+    this._vrsteService.updateVrsta(this.vrsta.id,this.vrsta).subscribe(data => this.vrsta = data);
+  }
   DeleteVrsta() {
     this._vrsteService.deleteVrsta(this.idvrsta)
     .subscribe(data => this.vrsta = data);
@@ -47,7 +55,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item:Vrsta) {
+  console.log(item.id);
+  this.idvrsta=item.id;
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -56,7 +66,9 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any) {
+Delete(content2:any, item:Vrsta) {
+  console.log(item.id);
+  this.idvrsta=item.id;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

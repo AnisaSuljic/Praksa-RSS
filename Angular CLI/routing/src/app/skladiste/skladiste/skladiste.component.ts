@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Porez } from '../../models/porez.model';
-import { PorezService } from '../../services/porez.service';
 import { data } from 'jquery';
 import { Skladiste } from 'src/app/models/skladiste.model';
 import { SkladisteService } from 'src/app/services/skladiste.service';
@@ -15,18 +13,17 @@ export class SkladisteComponent implements OnInit {
   closeResult:string='';
   skladiste2!: Skladiste;
   idSkladista:number=0;
-  constructor(private _skladisteService: SkladisteService, private modalService: NgbModal) { }
+  constructor(private _skladisteService: SkladisteService, private modalService: NgbModal) { this.skladiste2=new Skladiste();}
 
     ngOnInit(): void {
       this._skladisteService.getSkladiste().subscribe(data=>this.skladiste = data);
     }
-  
-    DeletePorez() {
-      this._skladisteService.deleteSkladiste(this.idSkladista)
-      .subscribe(data => this.skladiste2 = data);
-      return this._skladisteService.getSkladiste()
-      .subscribe(
-        (result)=>{
+    onSubmit(){
+      this._skladisteService.addSkladiste(this.skladiste2).subscribe(data=> this.skladiste = data);
+    }
+    DeleteSkladiste() {
+      return this._skladisteService.deleteSkladiste(this.idSkladista)
+      .subscribe((result)=>{
           this.ngOnInit();
           this.modalService.dismissAll();
         }
@@ -52,7 +49,9 @@ export class SkladisteComponent implements OnInit {
   }
   /**Modal Delete */
   
-  Delete(content2:any) {
+  Delete(content2:any, item:Skladiste) {
+    console.log(item.skladisteId);
+    this.idSkladista=item.skladisteId;
     this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
