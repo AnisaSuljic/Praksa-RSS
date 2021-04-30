@@ -5,6 +5,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
 import { IStavka } from '../models/stavka.model';
 import { StavkaService } from '../services/stavka.service';
+import { ValutaService } from '../services/valuta.service';
+import { SkladisteService } from '../services/skladiste.service';
 
 
 
@@ -22,11 +24,21 @@ export class OutputsComponent implements OnInit {
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
-     private _stavkaService: StavkaService) { }
+     private _stavkaService: StavkaService,
+     private _valuteService: ValutaService,
+     private _skladisteService: SkladisteService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni()
-        .subscribe(data => this.racuni = data);
+        .subscribe(data => {
+          console.log(data);
+          for (let i = 0; i < data.length; i++){
+            this.racuni.push(data[i])
+            this._skladisteService.getSkladisteById(this.racuni[i].skladisteIzlazId).subscribe(l=>{
+              this.racuni[i].nazivSkladista = l.naziv
+            })
+          }
+        });
     this._stavkaService.getStavke()
         .subscribe(data => this.stavkeBaza = data);
   }
