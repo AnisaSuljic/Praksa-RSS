@@ -1,5 +1,5 @@
 export class Skladiste {
-    public id!: number;
+    public skladisteId!: number;
     public naziv!: string;
     public klijentId!: number;
     public obrisan!: boolean;
