@@ -30,9 +30,9 @@
             <tr *ngFor="let item of racuni">
                 <td data-label="Redni broj">{{item.racunId}}</td>
                 <td data-label="Evidencijski broj">{{item.brojRacuna}}</td>
-                <td data-label="Datum">{{item.datum}}</td>
-                <td data-label="Rok plaćanja">{{item.datumRacuna}}</td>
-                <td data-label="Skladište">{{item.nazivSkladista}}</td>
+                <td data-label="Datum">{{item.datum | date: 'short'}}</td>
+                <td data-label="Rok plaćanja">{{item.datumRacuna | date: 'short'}}</td>
+                <td data-label="Skladište">{{item.nazivSkladista }}</td>
                 <td data-label="FIS broj">{{item.fisbroj}}</td>
                 <td data-label="Iznos">{{item.valutaId}}</td>
                 <td data-label="Plaćen"><input type="checkbox" name="" id=""></td>
