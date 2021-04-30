@@ -4,7 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
 import { IStavka } from '../models/stavka.model';
-import { IRacun } from '../racun';
+import { IRacun } from '../models/racun.model';
 import { ArtiklService } from '../services/artikl.service';
 import { RacunService } from '../services/racun.service';
 import { StavkaService } from '../services/stavka.service';
