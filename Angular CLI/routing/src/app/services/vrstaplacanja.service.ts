@@ -7,7 +7,7 @@ import { VrstaPlacanja } from '../models/vrstaplacanja.model';
   providedIn: 'root'
 })
 export class VrstaplacanjaService {
-  private _url: string = 'http://rsspraksa-api.ml/vrstaplacanja';
+  private _url: string = 'http://rsspraksa-api.ml/VrstaPlacanja';
   Vrsta: VrstaPlacanja[] = [];
   constructor(private http: HttpClient) { this.Vrsta = []; }
   getVrsta(): Observable<VrstaPlacanja[]>{

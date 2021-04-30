@@ -37,26 +37,6 @@ export class AddOutputsComponent implements OnInit {
   }
 
   onSubmit(){
-    
-    // for(let item of this.skladista){
-    //   if(item.naziv == this.racuni.nazivSkladista){
-    //     idSkladista = item.skladisteId;
-    //   }
-    // }
-    // for(let item of this.vrsteplacanja){
-    //   if(item.naziv == this.racuni.nazivVrstePlacanja){
-    //     idVrste = item.vrstaPlacanjaId;
-    //   }
-    // }
-    // for(let item of this.valute){
-    //   if(item.oznaka == this.racuni.nazivValute){
-    //     idValute = item.valutaId;
-    //   }
-    // }
-    // console.log(this.valute);
-    // this.racuni.valutaId = idValute;
-    // this.racuni.skladisteUlazId = idSkladista;
-    // this.racuni.vrstaPlacanjaId = idVrste;
     this._racunService.addRacun(this.racuni).subscribe(data=> this.racuni = data);
     this.router.navigate(["/adminpanel/outputs"]);
   }

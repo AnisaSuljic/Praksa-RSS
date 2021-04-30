@@ -45,20 +45,20 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="inputState">Skladište</label>
-                            <select id="inputState" [(ngModel)]="racuni.nazivSkladista" name="nazivSkladista"class="custom-select" >
-                                <option *ngFor="let item of skladista" selected>{{item.naziv}}</option>
+                            <select id="inputState" [(ngModel)]="racuni.skladisteIzlazId" name="skladisteIzlazId"class="custom-select" >
+                                <option *ngFor="let item of skladista"  value="{{item.skladisteId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Vrsta plaćanja</label>
-                            <select id="inputState" [(ngModel)]="racuni.nazivVrstePlacanja" name="nazivVrstePlacanja" class="custom-select">
-                                <option *ngFor="let item of vrsteplacanja" selected>{{item.naziv}}</option>
+                            <select id="inputState"  [(ngModel)]="racuni.vrstaPlacanjaId" name="vrstaPlacanjaId" class="custom-select">
+                                <option *ngFor="let item of vrsteplacanja" value="{{item.vrstaPlacanjaId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Valuta</label>
-                            <select id="inputState" [(ngModel)]="racuni.nazivValute" name="nazivValute" class="valuta" class="custom-select">
-                                <option *ngFor = "let item of valute" selected>{{item.oznaka}}</option>
+                            <select id="inputState" [(ngModel)]="racuni.valutaId" name="valutaId" class="valuta" class="custom-select">
+                                <option *ngFor = "let item of valute"  value="{{item.valutaId}}">{{item.oznaka}}</option>
                             </select>
                         </div>
                     </div>

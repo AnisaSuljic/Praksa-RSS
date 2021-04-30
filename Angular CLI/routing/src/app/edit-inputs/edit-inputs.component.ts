@@ -25,7 +25,7 @@ export class EditInputsComponent implements OnInit {
   id:number = 0;
   racun!: IRacun;
   artikl: any;
-  stavka: IStavka;
+  stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
 
