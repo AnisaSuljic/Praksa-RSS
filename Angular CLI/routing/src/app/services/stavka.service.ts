@@ -11,7 +11,7 @@ export class StavkaService {
   private _url: string = "http://rsspraksa-api.ml/Stavke";
   Stavka: IStavka[] = [];
   constructor(private http: HttpClient) { this.Stavka = []; }
-  getStavkai(): Observable<IStavka[]>{
+  getStavke(): Observable<IStavka[]>{
     return this.http.get<IStavka[]>(this._url);
   }
   addStavka(Stavka: IStavka) {

@@ -1,4 +1,5 @@
 export class IStavka {
+    public stavkeId!: number;
     public klijentId!: number;
     public dokumentId!: number;
     public redniBroj!: number;
@@ -9,8 +10,10 @@ export class IStavka {
     public cijenaBezPdv!: number;
     public ulaznaCijena!: number;
     public rabat1!: number;
+    public rabat!: number;
     public rabat2!: number;
     public porezId!: number;
     public datum!: Date;
     public skladisteIzlazId!: number;
+    public racunId!: number;
 }

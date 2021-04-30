@@ -3,6 +3,8 @@ import { IRacun } from '../models/racun.model';
 import { RacunService } from '../services/racun.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
+import { IStavka } from '../models/stavka.model';
+import { StavkaService } from '../services/stavka.service';
 
 
 
@@ -16,12 +18,17 @@ export class OutputsComponent implements OnInit {
   closeResult:string='';
   racun!: IRacun;
   idRacuna:number=0;
+  public stavkeBaza : IStavka[] = [];
 
-  constructor(private _racunService: RacunService,private modalService: NgbModal) { }
+  constructor(private _racunService: RacunService,
+    private modalService: NgbModal,
+     private _stavkaService: StavkaService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni()
         .subscribe(data => this.racuni = data);
+    this._stavkaService.getStavke()
+        .subscribe(data => this.stavkeBaza = data);
   }
 
   DeleteRacun() {
@@ -38,7 +45,8 @@ export class OutputsComponent implements OnInit {
 
 
   /**Modal GetItems */
-Get(content:any) {
+Get(content:any,id: any) {
+  this.idRacuna = id;
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -48,7 +56,6 @@ Get(content:any) {
 /**Modal Delete */
 
 Delete(content2:any,item:IRacun) {
-  console.log(item.racunId);
   this.idRacuna=item.racunId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
