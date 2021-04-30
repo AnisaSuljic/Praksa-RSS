@@ -3,6 +3,8 @@ import { IRacun } from '../models/racun.model';
 import { RacunService } from '../services/racun.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
+import { IStavka } from '../models/stavka.model';
+import { StavkaService } from '../services/stavka.service';
 
 
 
@@ -16,12 +18,19 @@ export class InputsComponent implements OnInit {
   closeResult:string='';
   racun!: IRacun;
   idRacuna:number=0;
+  public stavkeBaza : IStavka[] = [];
+  brisanje:boolean=false;
+  public dodavanje:boolean=false;
 
-  constructor(private _racunService: RacunService,private modalService: NgbModal) { }
+  constructor(private _racunService: RacunService,
+    private modalService: NgbModal,
+    private _stavkaService: StavkaService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni()
         .subscribe(data => this.racuni = data);
+    this._stavkaService.getStavke()
+        .subscribe(data => this.stavkeBaza = data);
   }
 
   DeleteRacun() {
@@ -30,13 +39,15 @@ export class InputsComponent implements OnInit {
       (result)=>{
         this.ngOnInit();
         this.modalService.dismissAll();
+        this.brisanje=true;
       }
     );
   }
 
 
   /**Modal GetItems */
-Get(content:any) {
+Get(content:any,id: any) {
+  this.idRacuna = id;
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
