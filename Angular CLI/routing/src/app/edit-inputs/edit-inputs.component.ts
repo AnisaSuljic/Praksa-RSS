@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
@@ -22,11 +22,13 @@ export class EditInputsComponent implements OnInit {
   stavka: IStavka;
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
+
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private _artiklService: ArtiklService,
-    private _stavkaService: StavkaService) { 
+    private _stavkaService: StavkaService,
+    private router: Router) { 
       this.artikl = null; 
       this.stavka = new IStavka();
     }
@@ -57,6 +59,12 @@ export class EditInputsComponent implements OnInit {
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
   }
+
+Zatvori(){
+  console.log("zatvori");
+  this.router.navigate(["/adminpanel/inputs"]);
+}
+
   /**Modal GetStavke */
 Get(content:any) {
   this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
