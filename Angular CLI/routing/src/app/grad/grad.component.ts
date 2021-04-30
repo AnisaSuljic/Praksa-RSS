@@ -14,12 +14,14 @@ export class GradComponent implements OnInit {
   closeResult:string='';
   grad2!: Grad;
   idGrada:number=0;
-  constructor(private _gradService: GradService, private modalService: NgbModal) { }
+  constructor(private _gradService: GradService, private modalService: NgbModal) { this.grad2=new Grad(); }
 
   ngOnInit(): void {
     this._gradService.getGrad().subscribe(data=>this.grad = data);
   }
-
+  onSubmit(){
+    this._gradService.addGrad(this.grad2).subscribe(data=> this.grad = data);
+  }
   DeleteGrad() {
     this._gradService.deleteGrad(this.idGrada)
     .subscribe(data => this.grad2 = data);
@@ -51,7 +53,9 @@ Update(content1:any) {
 }
 /**Modal Delete */
 
-Delete(content2:any) {
+Delete(content2:any, item:Grad) {
+  console.log(item.id);
+  this.idGrada=item.id;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

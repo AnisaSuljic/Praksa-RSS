@@ -9,10 +9,12 @@ export class IArtikl {
     public marza!: number;
     public marzaIznos!: number;
     public vpc!: number;
+    public mpc!: number;
     public proizvodjacId!: number;
     public klijentId!: number;
     public jedinicaMjereId!: number;
     public cijenaHh!: number;
     public minKolNaSkladistu!: number;
     public opis!: string;
+    public obrisan!: boolean;
 }

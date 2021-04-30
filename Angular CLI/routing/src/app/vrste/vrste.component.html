@@ -1,45 +1,46 @@
 
             <div class="add">
-                <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+              <button (click)="Add(content)" class="adding">Dodaj vrstu</button>
+
             </div>
 
             <!-- Add modal -->
             <ng-template #content let-modal>
+              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
               <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Dodavanje vrste</h4>
               </div>
               <div class="modal-body">
-                <form>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Naziv vrste</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <input type="text" class="form-control" [(ngModel)]="vrsta.naziv" name="naziv">
                   </div>
-                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
               </div>
+            </form>
             </ng-template>
 
             <!--Update modal-->
             <ng-template #content1 let-modal>
+              <form #updateForm="ngForm" (ngSubmit)="updateVrsta()">
               <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
               </div>
               <div class="modal-body">
-                <form>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Naziv vrste</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="#95625925">
+                    <input type="text" class="form-control" [(ngModel)]="vrsta.naziv" name="naziv">
                   </div>
-                </form>
               </div>
               <div class="modal-footer">
 
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
-            </ng-template>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
+              </form>
+              </ng-template>
 
              <!--Delete modal-->
              <ng-template #content2 let-modal>
@@ -58,7 +59,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+                <button type="button" class="btn btn-outline-dark" (click)="DeleteVrsta()" routerLink="/adminpanel/vrste">Da</button>
               </div>
             </ng-template>
 
@@ -72,8 +73,10 @@
                 <tbody>
                   <tr *ngFor="let item of vrste">
                     <td data-label="Naziv vrste">{{item.naziv}}</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+                    <td class="actions">
+                      <button (click)="Update(content1,item)">Uredi</button>
+                      <button (click)="Delete(content2,item)">Obriši</button>
+                  </td>
                   </tr>
                 </tbody>
               </table>
