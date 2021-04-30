@@ -17,7 +17,10 @@ export class GroupsComponent implements OnInit {
   grupa!: Groups;
   idgroup: number=0;
   private routeSub!:Subscription;
-  constructor(private _groupService: GroupsService, private modalService: NgbModal, private route:ActivatedRoute) { }
+  constructor(private _groupService: GroupsService, private modalService: NgbModal, private route:ActivatedRoute) 
+  {
+    this.grupa = new Groups();
+   }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idgroup=params['id']});
@@ -25,6 +28,10 @@ export class GroupsComponent implements OnInit {
 console.log(this.grupa);
   }
   
+  onSubmit(){
+    this._groupService.addGroups(this.grupa).subscribe(data=> this.grupe = data);
+  }
+
   DeleteGroup() {
     this._groupService.deleteGroups(this.idgroup)
     .subscribe(data => this.grupa = data);

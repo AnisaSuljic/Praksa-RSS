@@ -1,29 +1,24 @@
 
             <div class="add">
-                <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
+              <button (click)="Add(content)">Dodaj skladište</button>
             </div>
-
             <!-- Add modal -->
             <ng-template #content let-modal>
+              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
               <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Dodavanje skladišta</h4>
               </div>
               <div class="modal-body">
-                <form>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Naziv skladišta</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <input type="text" class="form-control" [(ngModel)]="skladiste2.naziv" name="naziv" id="exampleFormControlInput1" placeholder="">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Stopa</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1">
-                  </div>
-                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
               </div>
+              </form>
             </ng-template>
 
             <!--Update modal-->
@@ -65,7 +60,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Da</button>
+                <button type="button" class="btn btn-outline-dark" (click)="DeleteSkladiste()">Da</button>
               </div>
             </ng-template>
 
@@ -79,8 +74,12 @@
                 <tbody>
                   <tr *ngFor="let item of skladiste">
                     <td data-label="Naziv poreza">{{item.naziv}}</td>
-                    <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-                    <a (click)="Update(content2)"><i class='bx bx-trash'></i></a></td>
+
+                    <td class="actions">
+                      <button>Stavke</button>
+                      <button (click)="Update(content1)">Uredi</button>
+                      <button (click)="Delete(content2,item)">Obriši</button>
+                  </td>
                   </tr>
                 </tbody>
               </table>
