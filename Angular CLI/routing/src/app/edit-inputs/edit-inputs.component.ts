@@ -60,10 +60,9 @@ export class EditInputsComponent implements OnInit {
     document.getElementById(id)?.scrollIntoView();
   }
 
-Zatvori(){
-  console.log("zatvori");
-  this.router.navigate(["/adminpanel/inputs"]);
-}
+  OtkaziIzmjene(){
+    window.location.reload();
+  }
 
   /**Modal GetStavke */
 Get(content:any) {
