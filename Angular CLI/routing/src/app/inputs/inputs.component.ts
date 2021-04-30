@@ -25,9 +25,7 @@ export class InputsComponent implements OnInit {
   }
 
   DeleteRacun() {
-    this._racunService.deleteRacun(this.idRacuna)
-    .subscribe(data => this.racun = data);
-    return this._racunService.getRacuni()
+    return this._racunService.deleteRacun(this.idRacuna)
     .subscribe(
       (result)=>{
         this.ngOnInit();
