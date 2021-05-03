@@ -66,8 +66,8 @@ export class EditInputsComponent implements OnInit {
   }
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
-    this.stavka.klijentId = 1;
-    this.stavka.skladisteIzlazId = 1;
+    this.stavka.klijentId = 2;
+    this.stavka.skladisteUlazId = 1;
     this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);

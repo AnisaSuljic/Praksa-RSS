@@ -17,7 +17,8 @@
         <thead>
             <tr>
                 <th>Evidencijski broj</th>
-                <th>Datum</th>
+                <th>Današnji datum</th>
+                <th>Datum računa</th>
                 <th>Rok plaćanja</th>
                 <th>Skladište ulaz</th>
                 <th>Iznos</th>
@@ -29,8 +30,9 @@
             <tr *ngFor="let item of racuni">
                 <td data-label="Evidencijski broj">{{item.brojRacuna}}</td>
                 <td data-label="Datum">{{item.datum | date: 'short'}}</td>
-                <td data-label="Rok plaćanja">{{item.datumRacuna | date: 'short'}}</td>
-                <td data-label="Skladište ulaz">{{item.skladisteUlazId}}</td>
+                <td data-label="Današnji datum">{{item.datumRacuna | date: 'short'}}</td>
+                <td data-label="Rok plaćanja">{{item.datumDospjeca | date: 'short'}}</td>
+                <td data-label="Skladište ulaz">{{item.nazivSkladista}}</td>
                 <td data-label="Iznos">{{item.iznosRacuna}}</td>
                 <td data-label="Plaćen"><input type="checkbox" [(ngModel)]="item.placen" readonly></td>
                 <td class="actions">
@@ -73,7 +75,6 @@
               <table class="tableModalItems">
                 <thead>
                   <tr>
-                    <th>Rbr</th>
                     <th>Šifra</th>
                     <th>Naziv</th>
                     <th>Grupa</th>
@@ -92,7 +93,6 @@
                 </thead>
                 <tbody *ngFor="let item of stavkeBaza">
                   <tr *ngIf="item.racunId==idRacuna">
-                      <td data-label="Rbr">{{item.redniBroj}}</td>
                       <td data-label="Šifra">{{item.stavkeId}}</td>
                       <td data-label="Klijent">{{item.klijentId}}</td>
                       <td data-label="Dok">{{item.dokumentId}}</td>

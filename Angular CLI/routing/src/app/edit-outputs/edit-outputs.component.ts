@@ -103,6 +103,7 @@ export class EditOutputsComponent implements OnInit {
     });
   }
   updateRacun(){
+    console.log(this.racun);
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
     this.router.navigate(["/adminpanel/outputs"]);
   }
