@@ -15,5 +15,6 @@ export class IStavka {
     public porezId!: number;
     public datum!: Date;
     public skladisteIzlazId!: number;
+    public skladisteUlazId!: number;
     public racunId!: number;
 }
