@@ -5,6 +5,11 @@ export class IStavka {
     public redniBroj!: number;
     public artiklId!: number;
     public kolicina!: number;
+    public sifraArtikla! : string;
+    public nazivArtikla! : string;
+    public jedMjere! : number;
+    public vpc! : number;
+    public mpc! : number;
     public fisrabatbroj!: number;
     public stopaPoreza!: number;
     public cijenaBezPdv!: number;
