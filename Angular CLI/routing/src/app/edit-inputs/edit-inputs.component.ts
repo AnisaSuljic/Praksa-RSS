@@ -60,7 +60,6 @@ export class EditInputsComponent implements OnInit {
     this._valutaService.getValuta().subscribe(data => this.valuta = data);
   }
   getArtiklById(id: any){
-    console.log(id);
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
     this.modalService.dismissAll();
   }
@@ -68,6 +67,7 @@ export class EditInputsComponent implements OnInit {
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = 2;
     this.stavka.racunId = id;
+    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.stavka.cijenaBezPdv;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
     this.dodavanje=true;
