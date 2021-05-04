@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Valuta } from '../models/valuta.model';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValutaService {
-  private _url: string = 'http://rsspraksa-api.ml/Valuta';
+  readonly _url:string = MyConfig.adresaServera + '/valuta';
   Valuta: Valuta[] = [];
   constructor(private http: HttpClient) { this.Valuta = []; }
   getValuta(): Observable<Valuta[]>{

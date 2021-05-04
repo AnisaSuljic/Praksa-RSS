@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Porez } from '../models/porez.model';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PorezService {
-  private _url = 'http://rsspraksa-api.ml/porez';
+  readonly _url:string = MyConfig.adresaServera + '/porez';
   porez: Porez[] = [];
   constructor(private http:HttpClient) { this.porez = []; }
 

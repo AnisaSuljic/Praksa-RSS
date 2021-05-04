@@ -14,6 +14,7 @@ export class IStavka {
     public stopaPoreza!: number;
     public cijenaBezPdv!: number;
     public ulaznaCijena!: number;
+    public nabavnaCijena!: number;
     public rabat1!: number;
     public rabat!: number;
     public rabat2!: number;
