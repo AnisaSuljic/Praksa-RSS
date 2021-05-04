@@ -21,6 +21,8 @@ namespace Faktura.Model
         public string Telefon { get; set; }
         public string OdgovornaOsoba { get; set; }
         public string Email { get; set; }
+        public bool? PotvrdjenMail { get; set; }
+
     }
 }
 
