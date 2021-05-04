@@ -35,7 +35,7 @@
     margin-left: 5px;
     font-size: 14px;
 }
-.form-row .col input, .form-row .col select, .form-row .col-2 input,.form-row .col-4 input, .form-row .col textarea{
+.form-row .col input, .form-row .col select, .form-row .col-2 input,.form-row .col-4 input, .form-row .col textarea, .form-row .col-4 select{
     font-size: 12px;    
 }
 .form-row .col button:last-child{

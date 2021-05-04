@@ -20,8 +20,8 @@ var hamDiv=document.getElementsByClassName("hamburger");
 var mobDiv=document.getElementsByClassName("headerNav");
 
 document.addEventListener('click',() => {
-    hamDiv[0].classList.toggle('active');
-    mobDiv[0].classList.toggle('active');
+    //hamDiv[0].classList.toggle('active');
+    //mobDiv[0].classList.toggle('active');
 });
 
 

@@ -5,6 +5,9 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
 import { IStavka } from '../models/stavka.model';
 import { StavkaService } from '../services/stavka.service';
+import { ArtiklService } from '../services/artikl.service';
+import { IArtikl } from '../models/artikl.model';
+import { SkladisteService } from '../services/skladiste.service';
 
 
 
@@ -21,16 +24,31 @@ export class InputsComponent implements OnInit {
   public stavkeBaza : IStavka[] = [];
   brisanje:boolean=false;
   public dodavanje:boolean=false;
+  public artikli : IArtikl[] = [];
+
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
-    private _stavkaService: StavkaService) { }
+    private _stavkaService: StavkaService,
+    private _artiklService:ArtiklService,
+    private _skladisteService: SkladisteService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni()
-        .subscribe(data => this.racuni = data);
+        .subscribe(data => {
+          console.log(data);
+          for (let i = 0; i < data.length; i++){
+            this.racuni.push(data[i])
+            this._skladisteService.getSkladisteById(this.racuni[i].skladisteUlazId).subscribe(l=>{
+              this.racuni[i].nazivSkladista = l.naziv
+            })
+          }
+        });
     this._stavkaService.getStavke()
         .subscribe(data => this.stavkeBaza = data);
+    this._artiklService.getArtikli()
+        .subscribe(data => this.artikli = data);
+        
   }
 
   DeleteRacun() {
