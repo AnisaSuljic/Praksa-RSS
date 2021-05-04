@@ -70,7 +70,7 @@ namespace RSS_backend.Mapping
 
             //stavke
             CreateMap<Database.Stavke, Faktura.Model.Stavke>();
-            CreateMap<Faktura.Model.Requests.SkladisteInsertUpdate, Stavke>();
+            CreateMap<Faktura.Model.Requests.StavkeInsertUpdate, Stavke>();
 
             //porez
             CreateMap<Database.Porez, Faktura.Model.Porez>();

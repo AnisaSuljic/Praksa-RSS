@@ -8,6 +8,7 @@ namespace Faktura.Model.Requests
 {
     public class StavkeInsertUpdate
     {
+        public int? RacunId { get; set; }
         public int? KlijentId { get; set; }
         public int? DokumentId { get; set; }
         public int? RedniBroj { get; set; }
