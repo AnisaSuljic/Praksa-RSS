@@ -3,12 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
 import { catchError } from 'rxjs/operators';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtiklService {
-  private _url: string = 'http://rsspraksa-api.ml/artikl';
+  readonly _url:string = MyConfig.adresaServera + '/artikl';
   Artikli: IArtikl[] = [];
   constructor(private http: HttpClient) { this.Artikli = []; }
   getArtikli(): Observable<IArtikl[]>{

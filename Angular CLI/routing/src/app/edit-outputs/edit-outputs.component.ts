@@ -95,6 +95,7 @@ export class EditOutputsComponent implements OnInit {
       }
     );
   }
+  
   getArtiklById(id: any){
     console.log(id);
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
@@ -139,6 +140,7 @@ Delete(content2:any) {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
 }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

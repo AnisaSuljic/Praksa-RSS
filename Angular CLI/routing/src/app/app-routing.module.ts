@@ -30,6 +30,7 @@ import { GradComponent } from './grad/grad.component';
 import { SkladisteComponent } from './skladiste/skladiste/skladiste.component';
 import { PorezComponent } from './porez/porez/porez.component';
 import { ArtiklComponent } from './artikl/artikl.component';
+import { EditStavkaComponent } from './edit-stavka/edit-stavka.component';
 
 
 
@@ -63,7 +64,8 @@ const routes: Routes = [
   {path: 'artikl', component:ArtiklComponent},
   {path: 'addOutputs', component:AddOutputsComponent},
   {path: 'editOutputs', component:EditOutputsComponent},
-  {path: 'editOutputs/:id', component:EditOutputsComponent}
+  {path: 'editOutputs/:id', component:EditOutputsComponent},
+  {path: 'editStavka/:id', component: EditStavkaComponent}
 
 
 ]},

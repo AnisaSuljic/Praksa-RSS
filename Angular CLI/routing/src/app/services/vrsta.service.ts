@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { IStavka } from '../models/stavka.model';
 import { catchError } from 'rxjs/operators';
 import { Vrsta } from '../models/vrsta.model';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VrstaService {
 
-  private _url: string = 'http://rsspraksa-api.ml/vrsta';
+  readonly _url:string = MyConfig.adresaServera + '/vrsta';
   Vrsta: Vrsta[] = [];
   constructor(private http: HttpClient) { this.Vrsta = []; }
   getVrsta(): Observable<Vrsta[]>{

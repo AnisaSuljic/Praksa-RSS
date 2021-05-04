@@ -150,10 +150,9 @@
                 <td data-label="PDV">17</td>
                 <td data-label="MPC">{{item.mpc}}</td>
                 <td class="actions">
-                    <button >Uredi</button>
+                    <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button>
                     <button (click)="Delete(content2)">Obriši</button>
                 </td>
-
               <!--Delete modal-->
               <ng-template #content2 let-modal>
                   <div class="modal-header">

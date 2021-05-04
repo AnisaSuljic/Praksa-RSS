@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ArtiklComponent } from './artikl/artikl.component';
 import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
+import { EditStavkaComponent } from './edit-stavka/edit-stavka.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
     RoutingComponents,
     ArtiklComponent,
     AddOutputsComponent,
-    EditOutputsComponent
+    EditOutputsComponent,
+    EditStavkaComponent
     ],
   imports: [
     BrowserModule,

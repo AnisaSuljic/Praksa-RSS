@@ -3,12 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IStavka } from '../models/stavka.model';
 import { catchError } from 'rxjs/operators';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StavkaService {
-  private _url: string = "http://rsspraksa-api.ml/Stavke";
+  readonly _url:string = MyConfig.adresaServera + '/stavke';
   Stavka: IStavka[] = [];
   constructor(private http: HttpClient) { this.Stavka = []; }
   getStavke(): Observable<IStavka[]>{
