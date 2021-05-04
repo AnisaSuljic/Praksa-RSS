@@ -1,7 +1,9 @@
 <div class="tableFrame">
     <div class="header">
-        <span>Klijenti</span>
-        <button routerLink="/adminpanel/addclient">Dodaj klijenta</button>
+        <div class="headerSpan">
+            <span>Klijenti</span>
+        </div>
+        <button routerLink="/adminpanel/addclient" class="addInputs">Dodaj klijenta</button>
     </div>
     <table class="table">
         <thead>
@@ -30,7 +32,6 @@
                 <td data-label="Odgovorna osoba">{{item.odgovornaOsoba}}</td>
                 <td data-label="Email">{{item.email}}</td>
                 <td class="actions">
-                    <button>Stavke</button>
                     <button (click)="uredi(item)">Uredi</button>
                     <button (click)="obrisi(item.klijentId)">Obriši</button>
                 </td>

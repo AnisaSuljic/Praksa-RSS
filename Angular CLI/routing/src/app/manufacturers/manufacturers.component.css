@@ -1,0 +1,163 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    height: 55px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom:1px solid grey;
+}
+.addInputs{
+    width: 180px;
+    background-color:white ;
+    border-radius: 15px;
+    border:1px solid #4c2083;
+    color: #4c2083;
+    text-align: center;
+    outline: none;    
+    padding:2px 5px;
+    float: right;
+    margin: 10px 25px 0px 0px;
+    outline: none;
+    font-size: 14px;
+
+}
+.addInputs:hover{
+    transform: scale(1.01);
+}
+.header span{
+    color: #4c2083;
+    float: left;
+    margin: 10px 0px 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
+
+}
+.table thead tr{
+    background-color: #e3cee43d;
+    font-size: 14px;
+}
+.table tbody tr{
+    font-size: 14px;
+
+}
+.table tbody tr td button{
+    font-size: 12px;
+    width: 80px;
+    background-color:white ;
+    border:1px solid #4c2083;
+    border-radius: 15px;
+    color: #4c2083;
+    text-align: center;
+    outline: none;
+    margin-left: 5px;
+    padding:2px 5px;
+
+}
+.table tbody tr td button:hover{
+    transform: scale(1.1);
+}
+
+/*Modal items*/
+.tableModalItems{
+    width: 100%;
+    text-align: center;
+}
+.tableModalItems thead tr{
+    font-size: 14px;
+    background-color: #e3cee43d;
+}
+.tableModalItems tbody tr{
+    font-size: 14px;
+}
+.tableModalItems tbody tr td{
+    border-right: 1px solid #e3cee43d;
+}
+
+
+
+@media only screen and (max-width: 1200px)
+{
+    .addInputs{
+        width: 120px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 6px 6px 0px 0px;
+
+    }
+    .table thead{
+        display: none;
+    }
+    .table, .table tbody, .table tr, .table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+    }
+    .table tbody tr td{
+        text-align: right;
+        padding-left:50%;
+        position: relative;
+    }
+    .table td::before{
+        content: attr(data-label);
+        position:absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
+    .table tbody tr .actions
+    {
+        padding-left:0px;
+        text-align: center;
+    }
+    .table tbody tr{
+        background-color: #e3cee43d;
+        padding:15px;
+        font-size: 14px;
+        border-radius: 25px;
+    }
+    /*Modal items*/
+    .tableModalItems thead{
+        display: none;
+    }
+    .tableModalItems, .tableModalItems tbody, .tableModalItems tr, .tableModalItems td{
+        display: block;
+        width: 100%;
+    }
+    .tableModalItems tr{
+        margin-bottom: 15px;
+    }
+    .tableModalItems tbody tr td{
+        text-align: right;
+        padding-left:50%;
+        position: relative;
+    }
+    .tableModalItems td::before{
+        content: attr(data-label);
+        position:absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
+    .tableModalItems tbody tr{
+        background-color: #e3cee43d;
+        padding:15px;
+        font-size: 14px;
+        border-radius: 25px;
+    }
+    .tableModalItems tbody tr td{
+        border-right:none;
+        border-bottom: 1px solid #e3cee43d;
+    }
+}
