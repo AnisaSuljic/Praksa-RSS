@@ -19,9 +19,10 @@
                 <th>Evidencijski broj</th>
                 <th>Današnji datum</th>
                 <th>Datum računa</th>
-                <th>Rok plaćanja</th>
+                <th>Datum dospjeća</th>
                 <th>Skladište ulaz</th>
                 <th>Iznos</th>
+                <th>Vrsta plaćanja</th>
                 <th>Plaćen</th>
                 <th>Akcije</th>
             </tr>
@@ -31,9 +32,10 @@
                 <td data-label="Evidencijski broj">{{item.brojRacuna}}</td>
                 <td data-label="Datum">{{item.datum | date: 'short'}}</td>
                 <td data-label="Današnji datum">{{item.datumRacuna | date: 'short'}}</td>
-                <td data-label="Rok plaćanja">{{item.datumDospjeca | date: 'short'}}</td>
+                <td data-label="Datum dospjeća">{{item.datumDospjeca | date: 'short'}}</td>
                 <td data-label="Skladište ulaz">{{item.nazivSkladista}}</td>
                 <td data-label="Iznos">{{item.iznosRacuna}}</td>
+                <td data-label="Vrsta plaćanja">{{item.nazivVrstePlacanja}}</td>
                 <td data-label="Plaćen"><input type="checkbox" [(ngModel)]="item.placen" readonly></td>
                 <td class="actions">
                     <button (click)="Get(content,item.racunId)">Stavke</button>
@@ -41,7 +43,7 @@
                     <button (click)="Delete(content2,item)">Obriši</button>
                 </td>
 
-              <!--Delete modal-->
+              <!--Delete racun modal-->
               <ng-template #content2 let-modal>
                   <div class="modal-header">
                   </div>
@@ -77,37 +79,56 @@
                   <tr>
                     <th>Šifra</th>
                     <th>Naziv</th>
-                    <th>Grupa</th>
                     <th>Kol</th>
-                    <!-- <th>JMJ</th> -->
-                    <!-- <th>UC</th> -->
                     <th>Rabat</th>
-                    <!-- <th>NBC</th> -->
-                    <th>NBV</th>
-                    <th>Marža</th>
-                    <th>VPC</th>
-                    <th>MPC</th>
-                    <th>PDV</th>
-                    <th>P</th>
+                    <th>Cijena bez PDV</th>
+                    <th>Ulazna cijena</th>
+                    <th>Akcije</th>
                 </tr>
                 </thead>
-                <tbody *ngFor="let item of stavkeBaza">
-                  <tr *ngIf="item.racunId==idRacuna">
-                      <td data-label="Šifra">{{item.stavkeId}}</td>
-                      <td data-label="Klijent">{{item.klijentId}}</td>
-                      <td data-label="Dok">{{item.dokumentId}}</td>
-                      <td data-label="Kol">{{item.kolicina}}</td>
-                      <!-- <td data-label="JMJ">23</td>
-                      <td data-label="UC">23</td> -->
-                      <td data-label="Rabat">{{item.rabat}}</td>
-                      <!-- <td data-label="NBC">23</td> -->
-                      <td data-label="NBV">{{item.rabat2}}</td>
-                      <td data-label="Marža">{{item.rabat1}}</td>
-                      <td data-label="VPC">{{item.ulaznaCijena}}</td>
-                      <td data-label="MPC">{{item.cijenaBezPdv}}</td>
-                      <td data-label="PDV">17</td>
-                      <td data-label="P"><input type="checkbox" name="" id=""></td>
-                      
+                <tbody *ngFor="let stavka of stavkeBaza">
+                  <tr *ngIf="stavka.racunId==idRacuna">
+                      <td data-label="Šifra">{{stavka.sifraArtikla}}</td>
+                      <td data-label="Naziv">{{stavka.nazivArtikla}}</td>
+                      <td data-label="Kol">{{stavka.kolicina}}</td>
+                      <td data-label="Rabat">{{stavka.rabat}}</td>
+                      <td data-label="Cijena bez PDV">{{stavka.cijenaBezPdv}}</td>
+                      <td data-label="Ulazna cijena">{{stavka.ulaznaCijena}}</td>
+                      <td class="actions">
+                        <button (click)="Delete1(content3,stavka)"
+                        style="font-size: 12px;
+                        width: 80px;
+                        background-color:white ;
+                        border:1px solid #4c2083;
+                        border-radius: 15px;
+                        color: #4c2083;
+                        text-align: center;
+                        outline: none;
+                        margin: 5px 5px 0px 0px;
+                        padding:1px 3px;">Obriši</button>
+                      </td>
+
+                      <!--Delete stavka modal-->
+              <ng-template #content3 let-modal>
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-append">
+                          <h6>Da li ste sigurni da želite obrisati?</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+                  <button type="button" class="btn btn-outline-dark"  (click)="DeleteStavka()" >Da</button>
+                </div>
+              </ng-template>
+              <!--End delete modal-->
                   </tr>
               </tbody>
             </table>

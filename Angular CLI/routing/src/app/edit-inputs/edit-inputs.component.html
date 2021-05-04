@@ -54,20 +54,20 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="inputState">Skladište</label>
-                            <select id="inputState" [(ngModel)]="racun.skladisteUlazId" class="custom-select"  >
-                                <option *ngFor="let item of skladista" selected value="item.skladisteId">{{item.naziv}}</option>
+                            <select id="inputState" [(ngModel)]="racun.skladisteUlazId" name="skladisteUlazId" class="custom-select"  >
+                                <option *ngFor="let item of skladista" value="{{item.skladisteId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Vrsta plaćanja</label>
-                            <select id="inputState" [(ngModel)]="racun.vrstaPlacanjaId" class="custom-select">
-                                <option *ngFor="let item of vrstaPlacanja" selected value="item.vrstaPlacanjaId">{{item.naziv}}</option>
+                            <select id="inputState" [(ngModel)]="racun.vrstaPlacanjaId" name="vrstaPlacanjaId" class="custom-select">
+                                <option *ngFor="let item of vrstaPlacanja" value="{{item.vrstaPlacanjaId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Valuta</label>
-                            <select id="inputState" [(ngModel)]="racun.valutaId" class="custom-select">
-                                <option *ngFor="let item of valuta" selected value="item.valutaId">{{item.oznaka}}</option>
+                            <select id="inputState" [(ngModel)]="racun.valutaId" name="valutaId" class="custom-select">
+                                <option *ngFor="let item of valuta" value="{{item.valutaId}}">{{item.oznaka}}</option>
                             </select>
                         </div>
                     </div>

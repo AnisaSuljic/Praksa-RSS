@@ -24,7 +24,7 @@ export class EditInputsComponent implements OnInit {
   closeResult:string='';
   id:number = 0;
   racun!: IRacun;
-  artikl: any;
+  artikl: any=null;
   stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
@@ -67,7 +67,6 @@ export class EditInputsComponent implements OnInit {
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = 2;
-    this.stavka.skladisteUlazId = 1;
     this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
@@ -87,6 +86,7 @@ export class EditInputsComponent implements OnInit {
 
   /**Modal GetStavke */
 Get(content:any) {
+  this.dodavanje=false;
   this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
