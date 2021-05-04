@@ -32,7 +32,7 @@ export class VrsteComponent implements OnInit {
     this._vrsteService.addVrsta(this.vrsta).subscribe(data=> this.vrste = data);
   }
   updateVrsta(){
-    this._vrsteService.updateVrsta(this.vrsta.id,this.vrsta).subscribe(data => this.vrsta = data);
+    this._vrsteService.updateVrsta(this.vrsta.vrstaId,this.vrsta).subscribe(data => this.vrsta = data);
   }
   DeleteVrsta() {
     this._vrsteService.deleteVrsta(this.idvrsta)
@@ -56,8 +56,8 @@ Add(content:any) {
 /**Modal Update */
 
 Update(content1:any, item:Vrsta) {
-  console.log(item.id);
-  this.idvrsta=item.id;
+  console.log(item.vrstaId);
+  this.idvrsta=item.vrstaId;
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -67,8 +67,8 @@ Update(content1:any, item:Vrsta) {
 /**Modal Delete */
 
 Delete(content2:any, item:Vrsta) {
-  console.log(item.id);
-  this.idvrsta=item.id;
+  console.log(item.vrstaId);
+  this.idvrsta=item.vrstaId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

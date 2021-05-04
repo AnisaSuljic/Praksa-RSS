@@ -53,8 +53,8 @@ export class SkladisteComponent implements OnInit {
   /**Modal Delete */
   
   Delete(content2:any, item:Skladiste) {
-    console.log(item.id);
-    this.idSkladista=item.id;
+    console.log(item.skladisteId);
+    this.idSkladista=item.skladisteId;
     this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

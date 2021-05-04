@@ -24,10 +24,8 @@
                       <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Odaberite grupu
                       </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Grupa1</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa2</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa3</a></li>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="artikl.grupaId" name="artikli">
+                        <li><a class="dropdown-item" href="#"  *ngFor="let item of grupe" selected value="item.grupaId">{{item.naziv}}</a>
                       </ul>
                     </div>
                   </div>
@@ -60,12 +58,10 @@
                       <label for="exampleFormControlSelect2">Proizvođač</label>
                       <div class="dropdown">
                         <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite grupu
+                          Odaberite proizvođača
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Proizvođač1</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač2</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="artikl.proizvodjacId" name="proizvodjacId">
+                          <li><a class="dropdown-item" href="#"  *ngFor="let item of proizvodjaci" selected value="item.proizvodjacId">{{item.naziv}}</a>
                         </ul>
                       </div>
                     </div>

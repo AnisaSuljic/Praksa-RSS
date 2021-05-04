@@ -14,6 +14,9 @@ export class ManufacturerService {
   get(){
     return this.http.get(this.url).toPromise().then(res => { this.manufacturers = res as Manufacturer[] });
   }
+  getProizvodjac(){
+    return this.http.get<Manufacturer[]>(this.url);
+  }
   post(){
     return this.http.post(this.url,this.formData);
   }

@@ -4,6 +4,10 @@ import { IArtikl } from '../models/artikl.model';
 import { Subscriber, Subscription } from 'rxjs';
 import { ArtiklService } from '../services/artikl.service';
 import { ActivatedRoute } from '@angular/router';
+import { Groups } from '../models/grupe.model';
+import { Manufacturer } from '../manufacturers/manufacturer.model';
+import { GroupsService } from '../services/groups.service';
+import { ManufacturerService } from '../manufacturers/manufacturer.service';
 
 @Component({
   selector: 'app-items',
@@ -12,12 +16,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ItemsComponent implements OnInit {
   public artikli : IArtikl[] = [];
+  grupe: Groups[] = [];
+  proizvodjaci: Manufacturer[]=[];
+   
   closeResult:string='';
   artikl!: IArtikl;
   idartikl: number=0;
   private routeSub!:Subscription;
 
-  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute)
+  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute, private _grupeService:GroupsService, private _proizvodjacService: ManufacturerService)
   {
     this.artikl = new IArtikl();
   }
@@ -25,6 +32,8 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
     this._artiklService.getArtikli().subscribe(data => this.artikli = data);
+    this._grupeService.getGroups().subscribe(data=> this.grupe = data);
+    this._proizvodjacService.getProizvodjac().subscribe(data=> this.proizvodjaci = data);
     console.log(this.artikl);
   }
   onSubmit(){

@@ -54,8 +54,8 @@ Update(content1:any) {
 /**Modal Delete */
 
 Delete(content2:any, item:Porez) {
-  console.log(item.id);
-  this.idPoreza=item.id;
+  console.log(item.porezId);
+  this.idPoreza=item.porezId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

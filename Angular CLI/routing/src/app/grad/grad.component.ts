@@ -54,8 +54,8 @@ Update(content1:any) {
 /**Modal Delete */
 
 Delete(content2:any, item:Grad) {
-  console.log(item.id);
-  this.idGrada=item.id;
+  console.log(item.gradId);
+  this.idGrada=item.gradId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
