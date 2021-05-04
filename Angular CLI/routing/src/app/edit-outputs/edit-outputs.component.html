@@ -171,7 +171,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                    <button type="button" class="btn btn-outline-dark" >Da</button>
+                    <button type="button" (click)="DeleteStavka(item.stavkeId)" routerLink="/adminpanel/editOutputs/{{id}}" class="btn btn-outline-dark" >Da</button>
                   </div>
                 </ng-template>
                 <!--End delete modal-->
