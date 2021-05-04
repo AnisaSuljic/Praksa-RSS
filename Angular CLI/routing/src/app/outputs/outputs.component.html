@@ -73,43 +73,33 @@
       </div>
       <div class="modal-body">
         <form>          
-              <table class="tableModalItems">
+              <table class="tableModalItems table">
                 <thead>
                     <tr>
-                        <th>Rbr</th>
-                        <th>Šifra</th>
-                        <th>Naziv</th>
-                        <th>Grupa</th>
-                        <th>Kol</th>
-                        <!-- <th>JMJ</th> -->
-                        <!-- <th>UC</th> -->
-                        <th>Rabat</th>
-                        <!-- <th>NBC</th> -->
-                        <th>NBV</th>
-                        <th>Marža</th>
-                        <th>VPC</th>
-                        <th>MPC</th>
-                        <th>PDV</th>
-                        <th>P</th>
+                      <th>Redni broj</th>
+                      <th>Sifra</th>
+                      <th>Naziv</th>
+                      <th>Kolicina</th>
+                      <th>Jedinica mj</th>
+                      <th>Cijena</th>
+                      <th>Rabat</th>
+                      <th>VPC</th>
+                      <th>PDV</th>
+                      <th>MPC</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of stavkeBaza">
                     <tr *ngIf="item.racunId==idRacuna">
-                        <td data-label="Rbr">{{item.redniBroj}}</td>
-                        <td data-label="Šifra">{{item.stavkeId}}</td>
-                        <td data-label="Klijent">{{item.klijentId}}</td>
-                        <td data-label="Dok">{{item.dokumentId}}</td>
-                        <td data-label="Kol">{{item.kolicina}}</td>
-                        <!-- <td data-label="JMJ">23</td>
-                        <td data-label="UC">23</td> -->
-                        <td data-label="Rabat">{{item.rabat}}</td>
-                        <!-- <td data-label="NBC">23</td> -->
-                        <td data-label="NBV">{{item.rabat2}}</td>
-                        <td data-label="Marža">{{item.rabat1}}</td>
-                        <td data-label="VPC">{{item.ulaznaCijena}}</td>
-                        <td data-label="MPC">{{item.cijenaBezPdv}}</td>
-                        <td data-label="PDV">17</td>
-                        <td data-label="P"><input type="checkbox" name="" id=""></td>
+                      <td data-label="Redni broj">{{item.redniBroj}}</td>
+                      <td data-label="Sifra artikla">{{item.sifraArtikla}}</td>
+                      <td data-label="Naziv artikla">{{item.nazivArtikla}}</td>
+                      <td data-label="Kolicina">{{item.kolicina}}</td>
+                      <td data-label="Jedinica mjere">{{item.jedMjere}}</td>
+                      <td data-label="Cijena">{{item.cijenaBezPdv}}</td>
+                      <td data-label="Rabat">{{item.rabat1}}</td>
+                      <td data-label="VPC">{{item.vpc}}</td>
+                      <td data-label="PDV">17</td>
+                      <td data-label="MPC">{{item.mpc}}</td>
                         
                     </tr>
                 </tbody>

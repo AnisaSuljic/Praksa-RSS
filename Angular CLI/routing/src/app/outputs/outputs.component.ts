@@ -7,6 +7,7 @@ import { IStavka } from '../models/stavka.model';
 import { StavkaService } from '../services/stavka.service';
 import { ValutaService } from '../services/valuta.service';
 import { SkladisteService } from '../services/skladiste.service';
+import { ArtiklService } from '../services/artikl.service';
 
 
 
@@ -26,7 +27,8 @@ export class OutputsComponent implements OnInit {
     private modalService: NgbModal,
      private _stavkaService: StavkaService,
      private _valuteService: ValutaService,
-     private _skladisteService: SkladisteService) { }
+     private _skladisteService: SkladisteService,
+     private _artiklService: ArtiklService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni().subscribe(data => {
@@ -40,7 +42,26 @@ export class OutputsComponent implements OnInit {
             }
           }
         });
-    this._stavkaService.getStavke().subscribe(data => this.stavkeBaza = data);
+        this._stavkaService.getStavke().subscribe(data => {
+          for(let i = 0; i < data.length; i++){
+            this.stavkeBaza.push(data[i]);
+            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+              this.stavkeBaza[i].nazivArtikla = l.naziv;
+            });
+            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+              this.stavkeBaza[i].sifraArtikla = l.sifra;
+            });
+            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+              this.stavkeBaza[i].vpc = l.vpc;
+            });
+            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+              this.stavkeBaza[i].mpc = l.mpc;
+            });
+            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+              this.stavkeBaza[i].jedMjere = l.jedinicaMjereId;
+            });
+          }
+        });
   }
 
   DeleteRacun() {

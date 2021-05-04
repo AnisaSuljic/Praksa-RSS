@@ -26,6 +26,7 @@ export class EditOutputsComponent implements OnInit {
   racun!: IRacun;
   artikl: any;
   stavka: IStavka = new IStavka();
+  stavkaZaDelete: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   public stavke : IStavka[] = [];
   public stavkeZaPrikazSaId : IStavka[] = [];
@@ -74,6 +75,7 @@ export class EditOutputsComponent implements OnInit {
         });
       }
     });
+    
     for(let item of this.stavke){
       if(item.racunId == this.id){
         console.log("1");
@@ -83,6 +85,15 @@ export class EditOutputsComponent implements OnInit {
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
+  }
+  DeleteStavka(idStavke: any){
+    this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaZaDelete = data);
+    return this._stavkaService.getStavke().subscribe(
+      (result)=>{
+        window.location.reload();
+        this.modalService.dismissAll();
+      }
+    );
   }
   getArtiklById(id: any){
     console.log(id);
