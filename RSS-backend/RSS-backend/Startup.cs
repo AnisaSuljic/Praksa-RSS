@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RSS_backend.Database;
 using RSS_backend.Filters;
+using RSS_backend.Security;
 using RSS_backend.Services;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,24 @@ namespace RSS_backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RSS_backend", Version = "v1" });
+
+                c.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "basicAuth" }
+                        },
+                        new string[]{}
+                    }
+                });
+
             });
             services.AddDbContext<FakturaContext>(options =>
             {
@@ -52,6 +72,8 @@ namespace RSS_backend
             });
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthentication>("BasicAuthentication", null);
 
             services.AddScoped<IJedinicaMjereService, JedinicaMjereService>();
             services.AddScoped<IKlijentService, KlijentService>();
@@ -86,6 +108,7 @@ namespace RSS_backend
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
