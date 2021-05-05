@@ -8,6 +8,7 @@ import { StavkaService } from '../services/stavka.service';
 import { ValutaService } from '../services/valuta.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { ArtiklService } from '../services/artikl.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
 
 
 
@@ -28,7 +29,8 @@ export class OutputsComponent implements OnInit {
      private _stavkaService: StavkaService,
      private _valuteService: ValutaService,
      private _skladisteService: SkladisteService,
-     private _artiklService: ArtiklService) { }
+     private _artiklService: ArtiklService,
+     private _jediniceMjereService: JedinicamjereService) { }
 
   ngOnInit(): void {
     this._racunService.getRacuni().subscribe(data => {
@@ -47,19 +49,15 @@ export class OutputsComponent implements OnInit {
             this.stavkeBaza.push(data[i]);
             this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
               this.stavkeBaza[i].nazivArtikla = l.naziv;
-            });
-            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
               this.stavkeBaza[i].sifraArtikla = l.sifra;
-            });
-            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
               this.stavkeBaza[i].vpc = l.vpc;
-            });
-            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
               this.stavkeBaza[i].mpc = l.mpc;
-            });
-            this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
               this.stavkeBaza[i].jedMjere = l.jedinicaMjereId;
+              this._jediniceMjereService.getJedinicaMjereById(l.jedinicaMjereId).subscribe(kl => {
+                this.stavkeBaza[i].jedMjereNaziv = kl.naziv;
+              })
             });
+            
           }
         });
   }

@@ -14,6 +14,8 @@ import { Valuta } from '../models/valuta.model';
 import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
 import { ValutaService } from '../services/valuta.service';
 import { SkladisteService } from '../services/skladiste.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
+import { IJedinicaMjere } from '../models/jedinicamjere.model';
 
 @Component({
   selector: 'app-edit-outputs',
@@ -31,6 +33,7 @@ export class EditOutputsComponent implements OnInit {
   public stavke : IStavka[] = [];
   public stavkeZaPrikazSaId : IStavka[] = [];
   private routeSub!: Subscription;
+  public jedinicemjere: IJedinicaMjere[] = [];
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
@@ -43,6 +46,7 @@ export class EditOutputsComponent implements OnInit {
     private _vrstaPlacanja: VrstaplacanjaService,
     private _valuteService: ValutaService,
     private _skladisteService: SkladisteService,
+    private _jediniceMjereService: JedinicamjereService
     ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
@@ -55,23 +59,19 @@ export class EditOutputsComponent implements OnInit {
     this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
+    this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
     this._stavkaService.getStavke().subscribe(data => {
       for(let i = 0; i < data.length; i++){
         this.stavke.push(data[i]);
         this._artiklService.getArtiklById(this.stavke[i].artiklId).subscribe(l => {
           this.stavke[i].nazivArtikla = l.naziv;
-        });
-        this._artiklService.getArtiklById(this.stavke[i].artiklId).subscribe(l => {
           this.stavke[i].sifraArtikla = l.sifra;
-        });
-        this._artiklService.getArtiklById(this.stavke[i].artiklId).subscribe(l => {
           this.stavke[i].vpc = l.vpc;
-        });
-        this._artiklService.getArtiklById(this.stavke[i].artiklId).subscribe(l => {
           this.stavke[i].mpc = l.mpc;
-        });
-        this._artiklService.getArtiklById(this.stavke[i].artiklId).subscribe(l => {
           this.stavke[i].jedMjere = l.jedinicaMjereId;
+          this._jediniceMjereService.getJedinicaMjereById(l.jedinicaMjereId).subscribe(kl => {
+            this.stavke[i].jedMjereNaziv = kl.naziv;
+          })
         });
       }
     });
@@ -106,7 +106,7 @@ export class EditOutputsComponent implements OnInit {
     this.stavka.klijentId = this.racun.klijentId;
     this.stavka.skladisteIzlazId = this.racun.skladisteIzlazId;
     this.stavka.jedMjere = this.artikl.jedinicaMjereId;
-    this.stavka.redniBroj = 2;
+    this.stavka.redniBroj = this.stavke.length + 1;
     this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);

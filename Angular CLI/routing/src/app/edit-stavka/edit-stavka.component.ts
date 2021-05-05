@@ -3,8 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
+import { IJedinicaMjere } from '../models/jedinicamjere.model';
 import { IStavka } from '../models/stavka.model';
 import { ArtiklService } from '../services/artikl.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { StavkaService } from '../services/stavka.service';
 
 @Component({
@@ -14,18 +16,20 @@ import { StavkaService } from '../services/stavka.service';
 })
 export class EditStavkaComponent implements OnInit {
   closeResult:string='';
-  stavkaZaEdit: any;
+  stavkaZaEdit!: IStavka;
   artiklID: number = 0;
   private routeSub!: Subscription;
   id: number = 0;
   artikl: any;
   public artikli : IArtikl[] = [];
+  public jediniceMjere: IJedinicaMjere[] = [];
   constructor(
     private modalService: NgbModal,
     private _stavkaService: StavkaService,
     private router: Router,
     private route: ActivatedRoute,
-    private _artiklService: ArtiklService
+    private _artiklService: ArtiklService,
+    private _jediniceMjereService: JedinicamjereService
     ) { 
     this.artikl = null; 
    }
@@ -36,27 +40,17 @@ export class EditStavkaComponent implements OnInit {
     });
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
-
-        
-
+    this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);
     this._stavkaService.getStavkaById(this.id).subscribe(data =>  {
-      console.log(data);
-    });
+      this.stavkaZaEdit = data;
+      this._artiklService.getArtiklById(this.stavkaZaEdit.artiklId).subscribe(l => {
+        this.artikl = l;
+        this.stavkaZaEdit.nazivArtikla = l.naziv;
+        this.stavkaZaEdit.mpc = l.mpc;
+        this.stavkaZaEdit.sifraArtikla = l.sifra;
+        this.stavkaZaEdit.vpc = l.vpc;
+      });
 
-
-
-
-    this._artiklService.getArtiklById(this.stavkaZaEdit.artiklId).subscribe(l => {
-      this.stavkaZaEdit.nazivArtikla = l.naziv;
-    });
-    this._artiklService.getArtiklById(this.stavkaZaEdit.artiklId).subscribe(l => {
-      this.stavkaZaEdit.sifraArtikla = l.sifra;
-    });
-    this._artiklService.getArtiklById(this.stavkaZaEdit.artiklId).subscribe(l => {
-      this.stavkaZaEdit.vpc = l.vpc;
-    });
-    this._artiklService.getArtiklById(this.stavkaZaEdit.artiklId).subscribe(l => {
-      this.stavkaZaEdit.mpc = l.mpc;
     });
   }
   getArtiklById(id: any){
@@ -65,9 +59,21 @@ export class EditStavkaComponent implements OnInit {
     this.modalService.dismissAll();
   }
   EditStavka(id: any){
+    this.stavkaZaEdit.artiklId = this.artikl.artiklId;
+    this.stavkaZaEdit.nazivArtikla = this.artikl.naziv;
+    this.stavkaZaEdit.sifraArtikla = this.artikl.sifra;
+    this.stavkaZaEdit.vpc = this.artikl.vpc;
+    this.stavkaZaEdit.mpc = this.artikl.mpc;
+
+    console.log(this.stavkaZaEdit);
     this._stavkaService.updateStavka(id,this.stavkaZaEdit).subscribe(data => this.stavkaZaEdit = data);
-    window.location.reload();
-    this.modalService.dismissAll();
+    let idRacuna = this.stavkaZaEdit.racunId;
+    setTimeout(() =>{
+      this.router.navigate([`/adminpanel/editOutputs/${idRacuna}`]).then(()=> {
+        window.location.reload();
+      });
+    },1000);
+    
   }
   Get(content:any) {
     this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
