@@ -1,5 +1,5 @@
 export class Porez {
-    public id!: number; 
+    public porezId!: number; 
     public klijentId!: number;
     public nazivPoreza!: string;
     public stopa!: number;

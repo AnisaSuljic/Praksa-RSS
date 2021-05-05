@@ -3,8 +3,12 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Groups } from '../models/grupe.model';
 import { GroupsService } from '../services/groups.service';
 import { data } from 'jquery';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
+import { Porez } from '../models/porez.model';
+import { PorezService } from '../services/porez.service';
+import { Vrsta } from '../models/vrsta.model';
+import { VrstaService } from '../services/vrsta.service';
 
 @Component({
   selector: 'app-groups',
@@ -13,25 +17,38 @@ import { Subscriber, Subscription } from 'rxjs';
 })
 export class GroupsComponent implements OnInit {
   public grupe : Groups[] = [];
+  porezi: Porez[]=[];
+  vrste: Vrsta[]=[];
   closeResult:string='';
   grupa!: Groups;
   idgroup: number=0;
+  uspjesnoDodavanje:boolean=false;
   private routeSub!:Subscription;
-  constructor(private _groupService: GroupsService, private modalService: NgbModal, private route:ActivatedRoute) 
+  constructor(public _groupService: GroupsService, private modalService: NgbModal, private router:Router, private _porezService:PorezService, private _vrstaService:VrstaService) 
   {
     this.grupa = new Groups();
    }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params=>{this.idgroup=params['id']});
     this._groupService.getGroups().subscribe(data => this.grupe = data);
-console.log(this.grupa);
+    this._porezService.getPorez().subscribe(data=> this.porezi = data);
+    this._vrstaService.getVrsta().subscribe(data=> this.vrste = data);
+
   }
   
   onSubmit(){
-    this._groupService.addGroups(this.grupa).subscribe(data=> this.grupe = data);
+    this._groupService.addGroups(this.grupa).subscribe((result)=>{
+      this._groupService.getGroups().subscribe(res=>this.grupe = res);
+    });
   }
-
+  updateGroups() {
+    this._groupService.updateGroups(this._groupService.formData.grupaId, this._groupService.formData)
+      .subscribe(data => this._groupService.getGroups().subscribe(res => { this.grupe = []; this._groupService.getGroups().subscribe(temp => this.grupe = temp); }));
+    this.ngOnInit();
+  }
+  Zatvori(){
+    this.router.navigate(["/adminpanel/groups"]);
+  }
   DeleteGroup() {
     this._groupService.deleteGroups(this.idgroup)
     .subscribe(data => this.grupa = data);
@@ -44,9 +61,9 @@ console.log(this.grupa);
     );
   }
 
-
 /**Modal Add */
 Add(content:any) {
+  this.grupa = new Groups();
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -55,7 +72,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item:Groups) {
+  this.idgroup=item.grupaId;
+  this._groupService.formData = Object.assign({},item);
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -65,8 +84,8 @@ Update(content1:any) {
 /**Modal Delete */
 
 Delete(content2:any, item:Groups) {
-  console.log(item.id);
-  this.idgroup=item.id;
+  console.log(item.grupaId);
+  this.idgroup=item.grupaId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

@@ -1,5 +1,5 @@
 export class Groups {
-    public id!: number; 
+    public grupaId!: number; 
     public naziv!: string;
     public vrstaId!: number;
     public klijentId!: number;

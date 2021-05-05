@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { APP_INITIALIZER, Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
@@ -12,6 +12,7 @@ export class ArtiklService {
   readonly _url:string = MyConfig.adresaServera + '/artikl';
   Artikli: IArtikl[] = [];
   constructor(private http: HttpClient) { this.Artikli = []; }
+  formData:IArtikl=new IArtikl();
   getArtikli(): Observable<IArtikl[]>{
     return this.http.get<IArtikl[]>(this._url);
   }

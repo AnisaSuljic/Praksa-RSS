@@ -12,7 +12,7 @@ export class SkladisteService {
   readonly _url:string = MyConfig.adresaServera + '/skladiste';
   skladiste: Skladiste[] = [];
   constructor(private http:HttpClient) { this.skladiste = []; }
-
+  formData:Skladiste = new Skladiste();
   getSkladiste():Observable<Skladiste[]>{
     return this.http.get<Skladiste[]>(this._url);
   }

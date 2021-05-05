@@ -19,6 +19,7 @@ namespace RSS_backend.Database
         public string Lozinka { get; set; }
         public int? KlijentId { get; set; }
         public bool? Obrisan { get; set; }
+        public bool? IsAdmin { get; set; }
 
         public virtual Klijent Klijent { get; set; }
         public virtual ICollection<Racun> Racuns { get; set; }

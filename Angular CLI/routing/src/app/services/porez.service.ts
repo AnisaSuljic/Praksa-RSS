@@ -11,7 +11,7 @@ export class PorezService {
   readonly _url:string = MyConfig.adresaServera + '/porez';
   porez: Porez[] = [];
   constructor(private http:HttpClient) { this.porez = []; }
-
+  formData:Porez=new Porez();
   getPorez():Observable<Porez[]>{
     return this.http.get<Porez[]>(this._url);
   }

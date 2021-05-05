@@ -36,8 +36,8 @@ namespace RSS_backend.Services
         }
         public override Faktura.Model.Klijent Insert(Faktura.Model.Requests.KlijentInsertUpdate request)
         {
-            var set = Context.Set<Database.JedinicaMjere>();
-            Database.JedinicaMjere entity = _mapper.Map<Database.JedinicaMjere>(request);
+            var set = Context.Set<Database.Klijent>();
+            Database.Klijent entity = _mapper.Map<Database.Klijent>(request);
 
             entity.Obrisan = false;
 

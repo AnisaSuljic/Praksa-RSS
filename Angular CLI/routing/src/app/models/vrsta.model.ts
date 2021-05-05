@@ -1,5 +1,5 @@
 export class Vrsta {
-    public id!: number;
+    public vrstaId!: number;
     public naziv!: string;
     public klijentId!: number;
     public obrisan!: boolean;

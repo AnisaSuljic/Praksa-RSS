@@ -8,6 +8,7 @@ import { StavkaService } from '../services/stavka.service';
 import { ArtiklService } from '../services/artikl.service';
 import { IArtikl } from '../models/artikl.model';
 import { SkladisteService } from '../services/skladiste.service';
+import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
 
 
 
@@ -21,6 +22,7 @@ export class InputsComponent implements OnInit {
   closeResult:string='';
   racun!: IRacun;
   idRacuna:number=0;
+  idStavke:number=0;
   public stavkeBaza : IStavka[] = [];
   brisanje:boolean=false;
   public dodavanje:boolean=false;
@@ -31,33 +33,63 @@ export class InputsComponent implements OnInit {
     private modalService: NgbModal,
     private _stavkaService: StavkaService,
     private _artiklService:ArtiklService,
-    private _skladisteService: SkladisteService) { }
+    private _skladisteService: SkladisteService,
+    private _vrstaPlacanjaService:VrstaplacanjaService) { }
 
   ngOnInit(): void {
-    this._racunService.getRacuni()
-        .subscribe(data => {
-          console.log(data);
-          for (let i = 0; i < data.length; i++){
-            this.racuni.push(data[i])
-            this._skladisteService.getSkladisteById(this.racuni[i].skladisteUlazId).subscribe(l=>{
-              this.racuni[i].nazivSkladista = l.naziv
-            })
-          }
-        });
-    this._stavkaService.getStavke()
-        .subscribe(data => this.stavkeBaza = data);
-    this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
+        this._racunService.getRacuni()
+            .subscribe(data => {
+              console.log(data);
+              for (let i = 0; i < data.length; i++){
+                if(data[i].skladisteUlazId!=null)
+                {
+                  this.racuni.push(data[i])
+                }                
+              }
+              for(let j=0;j<this.racuni.length;j++){
+                this._skladisteService.getSkladisteById(this.racuni[j].skladisteUlazId).subscribe(l=>{
+                  this.racuni[j].nazivSkladista = l.naziv})   
+                  this._vrstaPlacanjaService.getVrstaById(this.racuni[j].vrstaPlacanjaId).subscribe(v=>{
+                    this.racuni[j].nazivVrstePlacanja = v.naziv})                  
+              }
+              
+            });
+        this.GetStavke();
+        this._artiklService.getArtikli()
+            .subscribe(data => this.artikli = data);
         
+  }
+  GetStavke()
+  {
+    this._stavkaService.getStavke().subscribe(data => {
+      for(let i = 0; i < data.length; i++)
+      {
+      
+        this.stavkeBaza.push(data[i]);
+        var articlebyid=this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId);
+              this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+                this.stavkeBaza[i].nazivArtikla = l.naziv;});
+              
+              this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+                this.stavkeBaza[i].sifraArtikla = l.sifra;});
+      }
+    });
   }
 
   DeleteRacun() {
-    return this._racunService.deleteRacun(this.idRacuna)
+     this._racunService.deleteRacun(this.idRacuna).subscribe(data => this.racun = data);
+     return this._racunService.getRacuni().subscribe(
+      (result)=>{
+        window.location.reload();
+        this.modalService.dismissAll();
+      }
+    );
+  }
+  DeleteStavka(){
+    return this._stavkaService.deleteStavka(this.idStavke)
     .subscribe(
       (result)=>{
-        this.ngOnInit();
-        this.modalService.dismissAll();
-        this.brisanje=true;
+          window.location.reload();
       }
     );
   }
@@ -72,12 +104,22 @@ Get(content:any,id: any) {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
 }
-/**Modal Delete */
-
+/**Modal Delete racun */
 Delete(content2:any,item:IRacun) {
   console.log(item.racunId);
   this.idRacuna=item.racunId;
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+/**Modal Delete stavka */
+Delete1(content3:any,item:IStavka) {
+  console.log(item.racunId);
+  this.idRacuna=item.racunId;
+  this.idStavke=item.stavkeId;
+  this.modalService.open(content3, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
