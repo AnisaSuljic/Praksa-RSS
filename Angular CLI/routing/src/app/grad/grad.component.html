@@ -24,21 +24,23 @@
 
             <!--Update modal-->
             <ng-template #content1 let-modal>
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Naziv grada</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="#95625925">
-                  </div>
+              <form #updateForm="ngForm" (ngSubmit)="updateGrad()"> 
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Naziv grada</label>
+                      <input type="text" class="form-control" [(ngModel)]="this._gradService.formData.naziv" name="naziv">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+                  <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
                 </form>
-              </div>
-              <div class="modal-footer">
-
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
             </ng-template>
 
              <!--Delete modal-->
@@ -73,7 +75,7 @@
                   <tr *ngFor="let item of grad">
                     <td data-label="Naziv grada">{{item.naziv}}</td>
                     <td class="actions">
-                      <button (click)="Update(content1)">Uredi</button>
+                      <button (click)="Update(content1,item)">Uredi</button>
                       <button (click)="Delete(content2,item)">Obriši</button>
                   </td>
                   </tr>

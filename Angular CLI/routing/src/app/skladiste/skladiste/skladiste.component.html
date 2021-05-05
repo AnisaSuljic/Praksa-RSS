@@ -1,85 +1,82 @@
+<div class="add">
+  <button (click)="Add(content)">Dodaj skladište</button>
+</div>
+<!-- Add modal -->
+<ng-template #content let-modal>
+  <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Dodavanje skladišta</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Naziv skladišta</label>
+        <input type="text" class="form-control" [(ngModel)]="skladiste2.naziv" name="naziv"
+          id="exampleFormControlInput1" placeholder="">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+      <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+    </div>
+  </form>
+</ng-template>
 
-            <div class="add">
-              <button (click)="Add(content)">Dodaj skladište</button>
-            </div>
-            <!-- Add modal -->
-            <ng-template #content let-modal>
-              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Dodavanje skladišta</h4>
-              </div>
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Naziv skladišta</label>
-                    <input type="text" class="form-control" [(ngModel)]="skladiste2.naziv" name="naziv" id="exampleFormControlInput1" placeholder="">
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
-              </div>
-              </form>
-            </ng-template>
+<!--Update modal-->
+<ng-template #content1 let-modal>
+  <form #updateForm="ngForm" (ngSubmit)="updateSkladiste()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Naziv skladišta</label>
+        <input type="text" class="form-control" [(ngModel)]="this._skladisteService.formData.naziv" name="naziv">
+      </div>
+    </div>
+    <div class="modal-footer">
 
-            <!--Update modal-->
-            <ng-template #content1 let-modal>
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Naziv skladišta</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" value="#95625925">
-                  </div>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="Stopa56">
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+      <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>
+    </div>
+  </form>
+</ng-template>
 
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
-            </ng-template>
+<!--Delete modal-->
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-append">
+            <h6>Da li ste sigurni da želite obrisati?</h6>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+    <button type="button" class="btn btn-outline-dark" (click)="DeleteSkladiste()">Da</button>
+  </div>
+</ng-template>
 
-             <!--Delete modal-->
-             <ng-template #content2 let-modal>
-              <div class="modal-header">
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-append">
-                        <h6>Da li ste sigurni da želite obrisati?</h6>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="DeleteSkladiste()">Da</button>
-              </div>
-            </ng-template>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Naziv skladišta</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of skladiste">
+      <td data-label="Naziv poreza">{{item.naziv}}</td>
 
-            <table class="table">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Naziv skladišta</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of skladiste">
-                    <td data-label="Naziv poreza">{{item.naziv}}</td>
-
-                    <td class="actions">
-                      <button>Stavke</button>
-                      <button (click)="Update(content1)">Uredi</button>
-                      <button (click)="Delete(content2,item)">Obriši</button>
-                  </td>
-                  </tr>
-                </tbody>
-              </table>
+      <td class="actions">
+        <button (click)="Update(content1,item)">Uredi</button>
+        <button (click)="Delete(content2,item)">Obriši</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

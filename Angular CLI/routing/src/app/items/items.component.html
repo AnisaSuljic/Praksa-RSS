@@ -1,286 +1,325 @@
+<div class="add">
+  <button (click)="Add(content)" class="adding">Dodaj artikl</button>
+</div>
 
-            <div class="add">
-              <button (click)="Add(content)" class="adding">Dodaj artikl</button>
-            </div>
+<!-- Add modal -->
+<ng-template #content let-modal>
+  <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Dodavanje novog artikla</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Šifra artikla</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.sifra" name="sifra" id="exampleFormControlInput1"
+          placeholder="#00000">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Naziv artikla</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.naziv" name="naziv" id="exampleFormControlInput1">
+      </div>
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect2">Grupa</label>
+        <div class="dropdown">
+          <!-- <button class="btn button-transparent dropdown-toggle"
+            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Odaberite grupu
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="artikl.grupaId" name="artikli">
+            <li><a class="dropdown-item" href="#" *ngFor="let item of grupe" selected
+                value="item.grupaId">{{item.naziv}}</a></li>
+          </ul> -->
+          <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="artikl.grupaId">
+            <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
+            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
+              {{grupa.naziv}} </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect1">Kataloški broj</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.kataloskiBroj" name="kataloskiBroj"
+          id="exampleFormControlInput1">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">FIS broj</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.fisbroj" name="fisBroj"
+          id="exampleFormControlInput1">
+      </div>
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">NC</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.nc" name="nc" id="exampleFormControlInput1">
+      </div>
+      <div class="form-group" style="width: 50%;float: right;">
+        <label for="exampleFormControlSelect1">Marža</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.marzaIznos" name="marzaIznos"
+          id="exampleFormControlInput1">
+      </div>
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">VPC</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1">
+      </div>
+      <div class="form-group" style="width: 50%;float: right;">
+        <label for="exampleFormControlSelect1">Cijena</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.mpc" name="mpc" id="exampleFormControlInput1">
+      </div>
+      <div>
+        <div class="form-group" style="width: 50%;float: left;">
+          <label for="exampleFormControlSelect2">Proizvođač</label>
+          <div class="dropdown">
+            <!-- <button class="btn button-transparent dropdown-toggle"
+              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Odaberite proizvođača
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="artikl.proizvodjacId"
+              name="proizvodjacId">
+              <li><a class="dropdown-item" href="#" *ngFor="let item of proizvodjaci" selected
+                  value="item.proizvodjacId">{{item.naziv}}</a></li>
+            </ul> -->
+            <select name="proizvodjacId" class="form-control" #proizvodjac="ngModel"
+              [(ngModel)]="artikl.proizvodjacId">
+              <option value="0" [disabled]=true [selected]=true>Odaberite proizvodjaca</option>
+              <option *ngFor="let proizvodjac of proizvodjaci" [value]="proizvodjac.proizvodjacId">
+                {{proizvodjac.naziv}} </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="width: 50%;float: right;">
+          <label for="exampleFormControlSelect2">Jedinica mjere</label>
+          <div class="dropdown">
+            <!-- <button class="btn button-transparent dropdown-toggle"
+              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Odaberite jedinicu mjere
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">kg</a></li>
+              <li><a class="dropdown-item" href="#">l</a></li>
+              <li><a class="dropdown-item" href="#">m</a></li>
+            </ul> -->
+            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="">
+              <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option>
+            </select>
+          </div>
+        </div>
 
-            <!-- Add modal -->
-            <ng-template #content let-modal>
-              <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Dodavanje novog artikla</h4>
-              </div>
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Šifra artikla</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.sifra" name="sifra" id="exampleFormControlInput1" placeholder="#00000">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Naziv artikla</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.naziv" name="naziv" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: left;">
-                    <label for="exampleFormControlSelect2" >Grupa</label>
-                    <div class="dropdown">
-                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Odaberite grupu
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Grupa1</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa2</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa3</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="form-group" style="width: 50%;float: left;">
-                    <label for="exampleFormControlSelect1">Kataloški broj</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.kataloskiBroj" name="kataloskiBroj" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">FIS broj</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.fisbroj" name="fisBroj" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group" style="width: 45%;float: left;">
-                    <label for="exampleFormControlSelect1">NC</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.nc" name="nc" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: right;">
-                    <label for="exampleFormControlSelect1">Marža</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.marzaIznos" name="marzaIznos" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group" style="width: 45%;float: left;">
-                    <label for="exampleFormControlSelect1">VPC</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: right;">
-                    <label for="exampleFormControlSelect1">Cijena</label>
-                    <input type="text" class="form-control" [(ngModel)]="artikl.mpc" name="mpc" id="exampleFormControlInput1">
-                  </div>
-                  <div>
-                    <div class="form-group" style="width: 50%;float: left;">
-                      <label for="exampleFormControlSelect2">Proizvođač</label>
-                      <div class="dropdown">
-                        <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite grupu
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Proizvođač1</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač2</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="form-group" style="width: 50%;float: right;">
-                      <label for="exampleFormControlSelect2">Jedinica mjere</label>
-                      <div class="dropdown">
-                        <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite jedinicu mjere
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">kg</a></li>
-                          <li><a class="dropdown-item" href="#">l</a></li>
-                          <li><a class="dropdown-item" href="#">m</a></li>
-                        </ul>
-                      </div>
-                    </div>
+        <div class="form-group" style="width: 45%;float: left;">
+          <label for="exampleFormControlInput1">Min kol.(skladište)</label>
+          <input type="text" class="form-control" [(ngModel)]="artikl.minKolNaSkladistu" name="minKolNaSkladistu"
+            id="exampleFormControlInput1">
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: left;">
-                      <label for="exampleFormControlInput1">Min kol.(skladište)</label>
-                      <input type="text" class="form-control" [(ngModel)]="artikl.minKolNaSkladistu" name="minKolNaSkladistu" id="exampleFormControlInput1" >
-                    </div>
+        <div class="form-group" style="width: 45%;float: right;">
+          <label for="exampleFormControlInput1">Cijena HH</label>
+          <input type="text" class="form-control" [(ngModel)]="artikl.cijenaHh" name="cijenaHh"
+            id="exampleFormControlInput1">
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: right;">
-                      <label for="exampleFormControlInput1">Cijena HH</label>
-                      <input type="text" class="form-control" [(ngModel)]="artikl.cijenaHh" name="cijenaHh" id="exampleFormControlInput1" >
-                    </div>
+        <div class="form-group" style="width: 45%;float: left;">
+          <label for="exampleFormControlInput1">Loyalty %</label>
+          <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1">
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: left;">
-                      <label for="exampleFormControlInput1">Loyalty %</label>
-                      <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1" >
-                    </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Opis artikla</label>
+          <textarea type="text" class="form-control" [(ngModel)]="artikl.opis" name="opis"
+            id="exampleFormControlInput1"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+      <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+    </div>
+  </form>
+</ng-template>
 
-                   <!-- <div class="form-group" style="width: 45%;float: right;">
-                      <label for="exampleFormControlInput1">Prioritet</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" >
-                    </div> -->
-                    <div class="form-group" >
-                      <label for="exampleFormControlInput1">Opis artikla</label>
-                      <textarea type="text" class="form-control" [(ngModel)]="artikl.opis" name="opis" id="exampleFormControlInput1" ></textarea>
-                    </div>                    
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
-              </div>
-            </form>
-            </ng-template>
+<!--Update modal-->
+<ng-template #content1 let-modal>
+  <form #updateForm="ngForm" (ngSubmit)="updateArtikl()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Šifra artikla</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.sifra" name="sifra">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Naziv artikla</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.naziv" name="naziv">
+      </div>
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect2">Grupa</label>
+        <div class="dropdown">
+          <!-- <button class="btn button-transparent dropdown-toggle"
+            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Odaberite grupu
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Grupa1</a></li>
+            <li><a class="dropdown-item" href="#">Grupa2</a></li>
+            <li><a class="dropdown-item" href="#">Grupa3</a></li>
+          </ul> -->
+          <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="_artiklService.formData.grupaId">
+            <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
+            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
+              {{grupa.naziv}} </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="width: 50%;float: left;">
+        <label for="exampleFormControlSelect1">Kataloški broj</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.kataloskiBroj"
+          name="kataloskiBroj">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">FIS broj</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.fisbroj" name="fisBroj">
+      </div>
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">NC</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.nc" name="nc">
+      </div>
+      <div class="form-group" style="width: 50%;float: right;">
+        <label for="exampleFormControlSelect1">Marža</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marza" name="marza">
+      </div>
+      <div class="form-group" style="width: 45%;float: left;">
+        <label for="exampleFormControlSelect1">VPC</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc">
+      </div>
+      <div>
+        <div class="form-group" style="width: 50%;float: left;">
+          <label for="exampleFormControlSelect2">Proizvođač</label>
+          <div class="dropdown">
+            <!-- <button class="btn button-transparent dropdown-toggle"
+              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Odaberite grupu
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Proizvođač1</a></li>
+              <li><a class="dropdown-item" href="#">Proizvođač2</a></li>
+              <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
+            </ul> -->
+            <select name="proizvodjacId" class="form-control" #proizvodjac="ngModel"
+              [(ngModel)]="_proizvodjacService.formData.proizvodjacId">
+              <option value="0" [disabled]=true [selected]=true>Odaberite proizvodjaca</option>
+              <option *ngFor="let proizvodjac of proizvodjaci" [value]="proizvodjac.proizvodjacId">
+                {{proizvodjac.naziv}} </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="width: 50%;float: right;">
+          <label for="exampleFormControlSelect2">Jedinica mjere</label>
+          <div class="dropdown">
+            <!-- <button class="btn button-transparent dropdown-toggle"
+              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Odaberite grupu
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">kg</a></li>
+              <li><a class="dropdown-item" href="#">l</a></li>
+              <li><a class="dropdown-item" href="#">m</a></li>
+            </ul> -->
+            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="">
+              <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option>
+            </select>
+          </div>
+        </div>
 
-            <!--Update modal-->
-            <ng-template #content1 let-modal>
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Šifra artikla</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="#469641" value="#95625925">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Naziv artikla</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="Artika56">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: left;">
-                    <label for="exampleFormControlSelect2">Grupa</label>
-                    <div class="dropdown">
-                      <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Odaberite grupu
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Grupa1</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa2</a></li>
-                        <li><a class="dropdown-item" href="#">Grupa3</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="form-group" style="width: 50%;float: left;">
-                    <label for="exampleFormControlSelect1">Kataloški broj</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="7894525">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">FIS broj</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="s8466ds49">
-                  </div>
-                  <div class="form-group" style="width: 45%;float: left;">
-                    <label for="exampleFormControlSelect1">NC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="56.85">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: right;">
-                    <label for="exampleFormControlSelect1">Marža</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="16">
-                  </div>
-                  <div class="form-group" style="width: 45%;float: left;">
-                    <label for="exampleFormControlSelect1">VPC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="56.80">
-                  </div>
-                  <div class="form-group" style="width: 50%;float: right;">
-                    <label for="exampleFormControlSelect1">Cijena</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="55">
-                  </div>
-                  <div>
-                    <div class="form-group" style="width: 50%;float: left;">
-                      <label for="exampleFormControlSelect2">Proizvođač</label>
-                      <div class="dropdown">
-                        <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite grupu
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Proizvođač1</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač2</a></li>
-                          <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="form-group" style="width: 50%;float: right;">
-                      <label for="exampleFormControlSelect2">Jedinica mjere</label>
-                      <div class="dropdown">
-                        <button class="btn button-transparent dropdown-toggle" style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Odaberite grupu
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">kg</a></li>
-                          <li><a class="dropdown-item" href="#">l</a></li>
-                          <li><a class="dropdown-item" href="#">m</a></li>
-                        </ul>
-                      </div>
-                    </div>
+        <div class="form-group" style="width: 45%;float: left;">
+          <label for="exampleFormControlInput1">Min kol.(skladište)</label>
+          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.minKolNaSkladistu"
+            name="minKolNaSkladistu">
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: left;">
-                      <label for="exampleFormControlInput1">Min kol.(skladište)</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" value="6">
-                    </div>
+        <div class="form-group" style="width: 45%;float: left;">
+          <label for="exampleFormControlInput1">Cijena HH</label>
+          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.cijenaHh" name="cijenaHh">
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: right;">
-                      <label for="exampleFormControlInput1">Cijena HH</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" value="50">
-                    </div>
+        <!-- <div class="form-group" style="width: 45%;float: left;">
+          <label for="exampleFormControlInput1">Loyalty %</label>
+          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.loyalty" name="Loyalty">
+        </div> -->
 
-                    <div class="form-group" style="width: 45%;float: left;">
-                      <label for="exampleFormControlInput1">Loyalty %</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" value="5%">
-                    </div>
+        <!-- <div class="form-group" style="width: 45%;float: right;">
+          <label for="exampleFormControlInput1">Prioritet</label>
+          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.prioritet" name="prioritet">
+        </div> -->
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Opis artikla</label>
+          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.opis" name="opis" />
+        </div>
 
-                    <div class="form-group" style="width: 45%;float: right;">
-                      <label for="exampleFormControlInput1">Prioritet</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" value="3" >
-                    </div>
-                    <div class="form-group" >
-                      <label for="exampleFormControlInput1">Opis artikla</label>
-                      <textarea type="text" class="form-control" id="exampleFormControlInput1" >Neki opis artika.</textarea>
-                    </div>
+      </div>
+    </div>
 
-                    
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+      <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>
+    </div>
+  </form>
+</ng-template>
 
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
-            </ng-template>
+<!--Delete modal-->
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-append">
+            <h6>Da li ste sigurni da želite obrisati?</h6>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+    <button type="button" class="btn btn-outline-dark" (click)="DeleteArtikl()">Da</button>
+  </div>
+</ng-template>
 
-             <!--Delete modal-->
-             <ng-template #content2 let-modal>
-              <div class="modal-header">
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-append">
-                        <h6>Da li ste sigurni da želite obrisati?</h6>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                <button type="button" class="btn btn-outline-dark" (click)="DeleteArtikl()">Da</button>
-              </div>
-            </ng-template>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Šifra</th>
+      <th scope="col">Naziv artikla</th>
+      <th scope="col">Jedinica mjere</th>
+      <th scope="col">NC</th>
+      <th scope="col">VC</th>
+      <th scope="col">MC</th>
+      <th scope="col">Cijena HH</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of artikli">
+      <th scope="row">{{item.artiklId}}</th>
+      <td data-label="Šifra">{{item.sifra}}</td>
+      <td data-label="Naziv">{{item.naziv}}</td>
+      <td data-label="Naziv">{{item.jedinicaMjereId}}</td>
+      <td data-label="Naziv">{{item.nc}}</td>
+      <td data-label="Naziv">{{item.vpc}}</td>
+      <td data-label="Naziv">{{item.marza}}</td>
+      <td data-label="Naziv">{{item.cijenaHh}}</td>
+      <td class="actions">
+        <button (click)="Update(content1,item)">Uredi</button>
+        <button (click)="Delete(content2,item)">Obriši</button>
+      </td>
+    </tr>
 
-            <table class="table">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Šifra</th>
-                    <th scope="col">Naziv artikla</th>
-                    <th scope="col">Jedinica mjere</th>
-                    <th scope="col">NC</th>
-                    <th scope="col">VC</th>
-                    <th scope="col">MC</th>
-                    <th scope="col">Cijena HH</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of artikli">
-                    <th scope="row">{{item.artiklId}}</th>
-                    <td data-label="Šifra">{{item.sifra}}</td>
-                    <td data-label="Naziv">{{item.naziv}}</td>
-                    <td data-label="Naziv">{{item.jedinicaMjereId}}</td>
-                    <td data-label="Naziv">{{item.nc}}</td>
-                    <td data-label="Naziv">{{item.vpc}}</td>
-                    <td data-label="Naziv">{{item.marza}}</td>
-                    <td data-label="Naziv">{{item.cijenaHh}}</td>
-                    <td class="actions">
-                      <button (click)="Update(content1)">Uredi</button>
-                      <button (click)="Delete(content2,item)">Obriši</button>
-                  </td>
-                  </tr>
-              
-          
-            
-                </tbody>
-              </table>
+
+
+  </tbody>
+</table>

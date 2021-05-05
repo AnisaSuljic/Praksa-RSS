@@ -11,7 +11,7 @@ export class GroupsService {
   readonly _url:string = MyConfig.adresaServera + '/grupa';
   grupe: Groups[] = [];
   constructor(private http:HttpClient) { this.grupe = []; }
-
+  formData:Groups = new Groups();
   getGroups():Observable<Groups[]>{
     return this.http.get<Groups[]>(this._url);
   }
