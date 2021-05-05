@@ -5,7 +5,7 @@ import { Subscriber, Subscription } from 'rxjs';
 import { ArtiklService } from '../services/artikl.service';
 import { ActivatedRoute } from '@angular/router';
 import { Groups } from '../models/grupe.model';
-import { Manufacturer } from '../manufacturers/manufacturer.model';
+import { Manufacturer } from '../models/manufacturer.model';
 import { GroupsService } from '../services/groups.service';
 import { ManufacturerService } from '../manufacturers/manufacturer.service';
 import { GradService } from '../services/grad.service';

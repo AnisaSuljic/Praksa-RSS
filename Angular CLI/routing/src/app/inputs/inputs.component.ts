@@ -77,12 +77,11 @@ export class InputsComponent implements OnInit {
   }
 
   DeleteRacun() {
-    return this._racunService.deleteRacun(this.idRacuna)
-    .subscribe(
+     this._racunService.deleteRacun(this.idRacuna).subscribe(data => this.racun = data);
+     return this._racunService.getRacuni().subscribe(
       (result)=>{
-        this.ngOnInit();
+        window.location.reload();
         this.modalService.dismissAll();
-        this.brisanje=true;
       }
     );
   }
