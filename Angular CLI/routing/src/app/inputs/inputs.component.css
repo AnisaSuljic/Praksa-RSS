@@ -61,6 +61,11 @@
     transform: scale(1.1);
 }
 
+.alert-success{
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
 /*Modal items*/
 .tableModalItems{
     width: 100%;

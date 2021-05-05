@@ -1,0 +1,132 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<div class="Frame">
+    <div class="header">
+        <div class="headerSpan">
+            <span>Uređivanje stavke</span>
+        </div>
+    </div>
+    <div class="mainsection">
+    <form #editStavkaForm="ngForm" (ngSubmit)="EditStavka(stavkaZaEdit.stavkeId)">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="exampleFormControlInput1" class="font-weight-bold">Redni broj</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" [(ngModel)]="stavkaZaEdit.redniBroj" name="redniBroj">
+                </div>
+                <div class="col-md-6 pt-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Odaberite artikal ->">
+                        <div class="input-group-prepend">                        
+                                <a type="button" (click)="Get(content)"><span class="input-group-text" id="basic-addon1">Artikli</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">Sifra artikla</label>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.sifraArtikla}}" readonly>
+                <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.sifra" name="sifra" readonly>
+            </div>
+            <div class="form-row">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">Naziv artikla</label>
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.nazivArtikla}}" readonly>
+                <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.naziv" name="naziv" readonly>
+            </div>
+            <div class="form-row">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">Kolicina</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.kolicina" name="kolicina">
+            </div>
+            <div class="form-row">
+                <label for="inputState" class="font-weight-bold">Jedinica mjere</label>
+                <select id="inputState" [(ngModel)]="stavkaZaEdit.jedMjere" class="custom-select" >
+                    <option  *ngFor = "let item of jediniceMjere" value="item.jedinicaMjereId">{{item.naziv}}</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">Cijena</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.cijenaBezPdv" name="cijenaBezPdv">
+                </div>
+                <div class="col-md-6">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">Rabat</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.rabat1" name="rabat1">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">VPC</label>
+                    <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.vpc}}" readonly>
+                    <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.vpc" name="vpc" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">MPC</label>
+                    <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.mpc}}" readonly>
+                    <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.mpc" name="mpc" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">PDV</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" value="17">
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>  
+</div>
+<!--Get artikle-->
+<ng-template #content let-modal >
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Artikli</h4>
+    </div>
+    <div class="modal-body">
+      <form>     
+          <div class="rowActions">     
+<!--dropdowngrupa-->
+
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Grupe</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Grupa1</button>
+                <button ngbDropdownItem>Grupa2</button>
+                <button ngbDropdownItem>Grupa3</button>
+                </div>
+            </div>
+<!--Search-->
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Artikli">
+                <div class="input-group-prepend">                        
+                        <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                </div>
+            </div>
+
+
+          </div>
+            <table class="tableModalItems table">
+              <thead>
+                  <tr>
+                      <th>Rbr</th>
+                      <th>Naziv</th>
+                      <th>MPC</th>
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let item of artikli" id="trArtikl" (click)="getArtiklById(item.artiklId)">
+                      <td data-label="Rbr">{{item.artiklId}}</td>
+                      <td data-label="Naziv">{{item.naziv}}</td>
+                      <td data-label="MPC">{{item.vpc}}</td>                          
+                  </tr>
+              </tbody>
+          </table>
+      </form>
+    </div>
+</ng-template>

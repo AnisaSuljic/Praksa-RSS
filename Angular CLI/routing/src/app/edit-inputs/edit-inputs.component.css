@@ -74,6 +74,10 @@
 
 
 /*Modal items*/
+.alert-success{
+    margin-bottom: 15px;
+    padding: 5px;
+}
 .tableModalItems{
     width: 100%;
     text-align: center;
@@ -125,6 +129,10 @@
     .tableModalItems tr{
         margin-bottom: 15px;
     }
+    #trArtikl:hover{
+        background-color: aquamarine;
+    }
+
     .tableModalItems tbody tr td{
         text-align: right;
         padding-left:50%;

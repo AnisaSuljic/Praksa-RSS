@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Grad } from '../models/grad.model';
 import { Skladiste } from '../models/skladiste.model';
+import { MyConfig } from '../my-config';
 @Injectable({
   providedIn: 'root'
 })
 export class SkladisteService {
 
-  private _url = 'http://rsspraksa-api.ml/skladiste';
+  readonly _url:string = MyConfig.adresaServera + '/skladiste';
   skladiste: Skladiste[] = [];
   constructor(private http:HttpClient) { this.skladiste = []; }
   formData:Skladiste = new Skladiste();

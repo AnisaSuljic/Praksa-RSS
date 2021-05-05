@@ -13,6 +13,10 @@
     align-items: center;
     justify-content: space-between; 
 }
+#trArtikl:hover{
+    background-color:rgba(160, 160, 160, 0.384);
+    cursor: pointer;
+}
 .header .headerSpan{
     
     color: #4c2083;
@@ -43,6 +47,25 @@
    
 
 }
+
+.table tbody tr td button{
+    font-size: 12px;
+    width: 80px;
+    background-color:white ;
+    border:1px solid #4c2083;
+    border-radius: 15px;
+    color: #4c2083;
+    text-align: center;
+    outline: none;
+    margin-left: 5px;
+    padding:2px 5px;
+
+}
+.table tbody tr td button:hover{
+    transform: scale(1.1);
+}
+
+
 .header button:hover{
     transform: scale(1.1);
 }

@@ -45,23 +45,20 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="inputState">Skladište</label>
-                            <select id="inputState" [(ngModel)]="racuni.skladisteUlazId" name="skladisteUlaz"class="custom-select" >
-                                <option selected>1</option>
-                                <option>...</option>
+                            <select id="inputState" [(ngModel)]="racuni.skladisteUlazId" name="skladisteUlazId"class="custom-select" >
+                                <option *ngFor="let item of skladista" value="{{item.skladisteId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Vrsta plaćanja</label>
-                            <select id="inputState" [(ngModel)]="racuni.vrstaPlacanjaId" name="vrstaPlacanja" class="custom-select">
-                                <option selected>1</option>
-                                <option>...</option>
+                            <select id="inputState" [(ngModel)]="racuni.vrstaPlacanjaId" name="vrstaPlacanjaId" class="custom-select">
+                                <option *ngFor="let item of vrstaPlacanja" value="{{item.vrstaPlacanjaId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Valuta</label>
                             <select id="inputState" [(ngModel)]="racuni.valutaId" name="valuta" class="valuta" class="custom-select">
-                                <option selected>1</option>
-                                <option>...</option>
+                                <option *ngFor="let item of valuta" value="{{item.valutaId}}">{{item.oznaka}}</option>
                             </select>
                         </div>
                     </div>
@@ -69,7 +66,7 @@
                 <div class="form-row">
                     <div class="col-2">
                         <label>PDV</label>
-                        <input type="number" [(ngModel)]="racuni.iznosRacuna" name="PDV" class="form-control">
+                        <input type="number" [(ngModel)]="racuni.iznosRacuna" name="PDV" class="form-control" placeholder="17">
                     </div>
                     <div class="col-2">
                     <label>Iznos bez PDV</label>
@@ -80,6 +77,7 @@
                         <input type="text" [(ngModel)]="racuni.iznosRacuna" name="iznosSaPDV" class="form-control">
                     </div>     
                 </div>
+                
                 <!--fifth row-->
                 <div class="form-row">
                     <div class="col">
@@ -101,7 +99,7 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="button" (click)="Zatvori()" class="btn btn-danger">Otkaži</button>
                     <button type="submit" class="btn btn-info">Sačuvaj</button>
                 </div>
             </div>

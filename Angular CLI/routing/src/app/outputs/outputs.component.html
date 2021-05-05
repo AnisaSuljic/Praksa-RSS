@@ -20,7 +20,7 @@
                 <th>Datum</th>
                 <th>Rok plaćanja</th>
                 <th>Sk</th>
-                <th>Dobavljač</th>
+                <th>FIS broj</th>
                 <th>Iznos</th>
                 <th>Plaćen</th>
                 <th>Akcije</th>
@@ -30,14 +30,14 @@
             <tr *ngFor="let item of racuni">
                 <td data-label="Redni broj">{{item.racunId}}</td>
                 <td data-label="Evidencijski broj">{{item.brojRacuna}}</td>
-                <td data-label="Datum">{{item.datum}}</td>
-                <td data-label="Rok plaćanja">{{item.datumRacuna}}</td>
-                <td data-label="Skladište">{{item.skladisteUlazId}}</td>
-                <td data-label="Dobavljač">{{item.kupacId}}</td>
+                <td data-label="Datum">{{item.datum | date: 'short'}}</td>
+                <td data-label="Rok plaćanja">{{item.datumRacuna | date: 'short'}}</td>
+                <td data-label="Skladište">{{item.nazivSkladista }}</td>
+                <td data-label="FIS broj">{{item.fisbroj}}</td>
                 <td data-label="Iznos">{{item.valutaId}}</td>
                 <td data-label="Plaćen"><input type="checkbox" name="" id=""></td>
                 <td class="actions">
-                    <button (click)="Get(content)">Stavke</button>
+                    <button (click)="Get(content,item.racunId)">Stavke</button>
                     <button routerLink="/adminpanel/editOutputs/{{item.racunId}}">Uredi</button>
                     <button (click)="Delete(content2,item)">Obriši</button>
                 </td>
@@ -73,43 +73,33 @@
       </div>
       <div class="modal-body">
         <form>          
-              <table class="tableModalItems">
+              <table class="tableModalItems table">
                 <thead>
                     <tr>
-                        <th>Rbr</th>
-                        <th>Šifra</th>
-                        <th>Naziv</th>
-                        <th>Grupa</th>
-                        <th>Kol</th>
-                        <th>JMJ</th>
-                        <th>UC</th>
-                        <th>Rabat</th>
-                        <th>NBC</th>
-                        <th>NBV</th>
-                        <th>Marža</th>
-                        <th>VPC</th>
-                        <th>MPC</th>
-                        <th>PDV</th>
-                        <th>P</th>
+                      <th>Redni broj</th>
+                      <th>Sifra</th>
+                      <th>Naziv</th>
+                      <th>Kolicina</th>
+                      <th>Jedinica mj</th>
+                      <th>Cijena</th>
+                      <th>Rabat</th>
+                      <th>VPC</th>
+                      <th>PDV</th>
+                      <th>MPC</th>
                     </tr>
                 </thead>
-                <tbody >
-                    <tr *ngFor="let item of racuni">
-                        <td data-label="Rbr">{{item.racunId}}</td>
-                        <td data-label="Šifra">{{item.brojRacuna}}</td>
-                        <td data-label="Naziv">Artikl1</td>
-                        <td data-label="Grupa">Grupa1</td>
-                        <td data-label="Kol">20</td>
-                        <td data-label="JMJ">23</td>
-                        <td data-label="UC">23</td>
-                        <td data-label="Rabat">12</td>
-                        <td data-label="NBC">23</td>
-                        <td data-label="NBV">43</td>
-                        <td data-label="Marža">24</td>
-                        <td data-label="VPC">42</td>
-                        <td data-label="MPC">43</td>
-                        <td data-label="PDV">17</td>
-                        <td data-label="P"><input type="checkbox" name="" id=""></td>
+                <tbody *ngFor="let item of stavkeBaza">
+                    <tr *ngIf="item.racunId==idRacuna">
+                      <td data-label="Redni broj">{{item.redniBroj}}</td>
+                      <td data-label="Sifra artikla">{{item.sifraArtikla}}</td>
+                      <td data-label="Naziv artikla">{{item.nazivArtikla}}</td>
+                      <td data-label="Kolicina">{{item.kolicina}}</td>
+                      <td data-label="Jedinica mjere">{{item.jedMjereNaziv}}</td>
+                      <td data-label="Cijena">{{item.cijenaBezPdv}}</td>
+                      <td data-label="Rabat">{{item.rabat1}}</td>
+                      <td data-label="VPC">{{item.vpc}}</td>
+                      <td data-label="PDV">17</td>
+                      <td data-label="MPC">{{item.mpc}}</td>
                         
                     </tr>
                 </tbody>

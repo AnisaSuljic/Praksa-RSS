@@ -8,7 +8,11 @@ export class IRacun {
     public datumDospjeca!: Date;
     public skladisteUlazId!: number;
     public skladisteIzlazId!: number;
+    public nazivSkladista! : string;
+    public nazivVrstePlacanja! :string;
+    public nazivValute! :string;
     public evidencijskiBroj!: string;
+    public fisbroj!: string;
     public iznosRacuna!: number;
     public iznosPoreza!: number;
     public kupacId!: number;

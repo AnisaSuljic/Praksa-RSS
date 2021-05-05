@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../clients/client.model';
-import { ClientService } from '../clients/client.service';
-import { UserService } from '../users/user.service';
+import { Client } from '../models/client.model';
+import { ClientService } from '../services/client.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -13,7 +13,7 @@ import { UserService } from '../users/user.service';
 export class AddUserComponent implements OnInit {
   clients: Client[] = [];
   constructor(public service: UserService, public serviceclient: ClientService, private router: Router) { 
-    this.serviceclient.getClients();
+    this.serviceclient.get();
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class AddUserComponent implements OnInit {
   insertRecord(form: NgForm) {
     this.service.postUsers().subscribe(
       res => {
-        this.service.getUsers();
+        this.service.get();
       }
     );
   }
@@ -40,7 +40,7 @@ export class AddUserComponent implements OnInit {
     console.log(form.value);
     this.service.putUsers().subscribe(
       res => {
-        this.service.getUsers();
+        this.service.get();
       }
     );
   }

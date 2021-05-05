@@ -3,12 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IRacun } from '../models/racun.model';
 import { catchError } from 'rxjs/operators';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RacunService {
-  private _url: string = "http://rsspraksa-api.ml/racun";
+  readonly _url:string = MyConfig.adresaServera + '/racun';
   racuni: IRacun[] = [];
   constructor(private http: HttpClient) { this.racuni = []; }
   getRacuni(): Observable<IRacun[]>{

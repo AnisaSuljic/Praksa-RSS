@@ -6,13 +6,14 @@ import { catchError } from 'rxjs/operators';
 import { Vrsta } from '../models/vrsta.model';
 import { NgForm } from '@angular/forms';
 import { ItemsComponent } from '../items/items.component';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VrstaService {
 
-  private _url: string = 'http://rsspraksa-api.ml/vrsta';
+  readonly _url:string = MyConfig.adresaServera + '/vrsta';
   Vrsta: Vrsta[] = [];
   constructor(private http: HttpClient) { this.Vrsta = []; }
   formData:Vrsta = new Vrsta();

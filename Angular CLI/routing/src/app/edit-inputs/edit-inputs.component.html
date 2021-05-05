@@ -6,7 +6,7 @@
 </head>
 
 <div class="Frame">
-    <div class="header">
+    <div class="header" id="Head1">
         <div class="headerSpan">
             <span>Ulazni račun</span>
         </div>
@@ -17,6 +17,7 @@
             <button routerLink="/adminpanel/addInputs" class="addInputs">Printaj račun</button>
         </div>
     </div>
+    <div *ngIf="uredjivanje==true" class="alert-success">Uspješno ste ažurirali račun!</div>
     <div class="mainsection">
         <form #updateForm="ngForm" (ngSubmit)="updateRacun()">
         <!--firs red-->
@@ -37,15 +38,15 @@
                     <div class="form-row">
                         <div class="col">
                         <label>Današnji datum</label>
-                        <input type="datetime" [(ngModel)]="racun.datum" name="datum" class="form-control">
+                        <input type="datetime-local"  [(ngModel)]="racun.datum"  name="datum" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum računa</label>
-                            <input type="datetime" [(ngModel)]="racun.datumRacuna" name="datumRacuna" class="form-control">
+                            <input type="datetime-local" [(ngModel)]="racun.datumRacuna" name="datumRacuna" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum dospjeća</label>
-                            <input type="datetime" [(ngModel)]="racun.datumDospjeca" name="datumDospjeca" class="form-control">
+                            <input type="datetime-local" [(ngModel)]="racun.datumDospjeca" name="datumDospjeca" class="form-control">
                         </div>
                     </div>
                 <!--third row-->
@@ -53,23 +54,20 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="inputState">Skladište</label>
-                            <select id="inputState" [(ngModel)]="racun.skladisteUlazId" class="custom-select" >
-                                <option selected>{{racun.skladisteUlazId}}</option>
-                                <option>...</option>
+                            <select id="inputState" [(ngModel)]="racun.skladisteUlazId" name="skladisteUlazId" class="custom-select"  >
+                                <option *ngFor="let item of skladista" value="{{item.skladisteId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Vrsta plaćanja</label>
-                            <select id="inputState" [(ngModel)]="racun.vrstaPlacanjaId" class="custom-select">
-                                <option selected>{{racun.vrstaPlacanjaId}}</option>
-                                <option>...</option>
+                            <select id="inputState" [(ngModel)]="racun.vrstaPlacanjaId" name="vrstaPlacanjaId" class="custom-select">
+                                <option *ngFor="let item of vrstaPlacanja" value="{{item.vrstaPlacanjaId}}">{{item.naziv}}</option>
                             </select>
                         </div>
                         <div class="col">
                             <label for="inputState">Valuta</label>
-                            <select id="inputState" [(ngModel)]="racun.valutaId" class="custom-select">
-                                <option selected>{{racun.valutaId}}</option>
-                                <option>...</option>
+                            <select id="inputState" [(ngModel)]="racun.valutaId" name="valutaId" class="custom-select">
+                                <option *ngFor="let item of valuta" value="{{item.valutaId}}">{{item.oznaka}}</option>
                             </select>
                         </div>
                     </div>
@@ -109,8 +107,8 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <button type="button" class="btn btn-danger">Otkaži</button>
-                        <button type="submit" class="btn btn-info">Sačuvaj</button>
+                        <button type="button" (click)="OtkaziIzmjene()" class="btn btn-danger">Otkaži</button>
+                        <button type="submit" (click)="ToSection('Head1')" class="btn btn-info">Sačuvaj</button>
                     </div>
                 </div>
             </div>
@@ -124,9 +122,10 @@
             <span>Dodaj stavku</span>
         </div>
     </div>
+    <div *ngIf="dodavanje==true" class="alert-success">Uspješno ste dodali stavku računa!</div>
     <div id="AddItems" class="mainsection">
          <!--firs row-->
-        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka()">
+        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)">
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
@@ -166,7 +165,8 @@
                     </div>
                     <div class="col-2">
                         <label>MPC</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.ulaznaCijena" name="ulaznaCijena" class="form-control" placeholder="Maloprodajna cijena" >
+                        <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Maloprodajna cijena" readonly>
+                        <input type="text" *ngIf="artikl!=null" readonly [(ngModel)]="artikl.mpc" name="mpc" class="form-control" placeholder="Maloprodajna cijena" >
                     </div>
                 </div>
                 <!--fourth row-->
@@ -195,7 +195,7 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <button type="button" class="btn btn-danger">Otkaži</button>
+                        <button type="button" (click)="OtkaziIzmjene()" class="btn btn-danger">Otkaži</button>
                         <button type="submit" class="btn btn-info">Sačuvaj</button>
                     </div>
                 </div>
@@ -241,7 +241,8 @@
                       </tr>
                   </thead>
                   <tbody >
-                      <tr *ngFor="let item of artikli" id="trArtikl" (click)="getArtiklById(item.artiklId)">
+                      <tr *ngFor="let item of artikli" id="trArtikl" (click)="getArtiklById(item.artiklId)"
+                      style="cursor: pointer;">
                           <td data-label="Rbr">{{item.artiklId}}</td>
                           <td data-label="Naziv">{{item.naziv}}</td>
                           <td data-label="MPC">{{item.vpc}}</td>                          

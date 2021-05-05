@@ -28,11 +28,8 @@ export class SkladisteComponent implements OnInit {
       this.ngOnInit();
     }
     DeleteSkladiste() {
-      this._skladisteService.deleteSkladiste(this.idSkladista)
-      .subscribe(data => this.skladiste2 = data);
-      return this._skladisteService.getSkladiste()
-      .subscribe(
-        (result)=>{
+      return this._skladisteService.deleteSkladiste(this.idSkladista)
+      .subscribe((result)=>{
           this.ngOnInit();
           this.modalService.dismissAll();
         }

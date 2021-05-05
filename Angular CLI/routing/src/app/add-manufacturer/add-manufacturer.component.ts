@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../clients/client.model';
-import { ClientService } from '../clients/client.service';
-import { ManufacturerService } from '../manufacturers/manufacturer.service';
+import { Client } from '../models/client.model';
+import { ClientService } from '../services/client.service';
+import { ManufacturerService } from '../services/manufacturer.service';
 
 @Component({
   selector: 'app-add-manufacturer',
@@ -13,7 +13,7 @@ import { ManufacturerService } from '../manufacturers/manufacturer.service';
 export class AddManufacturerComponent implements OnInit {
   clients: Client[] = [];
   constructor(public service: ManufacturerService, public serviceclient: ClientService, private router: Router) {
-    this.serviceclient.getClients();
+    this.serviceclient.get();
    }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class AddManufacturerComponent implements OnInit {
     this.router.navigate(['/adminpanel/manufacturers']);
   }
   insertRecord(form: NgForm) {
-    this.service.post().subscribe(
+    this.service.postManufacturer().subscribe(
       res => {
         this.service.get();
       }
@@ -36,7 +36,7 @@ export class AddManufacturerComponent implements OnInit {
   }
   updateRecord(form: NgForm) {
     console.log(form.value);
-    this.service.put().subscribe(
+    this.service.putManufacturer().subscribe(
       res => {
         this.service.get();
       }

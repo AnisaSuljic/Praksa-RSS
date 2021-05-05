@@ -1,3 +1,16 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
 <div class="Frame">
     <div class="header">
         <span>Kupac</span>
@@ -5,29 +18,50 @@
     <form action="" #form="ngForm" (submit)="onSubmit(form)">
         <div class="mainsection">
             <!--firs red-->
-            <div class="form-row">
+            <div class="form-group">
                 <input type="hidden" name="proizvodjacID" [value]="service.formData.proizvodjacId">
-                <div class="col-8 form-group">
-                    <label>Naziv</label>
-                    <input type="text" class="form-control" placeholder="Naziv" name="naziv" #naziv="ngModel" [(ngModel)]="service.formData.naziv">
+                <div class="form-row">
+                    <div class="col">
+                        <label>Naziv</label>
+                        <input type="text" class="form-control" name="naziv" placeholder="Naziv" #naziv="ngModel" 
+                        [(ngModel)]="service.formData.naziv">
+                    </div>
+                    <div class="col">
+                        <label>Klijent</label>
+                        <!-- <input type="text" class="form-control" placeholder="Klijent ID" name="klijentId" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId"> -->
+                        <select name="klijentId" class="form-control" #klijentId="ngModel"
+                            [(ngModel)]="service.formData.klijentId">
+                            <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
+                            <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId">
+                                {{klijent.naziv}} </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-8 form-group">
-                    <label>Klijent</label>
-                    <!-- <input type="text" class="form-control" placeholder="Klijent ID" name="klijentId" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId"> -->
-                    <select name="klijentId" class="form-control" #klijentId="ngModel"
-                        [(ngModel)]="service.formData.klijentId">
-                        <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
-                        <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId"> {{klijent.naziv}} </option>
-                    </select>
+                <hr>
+                <!-- <div class="form-row">
+                    <div class="col-8 form-group">
+                        <label>Naziv</label>
+                        <input type="text" class="form-control" placeholder="Naziv" name="naziv" #naziv="ngModel"
+                            [(ngModel)]="service.formData.naziv">
+                    </div>
+                    <div class="col-8 form-group">
+                        <label>Klijent</label>
+                        <input type="text" class="form-control" placeholder="Klijent ID" name="klijentId" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId">
+                        <select name="klijentId" class="form-control" #klijentId="ngModel" [(ngModel)]="service.formData.klijentId">
+                            <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
+                            <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId">
+                                {{klijent.naziv}} </option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <!--Buttons-->
+                <hr> -->
+                <!--Buttons-->
 
-            <div class="form-row">
-                <div class="col">
-                    <button type="button" class="btn btn-danger">Otkaži</button>
-                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                <div class="form-row">
+                    <div class="col">
+                        <button type="button" class="btn btn-danger" routerLink="/adminpanel/manufacturers">Otkaži</button>
+                        <button type="submit" class="btn btn-info">Sačuvaj</button>
+                    </div>
                 </div>
             </div>
         </div>

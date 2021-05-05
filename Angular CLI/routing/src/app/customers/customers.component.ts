@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CustomerService } from './customer.service';
-import { Customer } from './customer.model';
+import { CustomerService } from '../services/customer.service';
+import { Customer } from '../models/customer.model';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,6 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.get();
-    //this.crudservice.get();
   }
   resetForm() {
     this.service.formData = new Customer();
@@ -29,12 +28,11 @@ export class CustomersComponent implements OnInit {
   }
   uredi(x: Customer) {
     this.service.formData = x;
-    //this.crudservice.formData[0] = x;
     this.router.navigate(['/adminpanel/addcustomer']);
   }
   obrisi(x: number | undefined) {
       if (confirm('Jeste li sigurni?')) {
-        this.service.delete(x as number).subscribe(res => { this.service.get(); });
+        this.service.deleteCustomer(x as number).subscribe(res => { this.service.get(); });
       }
   }
 

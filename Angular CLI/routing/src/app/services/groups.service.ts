@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Groups } from '../models/grupe.model';
+import { MyConfig } from '../my-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupsService {
-  private _url = 'http://rsspraksa-api.ml/grupa';
+  readonly _url:string = MyConfig.adresaServera + '/grupa';
   grupe: Groups[] = [];
   constructor(private http:HttpClient) { this.grupe = []; }
   formData:Groups = new Groups();
