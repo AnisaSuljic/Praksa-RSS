@@ -9,7 +9,7 @@ export class GradService {
   private _url = 'http://rsspraksa-api.ml/grad';
   grad: Grad[] = [];
   constructor(private http:HttpClient) { this.grad = []; }
-
+  formData:Grad=new Grad();
   getGrad():Observable<Grad[]>{
     return this.http.get<Grad[]>(this._url);
   }

@@ -8,6 +8,7 @@ import { Groups } from '../models/grupe.model';
 import { Manufacturer } from '../manufacturers/manufacturer.model';
 import { GroupsService } from '../services/groups.service';
 import { ManufacturerService } from '../manufacturers/manufacturer.service';
+import { GradService } from '../services/grad.service';
 
 @Component({
   selector: 'app-items',
@@ -24,9 +25,14 @@ export class ItemsComponent implements OnInit {
   idartikl: number=0;
   private routeSub!:Subscription;
 
-  constructor(private _artiklService: ArtiklService, private modalService: NgbModal,private route:ActivatedRoute, private _grupeService:GroupsService, private _proizvodjacService: ManufacturerService)
+  constructor(public _artiklService: ArtiklService,
+     private modalService: NgbModal,
+     private route:ActivatedRoute, public _grupeService:GroupsService, 
+     public _proizvodjacService: ManufacturerService)
   {
     this.artikl = new IArtikl();
+    this._grupeService.getGroups().subscribe(data => this.grupe = data);
+    this._proizvodjacService.get();
   }
 
   ngOnInit(): void {
@@ -37,7 +43,15 @@ export class ItemsComponent implements OnInit {
     console.log(this.artikl);
   }
   onSubmit(){
-    this._artiklService.addArtikl(this.artikl).subscribe(data=> this.artikli = data);
+    console.log(this.artikl);
+    this._artiklService.addArtikl(this.artikl)
+          .subscribe(data=>this._artiklService.getArtikli().subscribe(res=>this.artikli = res));
+  }
+  updateArtikl(){
+    console.log(this._artiklService.formData);
+    this._artiklService.updateArtikl(this._artiklService.formData.artiklId, this._artiklService.formData)
+        .subscribe(data=> this._artiklService.getArtikli().subscribe(res=> this.artikli = res));
+        this.ngOnInit();
   }
   DeleteArtikl() {
     this._artiklService.deleteArtikl(this.idartikl)
@@ -45,6 +59,7 @@ export class ItemsComponent implements OnInit {
     return this._artiklService.getArtikli()
     .subscribe(
       (result)=>{
+        this.artikli = []; this._artiklService.getArtikli().subscribe(data=> this.artikli=data);
         this.ngOnInit();
         this.modalService.dismissAll();
       }
@@ -52,6 +67,7 @@ export class ItemsComponent implements OnInit {
   }
 /**Modal Add */
 Add(content:any) {
+  this.artikl = new IArtikl();
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -60,7 +76,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item: IArtikl) {
+  this.idartikl = item.artiklId;
+  this._artiklService.formData=Object.assign({}, item);
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

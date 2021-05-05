@@ -11,7 +11,7 @@ export class SkladisteService {
   private _url = 'http://rsspraksa-api.ml/skladiste';
   skladiste: Skladiste[] = [];
   constructor(private http:HttpClient) { this.skladiste = []; }
-
+  formData:Skladiste = new Skladiste();
   getSkladiste():Observable<Skladiste[]>{
     return this.http.get<Skladiste[]>(this._url);
   }

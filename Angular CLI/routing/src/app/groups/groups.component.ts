@@ -24,7 +24,7 @@ export class GroupsComponent implements OnInit {
   idgroup: number=0;
   uspjesnoDodavanje:boolean=false;
   private routeSub!:Subscription;
-  constructor(private _groupService: GroupsService, private modalService: NgbModal, private router:Router, private _porezService:PorezService, private _vrstaService:VrstaService) 
+  constructor(public _groupService: GroupsService, private modalService: NgbModal, private router:Router, private _porezService:PorezService, private _vrstaService:VrstaService) 
   {
     this.grupa = new Groups();
    }
@@ -33,14 +33,18 @@ export class GroupsComponent implements OnInit {
     this._groupService.getGroups().subscribe(data => this.grupe = data);
     this._porezService.getPorez().subscribe(data=> this.porezi = data);
     this._vrstaService.getVrsta().subscribe(data=> this.vrste = data);
-console.log(this.grupa);
+
   }
   
   onSubmit(){
     this._groupService.addGroups(this.grupa).subscribe((result)=>{
-      this.router.navigate(["/adminpanel/groups"]);
-      this.uspjesnoDodavanje=true;
+      this._groupService.getGroups().subscribe(res=>this.grupe = res);
     });
+  }
+  updateGroups() {
+    this._groupService.updateGroups(this._groupService.formData.grupaId, this._groupService.formData)
+      .subscribe(data => this._groupService.getGroups().subscribe(res => { this.grupe = []; this._groupService.getGroups().subscribe(temp => this.grupe = temp); }));
+    this.ngOnInit();
   }
   Zatvori(){
     this.router.navigate(["/adminpanel/groups"]);
@@ -56,14 +60,10 @@ console.log(this.grupa);
       }
     );
   }
-  updateGroups(){
-    console.log(this.grupa);
-    this._groupService.updateGroups(this.grupa.grupaId, this.grupa).subscribe(data => this.grupa = data);
-    this.router.navigate([("/adminpanel/groups")]);
-  }
 
 /**Modal Add */
 Add(content:any) {
+  this.grupa = new Groups();
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -72,7 +72,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item:Groups) {
+  this.idgroup=item.grupaId;
+  this._groupService.formData = Object.assign({},item);
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

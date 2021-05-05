@@ -13,13 +13,19 @@ export class SkladisteComponent implements OnInit {
   closeResult:string='';
   skladiste2!: Skladiste;
   idSkladista:number=0;
-  constructor(private _skladisteService: SkladisteService, private modalService: NgbModal) { this.skladiste2=new Skladiste();}
+  constructor(public _skladisteService: SkladisteService, private modalService: NgbModal) { this.skladiste2=new Skladiste();}
 
     ngOnInit(): void {
       this._skladisteService.getSkladiste().subscribe(data=>this.skladiste = data);
     }
     onSubmit(){
-      this._skladisteService.addSkladiste(this.skladiste2).subscribe(data=> this.skladiste = data);
+      this._skladisteService.addSkladiste(this.skladiste2)
+      .subscribe(data=> this._skladisteService.getSkladiste().subscribe(res=> this.skladiste = res) );
+    }
+    updateSkladiste() {
+      this._skladisteService.updateSkladiste(this._skladisteService.formData.skladisteId, this._skladisteService.formData)
+        .subscribe(data => this._skladisteService.getSkladiste().subscribe(res => { this.skladiste = []; this._skladisteService.getSkladiste().subscribe(temp => this.skladiste = temp); }));
+      this.ngOnInit();
     }
     DeleteSkladiste() {
       this._skladisteService.deleteSkladiste(this.idSkladista)
@@ -35,6 +41,7 @@ export class SkladisteComponent implements OnInit {
   
   /**Modal Add */
   Add(content:any) {
+    this.skladiste2 = new Skladiste();
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -43,7 +50,9 @@ export class SkladisteComponent implements OnInit {
   }
   /**Modal Update */
   
-  Update(content1:any) {
+  Update(content1:any, item:Skladiste) {
+    this.idSkladista = item.skladisteId;
+    this._skladisteService.formData=Object.assign({}, item);
     this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

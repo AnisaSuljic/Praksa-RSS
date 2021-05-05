@@ -14,14 +14,22 @@ export class GradComponent implements OnInit {
   closeResult:string='';
   grad2!: Grad;
   idGrada:number=0;
-  constructor(private _gradService: GradService, private modalService: NgbModal) { this.grad2=new Grad(); }
+  constructor(public _gradService: GradService, private modalService: NgbModal) { this.grad2=new Grad(); }
 
   ngOnInit(): void {
     this._gradService.getGrad().subscribe(data=>this.grad = data);
   }
   onSubmit(){
-    this._gradService.addGrad(this.grad2).subscribe(data=> this.grad = data);
+    this._gradService.addGrad(this.grad2).subscribe(data=>
+        this._gradService.getGrad().subscribe(res=>this.grad = res));
   }
+  updateGrad() {
+    console.log(this.grad);
+    this._gradService.updateGrad(this._gradService.formData.gradId, this._gradService.formData)
+      .subscribe(data => this._gradService.getGrad().subscribe(res => { this.grad = []; this._gradService.getGrad().subscribe(temp => this.grad = temp); }));
+    this.ngOnInit();
+  }
+
   DeleteGrad() {
     this._gradService.deleteGrad(this.idGrada)
     .subscribe(data => this.grad2 = data);
@@ -36,6 +44,7 @@ export class GradComponent implements OnInit {
 
 /**Modal Add */
 Add(content:any) {
+  this.grad2 = new Grad();
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -44,7 +53,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item:Grad) {
+  this.idGrada=item.gradId;
+  this._gradService.formData = Object.assign({},item);
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {

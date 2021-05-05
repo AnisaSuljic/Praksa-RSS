@@ -10,7 +10,7 @@ export class GroupsService {
   private _url = 'http://rsspraksa-api.ml/grupa';
   grupe: Groups[] = [];
   constructor(private http:HttpClient) { this.grupe = []; }
-
+  formData:Groups = new Groups();
   getGroups():Observable<Groups[]>{
     return this.http.get<Groups[]>(this._url);
   }

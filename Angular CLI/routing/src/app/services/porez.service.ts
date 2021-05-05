@@ -10,7 +10,7 @@ export class PorezService {
   private _url = 'http://rsspraksa-api.ml/porez';
   porez: Porez[] = [];
   constructor(private http:HttpClient) { this.porez = []; }
-
+  formData:Porez=new Porez();
   getPorez():Observable<Porez[]>{
     return this.http.get<Porez[]>(this._url);
   }

@@ -14,13 +14,19 @@ export class PorezComponent implements OnInit {
   closeResult:string='';
   porez2!: Porez;
   idPoreza:number=0;
-  constructor(private _porezService: PorezService, private modalService: NgbModal) { this.porez2=new Porez(); }
+  constructor(public _porezService: PorezService, private modalService: NgbModal) { this.porez2=new Porez(); }
 
   ngOnInit(): void {
     this._porezService.getPorez().subscribe(data=>this.porez = data);
   }
   onSubmit(){
-    this._porezService.addPorez(this.porez2).subscribe(data=> this.porez = data);
+    this._porezService.addPorez(this.porez2)
+    .subscribe(data=> this._porezService.getPorez().subscribe(res=> this.porez = res) );
+  }
+  updatePorez() {
+    this._porezService.updatePorez(this._porezService.formData.porezId, this._porezService.formData)
+      .subscribe(data => this._porezService.getPorez().subscribe(res => { this.porez = []; this._porezService.getPorez().subscribe(temp => this.porez = temp); }));
+    this.ngOnInit();
   }
   DeletePorez() {
     this._porezService.deletePorez(this.idPoreza)
@@ -36,6 +42,7 @@ export class PorezComponent implements OnInit {
 
 /**Modal Add */
 Add(content:any) {
+  this.porez2 = new Porez();
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
@@ -44,7 +51,9 @@ Add(content:any) {
 }
 /**Modal Update */
 
-Update(content1:any) {
+Update(content1:any, item: Porez) {
+  this.idPoreza = item.porezId;
+  this._porezService.formData= Object.assign({}, item);
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
