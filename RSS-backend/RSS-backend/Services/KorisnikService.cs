@@ -40,9 +40,8 @@ namespace RSS_backend.Services
             Database.Korisnik entity = _mapper.Map<Database.Korisnik>(request);
 
             entity.Obrisan = false;
-
             set.Add(entity);
-            Context.SaveChanges();
+            Context.SaveChanges();            
 
             return _mapper.Map<Faktura.Model.Korisnik>(entity);
         }
