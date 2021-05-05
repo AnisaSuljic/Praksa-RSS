@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RSS_backend.Database;
+using RSS_backend.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +47,10 @@ namespace RSS_backend.Services
             set.Add(entity);
             Context.SaveChanges();
 
-            var LozinkaSalt = GenerateSalt();
-            entity.Lozinka = GenerateHash(LozinkaSalt, request.Lozinka);
+            //var LozinkaSalt = GenerateSalt();
+            //entity.Lozinka = GenerateHash(LozinkaSalt, request.Lozinka);
 
-            Context.SaveChanges();
+            //Context.SaveChanges();
 
             return _mapper.Map<Faktura.Model.Korisnik>(entity);
         }
@@ -70,6 +72,29 @@ namespace RSS_backend.Services
             Context.SaveChanges();
             return _mapper.Map<Faktura.Model.Korisnik>(entity);
         }
+
+        //Login
+        public async Task<Faktura.Model.Korisnik> Login(string username, string password)
+        {
+            var entity = await Context.Korisniks.FirstOrDefaultAsync(x => x.KorisnickoIme == username);
+
+            if (entity == null)
+                throw new UserException("Pogrešno korisničko ime ili lozinka");
+            //var LozinkaSalt = GenerateSalt();
+            //var hash = GenerateHash(LozinkaSalt, password);
+            //
+            //if (hash != entity.Lozinka)
+            //    throw new UserException("Pogrešno korisničko ime ili lozinka");
+
+
+            //ovaj dio nece trebati ako se skonta hash (komentarisan kod iznad)
+            if (password != entity.Lozinka)
+                throw new UserException("Pogrešno korisničko ime ili lozinka");
+
+            return _mapper.Map<Faktura.Model.Korisnik>(entity);
+        }
+
+        //Lozinka hashiranje
 
         public static string GenerateSalt()
         {
