@@ -14,11 +14,11 @@
     <form #editStavkaForm="ngForm" (ngSubmit)="EditStavka(stavkaZaEdit.stavkeId)">
         <div class="form-group">
             <div class="form-row">
-                <label for="exampleFormControlInput1" class="font-weight-bold">Redni broj</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" [(ngModel)]="stavkaZaEdit.redniBroj" name="redniBroj">
-            </div>
-            <div class="form-row">
-                <div class="col-4">
+                <div class="col-md-6">
+                    <label for="exampleFormControlInput1" class="font-weight-bold">Redni broj</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" [(ngModel)]="stavkaZaEdit.redniBroj" name="redniBroj">
+                </div>
+                <div class="col-md-6 pt-4">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Odaberite artikal ->">
                         <div class="input-group-prepend">                        
@@ -29,11 +29,13 @@
             </div>
             <div class="form-row">
                 <label for="exampleFormControlSelect1" class="font-weight-bold">Sifra artikla</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.sifraArtikla" name="sifraArtikla">
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.sifraArtikla}}" readonly>
+                <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.sifra" name="sifra" readonly>
             </div>
             <div class="form-row">
                 <label for="exampleFormControlSelect1" class="font-weight-bold">Naziv artikla</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.nazivArtikla" name="nazivArtikla">
+                <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.nazivArtikla}}" readonly>
+                <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.naziv" name="naziv" readonly>
             </div>
             <div class="form-row">
                 <label for="exampleFormControlSelect1" class="font-weight-bold">Kolicina</label>
@@ -41,8 +43,8 @@
             </div>
             <div class="form-row">
                 <label for="inputState" class="font-weight-bold">Jedinica mjere</label>
-                <select id="inputState" class="custom-select" >
-                    <option  value="govno"></option>
+                <select id="inputState" [(ngModel)]="stavkaZaEdit.jedMjere" class="custom-select" >
+                    <option  *ngFor = "let item of jediniceMjere" value="item.jedinicaMjereId">{{item.naziv}}</option>
                 </select>
             </div>
             <div class="form-row">
@@ -58,19 +60,25 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">VPC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.vpc" name="vpc">
+                    <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.vpc}}" readonly>
+                    <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.vpc" name="vpc" readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">MPC</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.mpc" name="mpc">
+                    <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Sifra artikla" value="{{stavkaZaEdit.mpc}}" readonly>
+                    <input type="text" *ngIf="artikl!=null" class="form-control" id="exampleFormControlInput1" [(ngModel)]="artikl.mpc" name="mpc" readonly>
                 </div>
             </div>
             <div class="form-row">
                 <label for="exampleFormControlSelect1" class="font-weight-bold">PDV</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="17">
             </div>
-            <button type="button" class="btn btn-outline-dark" >Odustani</button>
-            <button type="submit" class="btn btn-outline-dark">Snimi promjene</button> 
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="submit" class="btn btn-info">Sačuvaj</button>
+                </div>
+            </div>
         </div>
     </form>
     </div>  

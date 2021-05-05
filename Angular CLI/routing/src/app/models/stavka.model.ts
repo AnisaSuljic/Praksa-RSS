@@ -8,6 +8,7 @@ export class IStavka {
     public sifraArtikla! : string;
     public nazivArtikla! : string;
     public jedMjere! : number;
+    public jedMjereNaziv! : string;
     public vpc! : number;
     public mpc! : number;
     public fisrabatbroj!: number;
