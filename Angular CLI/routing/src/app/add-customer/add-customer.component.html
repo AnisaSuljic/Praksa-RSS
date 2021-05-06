@@ -63,7 +63,7 @@
                     <select name="gradId" class="form-control" #gradId="ngModel"
                         [(ngModel)]="service.formData.gradId">
                         <option value="0" [disabled]=true [selected]=true>Odaberite grad</option>
-                        <option *ngFor="let grad of grad" [value]="grad.id"> {{grad.naziv}}</option>
+                        <option *ngFor="let grad of grad" [value]="grad.gradId"> {{grad.naziv}}</option>
                     </select>
                     </div>
                     <div class="col">

@@ -26,6 +26,10 @@ export class ClientService {
     const url = `${this.url}/${id}`;
     return this.http.get<Client>(url);
   }
+  getClientById2(id: number | undefined){
+    const url = `${this.url}/${id}`;
+    return this.http.get(url).toPromise().then(res => {this.client = res as Client; });
+  }
   postClient(): Observable<Client>{
     return this.http.post<Client>(this.url,this.formData);
   }

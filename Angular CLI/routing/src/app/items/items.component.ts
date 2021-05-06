@@ -7,8 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Groups } from '../models/grupe.model';
 import { Manufacturer } from '../models/manufacturer.model';
 import { GroupsService } from '../services/groups.service';
-import { ManufacturerService } from '../manufacturers/manufacturer.service';
+import { ManufacturerService } from '../services/manufacturer.service';
 import { GradService } from '../services/grad.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
+import { IJedinicaMjere } from '../models/jedinicamjere.model';
 
 @Component({
   selector: 'app-items',
@@ -19,28 +21,29 @@ export class ItemsComponent implements OnInit {
   public artikli : IArtikl[] = [];
   grupe: Groups[] = [];
   proizvodjaci: Manufacturer[]=[];
+  jediniceMjere: IJedinicaMjere[]=[];
    
   closeResult:string='';
   artikl!: IArtikl;
   idartikl: number=0;
   private routeSub!:Subscription;
 
-  constructor(public _artiklService: ArtiklService,
+  constructor(public _artiklService: ArtiklService, public _jedinicaMjereService: JedinicamjereService,
      private modalService: NgbModal,
      private route:ActivatedRoute, public _grupeService:GroupsService, 
      public _proizvodjacService: ManufacturerService)
   {
     this.artikl = new IArtikl();
-    this._grupeService.getGroups().subscribe(data => this.grupe = data);
-    this._proizvodjacService.get();
+    //this._grupeService.getGroups().subscribe(data => this.grupe = data);
+    //this._proizvodjacService.get();
   }
-
+  
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
     this._artiklService.getArtikli().subscribe(data => this.artikli = data);
     this._grupeService.getGroups().subscribe(data=> this.grupe = data);
-    this._proizvodjacService.getProizvodjac().subscribe(data=> this.proizvodjaci = data);
-    console.log(this.artikl);
+    this._proizvodjacService.getManufacturers().subscribe(data=> this.proizvodjaci = data);
+    this._jedinicaMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);
   }
   onSubmit(){
     console.log(this.artikl);
@@ -48,7 +51,6 @@ export class ItemsComponent implements OnInit {
           .subscribe(data=>this._artiklService.getArtikli().subscribe(res=>this.artikli = res));
   }
   updateArtikl(){
-    console.log(this._artiklService.formData);
     this._artiklService.updateArtikl(this._artiklService.formData.artiklId, this._artiklService.formData)
         .subscribe(data=> this._artiklService.getArtikli().subscribe(res=> this.artikli = res));
         this.ngOnInit();
