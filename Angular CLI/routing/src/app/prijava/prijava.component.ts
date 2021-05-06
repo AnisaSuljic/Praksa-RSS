@@ -49,7 +49,7 @@ export class PrijavaComponent implements OnInit {
     this.authenticationService.login().subscribe(data=>{ this.useri= data as User[];
               for(let i=0; i<this.useri.length;i++) if(this.useri[i].korisnickoIme == this.service.formData.korisnickoIme) this.authenticationService.currentUser = this.useri[i]; 
               this.router.navigate(['/adminpanel/companyProfile']);}
-              ,error => { this.error = error; console.log(error);});
+              ,error => { this.error = error; console.log(error); this.isError=true;});
     //this.authenticationService.login(this.service.formData.korisnickoIme, this.service.formData.lozinka).subscribe(data=>{this.router.navigate(['/adminpanel/companyprofile']);});
       // .pipe(first())
       // .subscribe(
