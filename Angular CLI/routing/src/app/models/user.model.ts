@@ -5,4 +5,6 @@ export class User {
     korisnickoIme?: string = '';
     lozinka?: string = '';
     klijentId?: number = 0;
+    public isAdmin!: boolean;
+
 }

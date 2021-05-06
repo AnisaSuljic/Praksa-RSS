@@ -38,12 +38,14 @@ namespace RSS_backend.Services
             var list = set.Where(x => x.Obrisan == false).ToList(); //samo ako nije obrisan da se prikazuje
             return _mapper.Map<List<Faktura.Model.Korisnik>>(list);
         }
+        
         public override Faktura.Model.Korisnik Insert(Faktura.Model.Requests.KorisnikInsertUpdate request)
         {
             var set = Context.Set<Database.Korisnik>();
             Database.Korisnik entity = _mapper.Map<Database.Korisnik>(request);
 
             entity.Obrisan = false;
+
             set.Add(entity);
             Context.SaveChanges();
 

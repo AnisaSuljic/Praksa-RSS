@@ -29,5 +29,9 @@ export class UserService {
   deleteUsers(id:number): Observable<User>{
     return this.http.delete<User>(`${this.url}/${id}`);
   }
-
+ //za registraciju
+ addKorisnik(korisnik: User) {
+    
+  return this.http.post<any>(this.url, korisnik);
+}
 }

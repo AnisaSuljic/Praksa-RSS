@@ -19,6 +19,7 @@ export class PrijavaComponent implements OnInit {
   submitted = false;
   returnUrl?: string;
   error = '';
+  isError:boolean=false;
   user:User =new User();
   useri:User[] = [];
 
