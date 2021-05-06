@@ -1,3 +1,4 @@
+
 <div class="add">
   <button (click)="Add(content)" class="adding">Dodaj artikl</button>
 </div>
@@ -30,7 +31,8 @@
             <li><a class="dropdown-item" href="#" *ngFor="let item of grupe" selected
                 value="item.grupaId">{{item.naziv}}</a></li>
           </ul> -->
-          <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="artikl.grupaId">
+          <select name="grupaId" class="form-control" #grupa="ngModel" 
+            [(ngModel)]="artikl.grupaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
             <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
               {{grupa.naziv}} </option>
@@ -99,8 +101,12 @@
               <li><a class="dropdown-item" href="#">l</a></li>
               <li><a class="dropdown-item" href="#">m</a></li>
             </ul> -->
-            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="">
+            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="ngModel"
+              [(ngModel)]="artikl.jedinicaMjereId">
               <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option>
+              <option *ngFor="let jedinice of jediniceMjere" [value]="jedinice.jedinicaMjereId">
+                {{jedinice.naziv}}
+              </option>
             </select>
           </div>
         </div>
