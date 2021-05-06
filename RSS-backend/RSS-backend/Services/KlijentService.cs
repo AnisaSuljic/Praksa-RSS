@@ -40,6 +40,7 @@ namespace RSS_backend.Services
             Database.Klijent entity = _mapper.Map<Database.Klijent>(request);
 
             entity.Obrisan = false;
+            entity.PotvrdjenMail = false;
 
             set.Add(entity);
             Context.SaveChanges();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RSS_backend.Services;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace RSS_backend.Controllers
             _crudService = service;
         }
         [HttpPost]
+        [AllowAnonymous]
         public T Insert([FromBody]TInsert request)
         {
             return _crudService.Insert(request);

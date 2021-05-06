@@ -20,6 +20,14 @@ html{
     padding: 50px;
     overflow-y: scroll;
 }
+#header1 h1{
+    color:#8c3cb1;
+}
+#header1 h6{
+    text-align: left;
+    color:#8c3cb1;
+    margin: 20px 0px 15px 0px;
+}
 .main-header{
     text-align: center;
     padding: 50px;
@@ -29,6 +37,7 @@ html{
     border-top:2px solid rgba(255, 255, 255, 0.486);
     border-left:2px solid rgba(255, 255, 255, 0.425);
     margin: auto;
+    width: 400px;
 }
 .main-header h1 {
     font-size: 2rem;
