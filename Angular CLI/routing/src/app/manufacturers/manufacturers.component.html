@@ -18,7 +18,7 @@
             <tr *ngFor="let item of this.service.manufacturers">
                 <td data-label="Redni broj">{{item.proizvodjacId}}</td>
                 <td data-label="Naziv">{{item.naziv}}</td>
-                <td data-label="Klijent">{{item.klijentId}}</td>
+                <td data-label="Klijent">{{item.klijentNaziv}}</td>
                 <td class="actions">
                     <button (click)="uredi(item)">Uredi</button>
                     <button (click)="obrisi(item.proizvodjacId)">Obriši</button>

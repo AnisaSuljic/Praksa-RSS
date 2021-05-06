@@ -19,6 +19,10 @@ export class ManufacturerService {
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       this.manufacturers = res as Manufacturer[];
+      for(let i=0; i< this.manufacturers.length;i++){
+        this.clientService.getClientById(this.manufacturers[i].klijentId).subscribe(data=>
+            this.manufacturers[i].klijentNaziv = data.naziv)
+      }
     });
   }
   getManufacturers():Observable<Manufacturer[]>{

@@ -7,5 +7,6 @@ export class Customer {
     telefon?: string = '';
     pdvbroj?: string = '';
     gradId?: number = 0;
+    gradNaziv?: string= '';
     klijentId?: number = 0;
 }
