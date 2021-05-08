@@ -20,6 +20,10 @@ export class UserService {
   getUsers(): Observable<User[]>{
     return this.http.get<User[]>(this.url);
   }
+  getUserById(id: number): Observable<User>{
+    const _url = `${this.url}/${id}`;
+    return this.http.get<User>(_url);
+  }
   postUsers(): Observable<User>{
     return this.http.post<User>(this.url,this.formData);
   }
@@ -31,7 +35,6 @@ export class UserService {
   }
  //za registraciju
  addKorisnik(korisnik: User) {
-    
   return this.http.post<any>(this.url, korisnik);
 }
 }
