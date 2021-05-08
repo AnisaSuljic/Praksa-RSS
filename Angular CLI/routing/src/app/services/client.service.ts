@@ -23,8 +23,12 @@ export class ClientService {
     return this.http.get<Client[]>(this.url);
   }
   getClientById(id: number | undefined): Observable<Client>{
+    const _url = `${this.url}/${id}`;
+    return this.http.get<Client>(_url);
+  }
+  getClientById2(id: number | undefined){
     const url = `${this.url}/${id}`;
-    return this.http.get<Client>(url);
+    return this.http.get(url).toPromise().then(res => {this.client = res as Client; });
   }
   postClient(): Observable<Client>{
     return this.http.post<Client>(this.url,this.formData);

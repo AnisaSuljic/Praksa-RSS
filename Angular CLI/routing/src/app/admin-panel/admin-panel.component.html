@@ -73,9 +73,11 @@
                 <span class="ti-search"></span>
                 <input type="text" placeholder="Pretraživač">
             </div>
+            <input value="{{this.service.currentUser.ime}}">
             <div class="social-icons">
                <a routerLink="/adminpanel/companyProfile" ><img src="../../assets/img/profile.png" alt=""></a> 
-               <a routerLink="/prijava"><img src="../../assets/img/logout.png" alt=""></a> 
+               <a (click)="odjavi()"><img src="../../assets/img/logout.png" alt="" style="cursor: pointer;"></a> 
+               <!-- <a routerLink="/prijava"><img src="../../assets/img/logout.png" alt=""></a>  -->
             </div>
         </header>
         <main>

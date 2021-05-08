@@ -14,13 +14,18 @@
 <body>
     <section id="header1">
         <div class="main-header">
-            <form>
+            <div *ngIf="isError==true" class="alert-success">Neispravnno korisničko ime ili lozinka.</div>
+
+            <form #form="ngForm" (submit)="onSubmit()">
                 <h1>Prijava</h1>
                 <hr/>
                 <h3>Dobrodošli na <span>Faktura.ba</span></h3>
-                <p><input type="text" placeholder="Korisničko ime"></p>
-                <p><input type="password" placeholder="Lozinka"></p>
-                <p><button routerLink="/adminpanel/companyProfile" >Nastavi</button></p>
+                <p><input type="text" class="form-control" name="korisnickoIme" placeholder="Korisnicko ime" #korisnickoIme="ngModel" 
+                    [(ngModel)]="this.service.formData.korisnickoIme"></p>
+                <p><input type="text" class="form-control" name="lozinka" placeholder="Lozinka" #lozinka="ngModel"
+                    [(ngModel)]="this.service.formData.lozinka"></p>
+                <p><button type="submit" class="btn btn-primary">Nastavi</button></p>
+                <!-- <p><button routerLink="/adminpanel/companyProfile" >Nastavi</button></p> -->
             </form>
         </div>
     </section>

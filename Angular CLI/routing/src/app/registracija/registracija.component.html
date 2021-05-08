@@ -14,21 +14,27 @@
 <body>
     <section id="header1">
             <div class="main-header">
-                <form>
+            <div *ngIf="IsReistrovan==true" class="alert-success">Posjetite Email da biste verifikovali račun.</div>
+
+                <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
                     <h1>Registracija</h1>
-                    <hr/>
-                    <h3>Dobrodošli na <span>Faktura.ba</span></h3>
-                    <p><input type="text" placeholder="Naziv firme"></p>
-                    <p><input type="text" placeholder="Adresa"></p>            
-                    <p><input type="text" placeholder="Mjesto"></p>            
-                    <p><input type="text" placeholder="PDV broj"></p>
-                    <p><input type="text" placeholder="ID broj"></p>
-                    <p><input type="text" placeholder="Telefon"></p>
-                    <p><input type="text" placeholder="Email"></p>
-                    <p><input type="text" placeholder="Ime i prezime odgovorne osobe"></p>
-                    <p><input type="password" placeholder="Lozinka"></p>
-                    <p><input type="password" placeholder="Potvrda lozinke"></p>
-                    <p><button >Registruj se</button></p>
+                    <h6>Podaci o firmi</h6>
+                    <p><input type="text" [(ngModel)]="klijent.naziv" name="naziv" placeholder="Naziv firme"></p>
+                    <p><input type="text" [(ngModel)]="klijent.adresa" name="adresa"placeholder="Adresa"></p>            
+                    <p><input type="text" [(ngModel)]="klijent.mjesto" name="mjesto"placeholder="Mjesto"></p>            
+                    <p><input type="text" [(ngModel)]="klijent.pdvbroj" name="pdvbroj"placeholder="PDV broj"></p>
+                    <p><input type="text"  [(ngModel)]="klijent.idbroj" name="idbroj"placeholder="ID broj"></p>
+                    <p><input type="text" [(ngModel)]="klijent.telefon" name="telefon"placeholder="Telefon"></p>
+                    <p><input type="text" [(ngModel)]="klijent.email" name="email"placeholder="Email"></p>
+                    <p><input type="text" [(ngModel)]="klijent.odgovornaOsoba" name="odgovornaOsoba"placeholder="Ime i prezime odgovorne osobe"></p>
+                    
+                    <h6>Podaci o administratoru</h6>
+                    <p><input type="text"[(ngModel)]="korisnik.ime" name="ime" placeholder="Ime"></p>            
+                    <p><input type="text" [(ngModel)]="korisnik.prezime" name="prezime"placeholder="Prezime"></p>            
+                    <p><input type="text" [(ngModel)]="korisnik.korisnickoIme" name="korisnickoIme"placeholder="Korisničko ime"></p>            
+                    <p><input type="password" [(ngModel)]="korisnik.lozinka" name="lozinka"placeholder="Lozinka"></p>
+
+                    <p><button type="submit" >Registruj se</button></p>
                 </form>
             </div>
         

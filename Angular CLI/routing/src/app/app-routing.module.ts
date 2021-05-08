@@ -35,7 +35,7 @@ import { EditStavkaComponent } from './edit-stavka/edit-stavka.component';
 
 
 const routes: Routes = [
-  {path: 'prijava', component: PrijavaComponent},
+  {path: 'prijava/:id', component: PrijavaComponent},
   {path: 'registracija', component:RegistracijaComponent},
   {path: 'adminpanel', component:AdminPanelComponent, children:[
 {path:'companyProfile',component:CompanyProfileComponent},

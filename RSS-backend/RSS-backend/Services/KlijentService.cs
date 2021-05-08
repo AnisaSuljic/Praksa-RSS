@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Policy;
 
 namespace RSS_backend.Services
 {
@@ -40,11 +43,34 @@ namespace RSS_backend.Services
             Database.Klijent entity = _mapper.Map<Database.Klijent>(request);
 
             entity.Obrisan = false;
+            //entity.PotvrdjenMail = false;
 
             set.Add(entity);
             Context.SaveChanges();
 
+            VerifikacijaMejla(entity);
+
             return _mapper.Map<Faktura.Model.Klijent>(entity);
+        }
+        public async void VerifikacijaMejla(Klijent client)
+        {
+            var link = "localhost:4200/prijava/" + client.KlijentId;
+
+            MailMessage message = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+            message.From = new MailAddress("fakturarsstest@gmail.com");
+            message.To.Add(new MailAddress(client.Email));
+            message.Subject = "Test";
+            message.IsBodyHtml = true; //to make message body as html  
+            message.Body =string.Format($"<a href=\"http://localhost:4200/prijava/\'{client.KlijentId}\'\">Potvrdite email klikom na ovaj link<a>");
+            smtp.Port = 587;
+            smtp.Host = "smtp.gmail.com"; //for gmail host  
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("fakturarsstest@gmail.com", "Mostar2021!");
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Send(message);
+            return;
         }
         public override Faktura.Model.Klijent GetById(int id)
         {

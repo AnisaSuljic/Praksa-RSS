@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ClientService } from '../services/client.service';
 
+
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -11,11 +12,14 @@ import { ClientService } from '../services/client.service';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[]=[];
-  constructor(private http: HttpClient, private router: Router, public service: ClientService) { }
+  constructor(private http: HttpClient, private router: Router, public service: ClientService) {
+      
+    }
 
   ngOnInit(): void {
     this.service.get();
   }
+
   uredi(x: Client) {
     this.service.formData = x;
     this.router.navigate(['/adminpanel/addclient']);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from '../authentication-service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -9,9 +11,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AdminPanelComponent implements OnInit {
   closeResult:string="";
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, public service: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
+    
   }
  
 /**Modal Add */
@@ -51,7 +54,10 @@ Add(content:any) {
     }
   }
 
-  
+  odjavi(){
+    this.service.logout();
+    //this.router.navigate(['/prijava']);
+  }
 
 
 }
