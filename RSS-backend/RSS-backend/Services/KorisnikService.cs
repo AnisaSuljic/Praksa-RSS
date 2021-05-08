@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RSS_backend.Services
 {
     public class KorisnikService : BaseCRUDService<Faktura.Model.Korisnik, Database.Korisnik, Faktura.Model.Korisnik, Faktura.Model.Requests.KorisnikInsertUpdate,
@@ -56,6 +57,7 @@ namespace RSS_backend.Services
 
             return _mapper.Map<Faktura.Model.Korisnik>(entity);
         }
+        
         public override Faktura.Model.Korisnik GetById(int id)
         {
             var set = Context.Set<Database.Korisnik>();

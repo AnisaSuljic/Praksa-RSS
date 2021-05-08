@@ -45,6 +45,6 @@ export class AuthenticationService {
         localStorage.removeItem('token');
         this.currentUser = new User();
         this.userSubject.next(this.currentUser);
-        //this.router.navigate(['/login']);
+        this.router.navigate(['/prijava']);
     }
 }

@@ -23,8 +23,8 @@ export class ClientService {
     return this.http.get<Client[]>(this.url);
   }
   getClientById(id: number | undefined): Observable<Client>{
-    const url = `${this.url}/${id}`;
-    return this.http.get<Client>(url);
+    const _url = `${this.url}/${id}`;
+    return this.http.get<Client>(_url);
   }
   getClientById2(id: number | undefined){
     const url = `${this.url}/${id}`;

@@ -15,6 +15,7 @@ import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
 import { EditStavkaComponent } from './edit-stavka/edit-stavka.component';
 import { BasicAuthInterceptor } from './basic-auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BasicAuthInterceptor } from './basic-auth-interceptor';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi:true}],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi:true},
+              { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

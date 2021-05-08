@@ -7,7 +7,7 @@ import { MyConfig } from '../my-config';
   providedIn: 'root'
 })
 export class RegistracijaService {
-
+  klijent?:IKlijent;
   readonly _url:string = MyConfig.adresaServera + '/klijent';
   constructor(private http: HttpClient) { }
 

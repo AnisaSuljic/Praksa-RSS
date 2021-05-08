@@ -8,4 +8,5 @@ export class Client {
     telefon?: string = '';
     odgovornaOsoba?: string = '';
     email?: string = '';
+    isPotvrdjen?: boolean = false;
 }
