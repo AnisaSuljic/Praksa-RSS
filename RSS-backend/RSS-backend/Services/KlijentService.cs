@@ -70,6 +70,10 @@ namespace RSS_backend.Services
             smtp.Credentials = new NetworkCredential("fakturarsstest@gmail.com", "Mostar2021!");
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.Send(message);
+
+            client.PotvrdjenMail = true;
+            Context.SaveChanges();
+
             return;
         }
         public override Faktura.Model.Klijent GetById(int id)

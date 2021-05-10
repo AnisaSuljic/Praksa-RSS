@@ -35,6 +35,7 @@ export class EditStavkaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.modalService.dismissAll();
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'] //log the value of id
     });
