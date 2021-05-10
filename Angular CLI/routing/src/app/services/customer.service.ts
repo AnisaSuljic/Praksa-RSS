@@ -3,25 +3,38 @@ import { Injectable } from '@angular/core';
 import { MyConfig } from '../my-config';
 import { Customer } from '../models/customer.model';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { GradService } from './grad.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
   customers: Customer[]=[];
-
-  constructor(private http:HttpClient) { }
-
   readonly url:string = MyConfig.adresaServera + '/kupac';
   formData:Customer = new Customer();
+  currUser?: User;
+  
+  constructor(private http:HttpClient, private _gradService: GradService) {
+    this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+   }
 
   get(){
-    return this.http.get(this.url).toPromise().then(res => { this.customers = res as Customer[] });
+    return this.http.get(this.url).toPromise().then(res => { 
+      const customeri = res as Customer[];
+      const currUser:User = JSON.parse(localStorage.getItem('currentUser')!);
+      this.customers = customeri.filter(obj => obj.klijentId == currUser.klijentId);
+      for(let i=0; i< this.customers.length;i++){
+        this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
+            this.customers[i].gradNaziv = data.naziv)
+      }
+    });
   }
   getCustomers(): Observable<Customer[]>{
     return this.http.get<Customer[]>(this.url);
   }
   postCustomer(): Observable<Customer>{
+    this.formData.klijentId = this.currUser?.klijentId;
     return this.http.post<Customer>(this.url,this.formData);
   }
   putCustomer(): Observable<Customer>{

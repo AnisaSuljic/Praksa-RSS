@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<div class="tableFrame">
+<div *ngIf="this.currUser.isAdmin!==false" class="tableFrame">
     <div class="header">
         <div class="headerSpan">
             <span>Korisnici</span>
@@ -26,17 +26,17 @@
                 <th>Ime</th>
                 <th>Prezime</th>
                 <th>Korisnicko ime</th>
-                <th>Klijent</th>
+                <!-- <th>Klijent</th> -->
                 <th>Akcije</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of this.service.users">
-                <td data-label="Redni broj">{{item.korisnikId}}</td>
+            <tr *ngFor="let item of this.service.users; let i=index">
+                <td data-label="Redni broj">{{i + 1}}</td>
                 <td data-label="Ime">{{item.ime}}</td>
                 <td data-label="Prezime">{{item.prezime}}</td>
                 <td data-label="Korisnicko ime">{{item.korisnickoIme}}</td>
-                <td data-label="PDV broj">{{item.klijentId}}</td>
+                <!-- <td data-label="Klijent">{{item.klijentId}}</td> -->
                 <td class="actions">
                     <button (click)="uredi(item)">Uredi</button>
                     <button (click)="obrisi(item.korisnikId)">Obriši</button>

@@ -1,0 +1,95 @@
+import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { map } from 'rxjs/operators';
+import { Client } from '../../models/client.model';
+import { Manufacturer } from '../../models/manufacturer.model';
+import { MyConfig } from '../../my-config';
+import { ClientService } from '../../services/client.service';
+import { ManufacturerService } from '../../services/manufacturer.service';
+
+@Component({
+  selector: 'app-manufacturers',
+  templateUrl: './manufacturers.component.html',
+  styleUrls: ['./manufacturers.component.css']
+})
+export class ManufacturersComponent implements OnInit {
+  client!: Client;
+  clients: Client[] = [];
+  manufacturers: Manufacturer[] = [];
+  manufacturer!: Manufacturer;
+  closeResult: string = '';
+  readonly url: string = MyConfig.adresaServera + '/proizvodjac';
+  constructor(private modalService: NgbModal, private http: HttpClient,
+    private router: Router, public service: ManufacturerService,
+    public serviceclient: ClientService) {
+    this.manufacturer = new Manufacturer()
+  }
+
+  ngOnInit(): void {
+    this.service.get();
+    this.serviceclient.get();
+  }
+  onSubmit() {
+    this.service.postManufacturer(this.manufacturer!).subscribe(data =>
+      this.service.get());
+  }
+  uredi() {
+    //this.router.navigate(['/adminpanel/addmanufacturer']);
+    this.service.putManufacturer(this.service.formData.proizvodjacId!, this.service.formData)
+      .subscribe(data => this.service.get());
+    this.ngOnInit();
+  }
+  obrisi() {
+    this.service.deleteManufacturer(this.manufacturer.proizvodjacId!)
+      .subscribe(res => { this.manufacturer = res });
+    return this.service.getManufacturers().subscribe(res => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
+    })
+  }
+  /**Modal Add */
+  Add(content: any) {
+    this.manufacturer = new Manufacturer();
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  /**Modal Update */
+
+  Update(content1: any, item: Manufacturer) {
+    this.service.formData = Object.assign({}, item);
+    this.modalService.open(content1, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+  /**Modal Delete */
+
+  Delete(content2: any, item: Manufacturer) {
+    this.manufacturer = item;
+    this.modalService.open(content2, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+}
+

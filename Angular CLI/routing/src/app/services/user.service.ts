@@ -9,13 +9,20 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   users: User[]=[];
-  constructor(private http:HttpClient) { }
-
+  users1: User[]=[];
   readonly url = MyConfig.adresaServera + '/korisnik';
-
   formData:User = new User();
+  currUser?: User;
+  constructor(private http:HttpClient) {
+    this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+   }
+
   get(){
-    return this.http.get(this.url).toPromise().then(res => { this.users = res as User[] });
+    return this.http.get(this.url).toPromise().then(res => { 
+      const useri:User[] = res as User[];
+      const currUser:User = JSON.parse(localStorage.getItem('currentUser')!);
+      this.users = useri.filter(obj => obj.klijentId == currUser.klijentId);
+    });
   }
   getUsers(): Observable<User[]>{
     return this.http.get<User[]>(this.url);
@@ -25,6 +32,8 @@ export class UserService {
     return this.http.get<User>(_url);
   }
   postUsers(): Observable<User>{
+    this.formData.klijentId = this.currUser?.klijentId;
+    this.formData.isAdmin = false;
     return this.http.post<User>(this.url,this.formData);
   }
   putUsers(): Observable<User>{
@@ -35,6 +44,7 @@ export class UserService {
   }
  //za registraciju
  addKorisnik(korisnik: User) {
+   korisnik.isAdmin = true;
   return this.http.post<any>(this.url, korisnik);
 }
 }

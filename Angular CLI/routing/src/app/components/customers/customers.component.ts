@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CustomerService } from '../services/customer.service';
-import { Customer } from '../models/customer.model';
+import { CustomerService } from '../../services/customer.service';
+import { Customer } from '../../models/customer.model';
 import { NgForm } from '@angular/forms';
 
 @Component({

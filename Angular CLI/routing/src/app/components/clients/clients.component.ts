@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from '../models/client.model';
+import { Client } from '../../models/client.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../../services/client.service';
 
 
 @Component({

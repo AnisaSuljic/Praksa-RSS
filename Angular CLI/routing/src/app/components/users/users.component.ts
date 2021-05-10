@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../models/user.model';
-import { UserService } from '../services/user.service';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 import { NgForm } from '@angular/forms';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../authentication-service';
+import { AuthenticationService } from '../../authentication/authentication-service';
 
 @Component({
   selector: 'app-users',
@@ -22,8 +22,10 @@ export class UsersComponent implements OnInit {
   returnUrl?: string;
   error = '';
   user: User = new User();
-
-  constructor(private http: HttpClient, private router: Router, public service: UserService, public serviceuser: UserService) {  }
+  currUser!: User;
+  constructor(private http: HttpClient, private router: Router, public service: UserService, public serviceuser: UserService) {
+      this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+    }
 
   ngOnInit(): void {
     this.service.get();
