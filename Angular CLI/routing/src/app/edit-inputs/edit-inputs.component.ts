@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
+import { IJedinicaMjere } from '../models/jedinicamjere.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
 import { IStavka } from '../models/stavka.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
 import { ArtiklService } from '../services/artikl.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { StavkaService } from '../services/stavka.service';
@@ -32,6 +34,10 @@ export class EditInputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrstaPlacanja: VrstaPlacanja[] = [];
   valuta: Valuta[] = [];
+  stavkeLista: IStavka[] = [];
+  public stavkePrikaz : IStavka[] = [];
+  public jedinicemjere: IJedinicaMjere[] = [];
+  stavkaBrisanje: IStavka = new IStavka();
 
   dodavanje:boolean=false;
   uredjivanje:boolean=false;
@@ -42,7 +48,8 @@ export class EditInputsComponent implements OnInit {
     private _artiklService: ArtiklService,
     private _stavkaService: StavkaService,
     private router: Router,private _skladisteService:SkladisteService,
-    private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService) { 
+    private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService,
+    private _jediniceMjereService:JedinicamjereService    ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
     }
@@ -51,6 +58,7 @@ export class EditInputsComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'] //log the value of id
     });
+
     this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
@@ -58,6 +66,30 @@ export class EditInputsComponent implements OnInit {
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
     this._valutaService.getValuta().subscribe(data => this.valuta = data);
+  
+    this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
+    this._stavkaService.getStavke().subscribe(data => {
+      for(let i = 0; i < data.length; i++){
+        this.stavkeLista.push(data[i]);
+        this._artiklService.getArtiklById(this.stavkeLista[i].artiklId).subscribe(l => {
+          this.stavkeLista[i].nazivArtikla = l.naziv;
+          this.stavkeLista[i].sifraArtikla = l.sifra;
+          this.stavkeLista[i].vpc = l.vpc;
+          this.stavkeLista[i].mpc = l.mpc;
+          this.stavkeLista[i].jedMjere = l.jedinicaMjereId;
+          this._jediniceMjereService.getJedinicaMjereById(l.jedinicaMjereId).subscribe(kl => {
+            this.stavkeLista[i].jedMjereNaziv = kl.naziv;
+          })
+        });
+      }
+    });
+    
+    for(let item of this.stavkeLista){
+      if(item.racunId == this.id){
+        console.log("1");
+        this.stavkePrikaz.push(item);
+      }
+    }
   }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
@@ -65,10 +97,14 @@ export class EditInputsComponent implements OnInit {
   }
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
-    this.stavka.klijentId = 2;
+    this.stavka.klijentId = this.racun.klijentId;
+    this.stavka.skladisteIzlazId = this.racun.skladisteIzlazId;
+    this.stavka.jedMjere = this.artikl.jedinicaMjereId;
+    this.stavka.redniBroj = this.stavkeLista.length + 1;
     this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
+    window.location.reload();
     this.dodavanje=true;
   }
   updateRacun(){
@@ -81,6 +117,26 @@ export class EditInputsComponent implements OnInit {
 
   OtkaziIzmjene(){
     window.location.reload();
+  }
+
+  DeleteStavkaConfirm(idStavke: any){
+    this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaBrisanje = data);
+    return this._stavkaService.getStavke().subscribe(
+      (result)=>{
+        window.location.reload();
+        this.modalService.dismissAll();
+      }
+    );
+  }
+
+  /**Modal Delete stavke */
+  DeleteStavka(content:any)
+  {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   /**Modal GetStavke */

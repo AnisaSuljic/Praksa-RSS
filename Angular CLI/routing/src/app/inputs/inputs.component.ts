@@ -23,10 +23,13 @@ export class InputsComponent implements OnInit {
   racun!: IRacun;
   idRacuna:number=0;
   idStavke:number=0;
+  stavkaEditID:number=0;
   public stavkeBaza : IStavka[] = [];
   brisanje:boolean=false;
   public dodavanje:boolean=false;
   public artikli : IArtikl[] = [];
+  EditeStavka!: IStavka;
+  artikl: any;
 
 
   constructor(private _racunService: RacunService,
@@ -34,7 +37,7 @@ export class InputsComponent implements OnInit {
     private _stavkaService: StavkaService,
     private _artiklService:ArtiklService,
     private _skladisteService: SkladisteService,
-    private _vrstaPlacanjaService:VrstaplacanjaService) { }
+    private _vrstaPlacanjaService:VrstaplacanjaService) { this.artikl=null; }
 
   ngOnInit(): void {
         this._racunService.getRacuni()
@@ -94,7 +97,32 @@ export class InputsComponent implements OnInit {
     );
   }
 
+  getArtiklById(id: any){
+    console.log(id);
+    this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
+    this.modalService.dismissAll();
+  }
+  /**Modal Artikli */
 
+Artikli(contentArtikli:any)
+{
+  this.modalService.open(contentArtikli, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+  /**Modal StavkaEdit */
+
+GetEdit(contentEdit:any,id:any){
+  
+  this.modalService.open(contentEdit, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+
+}
   /**Modal GetItems */
 Get(content:any,id: any) {
   this.idRacuna = id;

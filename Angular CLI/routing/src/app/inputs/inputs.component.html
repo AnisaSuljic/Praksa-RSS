@@ -106,7 +106,20 @@
                         outline: none;
                         margin: 5px 5px 0px 0px;
                         padding:1px 3px;">Obriši</button>
+                        <button 
+                        style="font-size: 12px;
+                        width: 80px;
+                        background-color:white ;
+                        border:1px solid #4c2083;
+                        border-radius: 15px;
+                        color: #4c2083;
+                        text-align: center;
+                        outline: none;
+                        margin: 5px 5px 0px 0px;
+                        padding:1px 3px;" routerLink="/adminpanel/editStavka/{{stavka.stavkeId}}">Uredi</button>
                       </td>
+
+              
 
                       <!--Delete stavka modal-->
               <ng-template #content3 let-modal>
@@ -135,4 +148,5 @@
         </form>
       </div>
     </ng-template>
+
 </div>
