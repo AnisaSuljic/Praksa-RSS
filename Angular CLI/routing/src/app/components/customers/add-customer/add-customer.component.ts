@@ -2,12 +2,12 @@ import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../models/client.model';
-import { ClientService } from '../services/client.service';
-import { Customer } from '../models/customer.model';
-import { Grad } from '../models/grad.model';
-import { CustomerService } from '../services/customer.service';
-import { GradService } from '../services/grad.service';
+import { Client } from '../../../models/client.model';
+import { ClientService } from '../../../services/client.service';
+import { Customer } from '../../../models/customer.model';
+import { Grad } from '../../../models/grad.model';
+import { CustomerService } from '../../../services/customer.service';
+import { GradService } from '../../../services/grad.service';
 
 @Component({
   selector: 'app-add-customer',

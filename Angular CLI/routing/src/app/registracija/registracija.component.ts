@@ -27,6 +27,7 @@ export class RegistracijaComponent implements OnInit {
   }
   onSubmit(){
     this.klijent.potvrdjenMail = false;
+    localStorage.setItem('token', window.btoa(this.korisnik.korisnickoIme + ':' + this.korisnik.lozinka));
     this._registracijaService.addKlijent(this.klijent).pipe(map(val => {this.klijent = val; this.korisnik.klijentId = this.klijent.klijentId; this.korisnik.isAdmin=true;} ))
           .subscribe( (data)=> 
           { this._korisnikService.addKorisnik(this.korisnik).subscribe( (result)=>{ this.IsReistrovan=true; });

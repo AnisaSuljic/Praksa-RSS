@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { User } from './models/user.model'
-import { MyConfig } from './my-config';
+import { User } from '../models/user.model'
+import { MyConfig } from '../my-config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
+    public useri: User[] = [];
     public currentUser: User;
 
     constructor(
@@ -27,18 +28,14 @@ export class AuthenticationService {
     } 
 
     login():Observable<User[]> {
-        return this.http.get<User[]>(`${MyConfig.adresaServera}/korisnik/`);
+        return this.http.get<User[]>(`${MyConfig.adresaServera}/korisnik/`)
+            .pipe(map( user=> { 
+                //user.authdata = window.btoa(username + ':' + password);
+                
+                //this.userSubject.next(user);
+                return user;
+            }));
     }
-    //login(username: string | undefined, password: string | undefined) :Observable<any> {
-        //return this.http.post<any>(`${MyConfig.adresaServera}/korisnik/login`, { username, password });
-            // .pipe(map(user => {
-            //     // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-            //     user.authdata = window.btoa(username + ':' + password);
-            //     localStorage.setItem('user', JSON.stringify(user));
-            //     this.userSubject.next(user);
-            //     return user;
-            // }));
-    //}
 
     logout() {
         // remove user from local storage to log user out

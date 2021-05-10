@@ -14,8 +14,8 @@ import { ArtiklComponent } from './artikl/artikl.component';
 import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
 import { EditStavkaComponent } from './edit-stavka/edit-stavka.component';
-import { BasicAuthInterceptor } from './basic-auth-interceptor';
-import { ErrorInterceptor } from './error-interceptor';
+import { BasicAuthInterceptor } from './interceptors/basic-auth-interceptor';
+import { ErrorInterceptor } from './interceptors/error-interceptor';
 
 @NgModule({
   declarations: [

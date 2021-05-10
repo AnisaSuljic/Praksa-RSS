@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { AuthenticationService } from '../authentication-service';
+import { AuthenticationService } from '../authentication/authentication-service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,10 +12,12 @@ import { AuthenticationService } from '../authentication-service';
 })
 export class AdminPanelComponent implements OnInit {
   closeResult:string="";
-  constructor(private modalService: NgbModal, public service: AuthenticationService, private router: Router) { }
+  currUser?: User;
+  constructor(private modalService: NgbModal, public service: AuthenticationService, private router: Router) {
+      this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+   }
 
   ngOnInit(): void {
-    
   }
  
 /**Modal Add */

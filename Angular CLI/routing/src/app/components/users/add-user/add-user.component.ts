@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../models/client.model';
-import { ClientService } from '../services/client.service';
-import { UserService } from '../services/user.service';
+import { Client } from '../../../models/client.model';
+import { User } from '../../../models/user.model';
+import { ClientService } from '../../../services/client.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -12,11 +13,15 @@ import { UserService } from '../services/user.service';
 })
 export class AddUserComponent implements OnInit {
   clients: Client[] = [];
+  currUser?: User;
+  currClient?: Client;
   constructor(public service: UserService, public serviceclient: ClientService, private router: Router) { 
     this.serviceclient.get();
+    this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+    serviceclient.getClientById(this.currUser?.klijentId).subscribe(res=> this.currClient = res);
   }
-
   ngOnInit(): void {
+    this.service.formData = new User();
   }
   onSubmit(form: NgForm) {
     if (this.service.formData.korisnikId == 0) {
@@ -37,7 +42,6 @@ export class AddUserComponent implements OnInit {
     );
   }
   updateRecord(form: NgForm) {
-    console.log(form.value);
     this.service.putUsers().subscribe(
       res => {
         this.service.get();
