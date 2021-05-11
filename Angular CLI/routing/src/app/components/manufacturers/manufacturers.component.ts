@@ -22,15 +22,13 @@ export class ManufacturersComponent implements OnInit {
   manufacturer!: Manufacturer;
   closeResult: string = '';
   readonly url: string = MyConfig.adresaServera + '/proizvodjac';
-  constructor(private modalService: NgbModal, private http: HttpClient,
-    private router: Router, public service: ManufacturerService,
-    public serviceclient: ClientService) {
+  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: ManufacturerService, public serviceclient: ClientService) {
     this.manufacturer = new Manufacturer()
+    this.service.get();
+    //this.serviceclient.get();
   }
 
   ngOnInit(): void {
-    this.service.get();
-    this.serviceclient.get();
   }
   onSubmit() {
     this.service.postManufacturer(this.manufacturer!).subscribe(data =>

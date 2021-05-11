@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../authentication/authentication-service';
 import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -13,8 +14,10 @@ import { User } from '../models/user.model';
 export class AdminPanelComponent implements OnInit {
   closeResult:string="";
   currUser?: User;
-  constructor(private modalService: NgbModal, public service: AuthenticationService, private router: Router) {
-      this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+  constructor(private modalService: NgbModal, public service: AuthenticationService, private router: Router, private _korisnikService:UserService) {
+    this._korisnikService.ucitajKorisnika().subscribe(res=> {
+      this.currUser = this._korisnikService.currUser;
+    });
    }
 
   ngOnInit(): void {

@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<div *ngIf="this.currUser.isAdmin!==false" class="tableFrame">
+<div *ngIf="(this.userObs | async)" class="tableFrame">
     <div class="header">
         <div class="headerSpan">
             <span>Korisnici</span>

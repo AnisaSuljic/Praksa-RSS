@@ -14,10 +14,11 @@ import { NgForm } from '@angular/forms';
 export class CustomersComponent implements OnInit {
   closeResult: string = '';
 
-  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { }
+  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { 
+    this.service.get();
+  }
 
   ngOnInit(): void {
-    this.service.get();
   }
   resetForm() {
     this.service.formData = new Customer();
