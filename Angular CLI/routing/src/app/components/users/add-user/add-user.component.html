@@ -15,7 +15,7 @@
     <div class="header">
         <span>Korisnik</span>
     </div>
-    <form action="" #form="ngForm" (submit)="onSubmit(form)">
+    <form novalidate autocomplete="off" action="" #form="ngForm" (submit)="onSubmit(form)">
         <div class="mainsection">
             <!--firs red-->
             <div class="form-group">
@@ -29,7 +29,7 @@
                     <div class="col">
                         <label>Prezime</label>
                         <input type="text" class="form-control" name="prezime" placeholder="Prezime"#Prezime="ngModel"
-                        [(ngModel)]="service.formData.prezime">
+                        [(ngModel)]="service.formData.prezime" >
                     </div>
                 </div>
                 <hr>
@@ -37,35 +37,21 @@
                     <div class="col">
                         <label>Korisnicko ime</label>
                         <input type="text" class="form-control" name="korisnickoIme" placeholder="Korisnicko ime" #korisnickoIme="ngModel" 
-                        [(ngModel)]="service.formData.korisnickoIme">
+                        [(ngModel)]="service.formData.korisnickoIme" (input)="provjeri()" required>
+                        <div *ngIf="isAvailable==false" class="alert-danger">Korisnicko ime je nedostupno</div>
                     </div>
                     <div class="col">
                         <label>Lozinka</label>
                         <input type="text" class="form-control" name="lozinka" placeholder="Lozinka"#lozinka="ngModel"
                         [(ngModel)]="service.formData.lozinka">
                     </div>
-                </div>
-                <!-- <hr> -->
-                <!-- <div class="form-row">
-                    <div class="col">
-                        <label>Klijent</label>
-                        <select name="klijentId" class="form-control" #klijentId="ngModel"
-                        [(ngModel)]="service.formData.klijentId">
-                        <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
-                        <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId">
-                            {{klijent.naziv}} </option>
-                        </select>
-                    </div>
-                    <div class="col"></div>
-                </div> -->
-                <!--Buttons-->
-                
+                </div>                
                 <hr>
                 <div class="form-row">
                     <div class="col">
                         <button type="button" class="btn btn-danger" routerLink="/adminpanel/users">Otkaži</button>
-                        <button type="submit" class="btn btn-info">Sačuvaj</button>
-                    </div>
+                        <button type="submit" class="btn btn-info" [disabled]="form.invalid" [disabled]="isAvailable==false" >Sačuvaj</button>
+                    </div> 
                 </div>
             </div>
         </div>

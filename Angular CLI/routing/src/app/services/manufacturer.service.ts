@@ -7,6 +7,7 @@ import { Client } from '../models/client.model';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { User } from '../models/user.model';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,19 +16,18 @@ export class ManufacturerService {
   client!:Client;
   readonly url:string = MyConfig.adresaServera + '/proizvodjac';
   formData:Manufacturer = new Manufacturer();
-  currUser?: User;
-  constructor(private http:HttpClient, public clientService:ClientService) { 
-    this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+  currUser!: User;
+  constructor(private http: HttpClient, public clientService: ClientService,
+    private _korisnikService: UserService) 
+    {
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+          this.currUser = this._korisnikService.currUser;
+        });
   }
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const manufactureri = res as Manufacturer[];
-      const currUser:User = JSON.parse(localStorage.getItem('currentUser')!);
-      this.manufacturers = manufactureri.filter(obj => obj.klijentId == currUser.klijentId);
-      for(let i=0; i< this.manufacturers.length;i++){
-        this.clientService.getClientById(this.manufacturers[i].klijentId).subscribe(data=>
-            this.manufacturers[i].klijentNaziv = data.naziv)
-      }
+      this.manufacturers = manufactureri.filter(obj => obj.klijentId == this.currUser.klijentId);
     });
   }
   getManufacturers():Observable<Manufacturer[]>{
@@ -38,7 +38,6 @@ export class ManufacturerService {
     return this.http.post<Manufacturer>(this.url,item);
   }
   putManufacturer(id: number, item: Manufacturer):Observable<Manufacturer>{
-    this.formData.klijentId = this.currUser?.klijentId;
     return this.http.put<Manufacturer>(`${this.url}/${id}`,item);
   }
   deleteManufacturer(id:number):Observable<Manufacturer>{

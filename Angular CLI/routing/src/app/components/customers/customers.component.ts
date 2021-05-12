@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../models/customer.model';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
@@ -14,8 +13,9 @@ import { NgForm } from '@angular/forms';
 export class CustomersComponent implements OnInit {
   closeResult: string = '';
 
-  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { }
-
+  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { 
+  }
+  
   ngOnInit(): void {
     this.service.get();
   }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MyConfig } from '../my-config';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -14,8 +15,10 @@ export class ClientService {
   client:Client = new Client();
   formData:Client = new Client();
   currUser?: User;
-  constructor(private http:HttpClient) { 
-    this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
+  constructor(private http:HttpClient, private _korisnikService: UserService) { 
+    this._korisnikService.ucitajKorisnika().subscribe(res=> {
+      this.currUser = this._korisnikService.currUser;
+    });
   }
   
   readonly url:string = MyConfig.adresaServera + '/klijent';

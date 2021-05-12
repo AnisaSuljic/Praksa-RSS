@@ -7,6 +7,8 @@ import { NgForm } from '@angular/forms';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication/authentication-service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -23,14 +25,18 @@ export class UsersComponent implements OnInit {
   error = '';
   user: User = new User();
   currUser!: User;
+  userObs!: Observable<boolean>;
   constructor(private http: HttpClient, private router: Router, public service: UserService, public serviceuser: UserService) {
-      this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
-    }
+    this.serviceuser.ucitajKorisnika().subscribe(res => {
+      this.currUser = this.serviceuser.currUser;
+      this.service.get();
+      this.userObs = serviceuser.getUserById(this.currUser.korisnikId!).pipe(map(res=> { return res.isAdmin; } ));
+    });
+  }
 
   ngOnInit(): void {
-    this.service.get();
   }
-  
+
 
   dodaj() {
     this.router.navigate(['/adminpanel/adduser']);
