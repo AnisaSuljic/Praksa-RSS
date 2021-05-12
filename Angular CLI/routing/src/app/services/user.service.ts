@@ -14,8 +14,6 @@ export class UserService {
   formData: User = new User();
   currUser!: User;
   constructor(private http: HttpClient) {
-    //this.currUser = JSON.parse(localStorage.getItem('currentUser')!);
-    //this.ucitaj();
   }
   ucitaj() {
     let rep: string = localStorage.getItem('token')!;

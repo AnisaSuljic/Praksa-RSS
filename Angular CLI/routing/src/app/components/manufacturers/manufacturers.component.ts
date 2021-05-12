@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs/operators';
 import { Client } from '../../models/client.model';
 import { Manufacturer } from '../../models/manufacturer.model';
 import { MyConfig } from '../../my-config';
@@ -15,19 +13,20 @@ import { ManufacturerService } from '../../services/manufacturer.service';
   templateUrl: './manufacturers.component.html',
   styleUrls: ['./manufacturers.component.css']
 })
-export class ManufacturersComponent implements OnInit {
+export class ManufacturersComponent implements OnInit{
   client!: Client;
   clients: Client[] = [];
   manufacturers: Manufacturer[] = [];
   manufacturer!: Manufacturer;
   closeResult: string = '';
   readonly url: string = MyConfig.adresaServera + '/proizvodjac';
-  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: ManufacturerService, public serviceclient: ClientService) {
-    this.manufacturer = new Manufacturer()
-    this.service.get();
-    //this.serviceclient.get();
-  }
-
+  constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, 
+    public service: ManufacturerService, public serviceclient: ClientService) {
+      this.manufacturer = new Manufacturer();
+      this.service.get();
+      //this.serviceclient.get();
+    }
+ 
   ngOnInit(): void {
   }
   onSubmit() {
@@ -35,7 +34,6 @@ export class ManufacturersComponent implements OnInit {
       this.service.get());
   }
   uredi() {
-    //this.router.navigate(['/adminpanel/addmanufacturer']);
     this.service.putManufacturer(this.service.formData.proizvodjacId!, this.service.formData)
       .subscribe(data => this.service.get());
     this.ngOnInit();

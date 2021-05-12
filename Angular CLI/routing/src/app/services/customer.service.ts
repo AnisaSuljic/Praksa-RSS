@@ -25,7 +25,6 @@ export class CustomerService {
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const customeri = res as Customer[];
-      //const currUser:User = JSON.parse(localStorage.getItem('currentUser')!);
       this.customers = customeri.filter(obj => obj.klijentId == this.currUser.klijentId);
       for(let i=0; i< this.customers.length;i++){
         this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>

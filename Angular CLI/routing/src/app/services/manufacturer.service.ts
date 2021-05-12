@@ -17,20 +17,17 @@ export class ManufacturerService {
   readonly url:string = MyConfig.adresaServera + '/proizvodjac';
   formData:Manufacturer = new Manufacturer();
   currUser!: User;
-  constructor(private http:HttpClient, public clientService:ClientService, private _korisnikService: UserService) { 
-    this._korisnikService.ucitajKorisnika().subscribe(res=> {
-      this.currUser = this._korisnikService.currUser;
-    });
+  constructor(private http: HttpClient, public clientService: ClientService,
+    private _korisnikService: UserService) 
+    {
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+          this.currUser = this._korisnikService.currUser;
+        });
   }
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const manufactureri = res as Manufacturer[];
-      //const currUser:User = JSON.parse(localStorage.getItem('currentUser')!);
       this.manufacturers = manufactureri.filter(obj => obj.klijentId == this.currUser.klijentId);
-      for(let i=0; i< this.manufacturers.length;i++){
-        this.clientService.getClientById(this.manufacturers[i].klijentId).subscribe(data=>
-            this.manufacturers[i].klijentNaziv = data.naziv)
-      }
     });
   }
   getManufacturers():Observable<Manufacturer[]>{
@@ -41,7 +38,6 @@ export class ManufacturerService {
     return this.http.post<Manufacturer>(this.url,item);
   }
   putManufacturer(id: number, item: Manufacturer):Observable<Manufacturer>{
-    this.formData.klijentId = this.currUser?.klijentId;
     return this.http.put<Manufacturer>(`${this.url}/${id}`,item);
   }
   deleteManufacturer(id:number):Observable<Manufacturer>{
