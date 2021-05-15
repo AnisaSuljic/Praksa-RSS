@@ -1,0 +1,90 @@
+<!-- Add modal -->
+<ng-template #content let-modal>
+    <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Dodavanje proizvodjaca</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Naziv proizvodjaca</label>
+          <input type="text" class="form-control" [(ngModel)]="manufacturer.naziv" 
+            name="naziv" id="exampleFormControlInput1" placeholder="">
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+      <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
+    </div>
+  </form>
+  </ng-template>
+
+  <!--Update modal-->
+  <ng-template #content1 let-modal>
+    <form #updateForm="ngForm" (ngSubmit)="uredi()"> 
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Naziv proizvodjaca</label>
+            <input type="text" class="form-control" [(ngModel)]="this.service.formData.naziv" name="naziv">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
+        <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>  </div>
+      </form>
+  </ng-template>
+
+   <!--Delete modal-->
+   <ng-template #content2 let-modal>
+    <div class="modal-header">
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-append">
+              <h6>Da li ste sigurni da želite obrisati?</h6>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+      <button type="button" class="btn btn-outline-dark" (click)="obrisi()">Da</button>
+    </div>
+  </ng-template>
+<div class="tableFrame">
+    <div class="header">
+        <div class="headerSpan">
+            <span>Proizvođač</span>
+        </div>
+        <button (click)="Add(content)" class="addInputs">Dodaj proizvođača</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Redni broj</th>
+                <th>Naziv</th>
+                <!-- <th>Klijent</th> -->
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of this.service.manufacturers; let i = index">
+                <td data-label="Redni broj">{{i+1}}</td>
+                <td data-label="Naziv">{{item.naziv}}</td>
+                <!-- <td data-label="Klijent">{{item.klijentNaziv}}</td> -->
+                <td class="actions">
+                    <button (click)="Update(content1, item)">Uredi</button>
+                    <button (click)="Delete(content2, item)">Obriši</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>

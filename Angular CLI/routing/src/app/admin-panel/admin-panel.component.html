@@ -30,7 +30,7 @@
                     <div class="nav__dropdown">
                         <a class="nav__link">
                             <i class='bx bx-data nav__icon' ></i>
-                            <span class="nav__name">Vrste</span>
+                            <span class="nav__name">Podaci</span>
                         </a>
 
                         <div class="nav__dropdown-collapse">
@@ -42,8 +42,8 @@
                                 <a routerLink="/adminpanel/grad" class="nav__dropdown-item">Grad</a>
                                 <a routerLink="/adminpanel/skladiste" class="nav__dropdown-item">Skladište</a>
                                 <a routerLink="/adminpanel/porez" class="nav__dropdown-item">Porez</a>
-                                <a routerLink="/adminpanel/clients" class="nav__dropdown-item">Klijenti</a>
-                                <a routerLink="/adminpanel/users" class="nav__dropdown-item">Korisnici</a>
+                                <!-- <a routerLink="/adminpanel/clients" class="nav__dropdown-item">Klijenti</a> -->
+                                <a *ngIf="currUser?.isAdmin==true" routerLink="/adminpanel/users" class="nav__dropdown-item">Korisnici</a>
                                 <a routerLink="/adminpanel/manufacturers" class="nav__dropdown-item">Proizvođači</a>
                             </div>
                         </div>
@@ -73,8 +73,8 @@
                 <span class="ti-search"></span>
                 <input type="text" placeholder="Pretraživač">
             </div>
-            <input value="{{this.service.currentUser.ime}}">
             <div class="social-icons">
+                <p style="margin: 6px;">{{this?.currUser?.ime}}</p>
                <a routerLink="/adminpanel/companyProfile" ><img src="../../assets/img/profile.png" alt=""></a> 
                <a (click)="odjavi()"><img src="../../assets/img/logout.png" alt="" style="cursor: pointer;"></a> 
                <!-- <a routerLink="/prijava"><img src="../../assets/img/logout.png" alt=""></a>  -->

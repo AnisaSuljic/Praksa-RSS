@@ -1,4 +1,4 @@
-<div class="tableFrame">
+<div *ngIf="true!==true" class="tableFrame">
     <div class="header">
         <div class="headerSpan">
             <span>Klijenti</span>
@@ -21,8 +21,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of this.service.clients">
-                <td data-label="Redni broj">{{item.klijentId}}</td>
+            <tr *ngFor="let item of this.service.clients; let i = index">
+                <td data-label="Redni broj">{{i + 1}}</td>
                 <td data-label="Naziv">{{item.naziv}}</td>
                 <td data-label="Adresa">{{item.adresa}}</td>
                 <td data-label="Mjesto">{{item.mjesto}}</td>

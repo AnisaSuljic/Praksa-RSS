@@ -66,14 +66,6 @@
                         <option *ngFor="let grad of grad" [value]="grad.gradId"> {{grad.naziv}}</option>
                     </select>
                     </div>
-                    <div class="col">
-                        <label>Klijent</label>
-                    <select name="klijentId" class="form-control" #klijentId="ngModel"
-                        [(ngModel)]="service.formData.klijentId">
-                        <option value="0" [disabled]=true [selected]=true>Odaberite klijenta</option>
-                        <option *ngFor="let klijent of this.serviceclient.clients" [value]="klijent.klijentId"> {{klijent.naziv}} </option>
-                    </select>
-                    </div>
                 </div>
             </div>
             <hr>
@@ -81,7 +73,7 @@
 
             <div class="form-row">
                 <div class="col">
-                    <button type="button" class="btn btn-danger" routerLink="/adminpanel/customers">Otkaži</button>
+                    <button type="button" class="btn btn-danger" (click)="otkazi(form)">Otkaži</button>
                     <button type="submit" class="btn btn-info">Sačuvaj</button>
                 </div>
             </div>

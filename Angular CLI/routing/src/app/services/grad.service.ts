@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Grad } from '../models/grad.model';
+import { MyConfig } from '../my-config';
 @Injectable({
   providedIn: 'root'
 })
 export class GradService {
-  private _url = 'http://rsspraksa-api.ml/grad';
+  //private _url = 'http://rsspraksa-api.ml/grad';
+  readonly _url:string = MyConfig.adresaServera + '/grad';
   grad: Grad[] = [];
   constructor(private http:HttpClient) { this.grad = []; }
   formData:Grad=new Grad();

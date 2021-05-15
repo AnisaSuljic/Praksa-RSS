@@ -3,6 +3,8 @@ import { Client } from '../models/client.model';
 import { HttpClient } from '@angular/common/http';
 import { MyConfig } from '../my-config';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -11,11 +13,15 @@ import { Observable } from 'rxjs';
 export class ClientService {
   clients: Client[]=[];
   client:Client = new Client();
-
-  constructor(private http:HttpClient) { }
-
-  readonly url:string = MyConfig.adresaServera + '/klijent';
   formData:Client = new Client();
+  currUser?: User;
+  constructor(private http:HttpClient, private _korisnikService: UserService) { 
+    this._korisnikService.ucitajKorisnika().subscribe(res=> {
+      this.currUser = this._korisnikService.currUser;
+    });
+  }
+  
+  readonly url:string = MyConfig.adresaServera + '/klijent';
   get(){
     return this.http.get(this.url).toPromise().then(res => { this.clients = res as Client[]; });
   }

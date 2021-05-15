@@ -4,7 +4,7 @@ import { AddInputsComponent } from './add-inputs/add-inputs.component';
 import { AddOutputsComponent } from './add-outputs/add-outputs.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
-import { CustomersComponent } from './customers/customers.component';
+import { CustomersComponent } from './components/customers/customers.component';
 import { EditInputsComponent } from './edit-inputs/edit-inputs.component';
 import { EditOutputsComponent } from './edit-outputs/edit-outputs.component';
 import { GroupsComponent } from './groups/groups.component';
@@ -14,13 +14,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { OutputsComponent } from './outputs/outputs.component';
 import { PrijavaComponent } from './prijava/prijava.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
-import { AddCustomerComponent } from './add-customer/add-customer.component';
-import { ClientsComponent } from './clients/clients.component';
-import { AddClientComponent } from './add-client/add-client.component';
-import { ManufacturersComponent } from './manufacturers/manufacturers.component';
-import { AddManufacturerComponent } from './add-manufacturer/add-manufacturer.component';
-import { UsersComponent } from './users/users.component';
-import { AddUserComponent } from './add-user/add-user.component';
+import { AddCustomerComponent } from './components/customers/add-customer/add-customer.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { AddClientComponent } from './components/clients/add-client/add-client.component';
+import { ManufacturersComponent } from './components/manufacturers/manufacturers.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddUserComponent } from './components/users/add-user/add-user.component';
 
 
 
@@ -50,7 +49,6 @@ const routes: Routes = [
   {path: 'clients', component:ClientsComponent},
   {path: 'addclient', component:AddClientComponent},
   {path: 'manufacturers', component:ManufacturersComponent},
-  {path: 'addmanufacturer', component:AddManufacturerComponent},
   {path: 'users', component:UsersComponent},
   {path: 'adduser', component:AddUserComponent},
 
@@ -69,7 +67,8 @@ const routes: Routes = [
 
 
 ]},
-  {path: '', component:LandingPageComponent}
+  {path: '', component:LandingPageComponent},
+  { path: '**', component: LandingPageComponent }
 ];
 
 @NgModule({
@@ -80,6 +79,6 @@ export class AppRoutingModule { }
 export const RoutingComponents=[PrijavaComponent,RegistracijaComponent,AdminPanelComponent,LandingPageComponent,CompanyProfileComponent,
   VrsteComponent, GradComponent, PorezComponent, SkladisteComponent, ArtiklComponent,
   AddCustomerComponent,ClientsComponent,AddClientComponent,
-  ManufacturersComponent,AddManufacturerComponent,UsersComponent,AddUserComponent,CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,
+  ManufacturersComponent,UsersComponent,AddUserComponent,CustomersComponent,GroupsComponent,ItemsComponent,InputsComponent,OutputsComponent,
   AddInputsComponent,EditInputsComponent]
 

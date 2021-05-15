@@ -115,6 +115,72 @@
         </form>
     </div>
 
+<!--stavke lista -->
+<div class="header">
+    <div class="headerSpan">
+        <span>Lista stavki</span>
+    </div>
+</div>
+<div class="mainsection">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Redni broj</th>
+                <th>Sifra</th>
+                <th>Naziv</th>
+                <th>Kolicina</th>
+                <th>Jedinica mj</th>
+                <th>Cijena</th>
+                <th>Rabat</th>
+                <th>VPC</th>
+                <th>PDV</th>
+                <th>MPC</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of stavkeLista">
+            <tr *ngIf="item.racunId==racun.racunId">
+                <td data-label="Redni broj">{{item.redniBroj}}</td>
+                <td data-label="Sifra artikla">{{item.sifraArtikla}}</td>
+                <td data-label="Naziv artikla">{{item.nazivArtikla}}</td>
+                <td data-label="Kolicina">{{item.kolicina}}</td>
+                <td data-label="Jedinica mjere">{{item.jedMjereNaziv}}</td>
+                <td data-label="Cijena">{{item.cijenaBezPdv}}</td>
+                <td data-label="Rabat">{{item.rabat1}}</td>
+                <td data-label="VPC">{{item.vpc}}</td>
+                <td data-label="PDV">17</td>
+                <td data-label="MPC">{{item.mpc}}</td>
+                <td class="actions">
+                    <button (click)="DeleteStavka(contentstavka)">Obriši</button>
+                    <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button>
+                </td>
+              <!--Delete modal-->
+              <ng-template #contentstavka let-modal>
+                  <div class="modal-header">
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-append">
+                            <h6>Da li ste sigurni da želite obrisati?</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
+                    <button type="button" (click)="DeleteStavkaConfirm(item.stavkeId)" routerLink="/adminpanel/editOutputs/{{id}}" class="btn btn-outline-dark" >Da</button>
+                  </div>
+                </ng-template>
+                <!--End delete modal-->
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
 
     <!--Add items-->
     <div class="header">

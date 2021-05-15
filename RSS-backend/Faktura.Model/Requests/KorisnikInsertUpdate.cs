@@ -13,5 +13,6 @@ namespace Faktura.Model.Requests
         public string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
         public int? KlijentId { get; set; }
+        public bool isAdmin { get; set; }
     }
 }
