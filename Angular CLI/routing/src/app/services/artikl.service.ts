@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
 import { catchError } from 'rxjs/operators';
 import { MyConfig } from '../my-config';
+import { UserService } from './user.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,16 @@ import { MyConfig } from '../my-config';
 export class ArtiklService {
   readonly _url:string = MyConfig.adresaServera + '/artikl';
   Artikli: IArtikl[] = [];
-  constructor(private http: HttpClient) { this.Artikli = []; }
+  currUser!: User;
+  constructor(private http: HttpClient, private _korisnikService: UserService) {
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; }); 
+    this.Artikli = []; }
   formData:IArtikl=new IArtikl();
   getArtikli(): Observable<IArtikl[]>{
     return this.http.get<IArtikl[]>(this._url);
   }
   addArtikl(Artikl: IArtikl) {
+    Artikl.klijentId = this.currUser?.klijentId!;
     return this.http.post<any>(this._url, Artikl);
   }
   updateArtikl(id: number, item: IArtikl){

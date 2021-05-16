@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Groups } from '../models/grupe.model';
 import { MyConfig } from '../my-config';
+import { UserService } from './user.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,17 @@ import { MyConfig } from '../my-config';
 export class GroupsService {
   readonly _url:string = MyConfig.adresaServera + '/grupa';
   grupe: Groups[] = [];
-  constructor(private http:HttpClient) { this.grupe = []; }
+  currUser!: User;
+  constructor(private http:HttpClient, private _korisnikService: UserService) 
+  {
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; });
+    this.grupe = []; }
   formData:Groups = new Groups();
   getGroups():Observable<Groups[]>{
     return this.http.get<Groups[]>(this._url);
   }
   addGroups(Grupa: Groups) {
+    Grupa.klijentId = this.currUser?.klijentId!;
     return this.http.post<any>(this._url, Grupa);
   }
   updateGroups(id: number, item: Groups){
