@@ -2,6 +2,8 @@ export class IRacun {
     public racunId!: number;
     public brojRacuna!: string;
     public klijentId!: number;
+    public klijentNaziv?: string;
+
     public korisnikId!: number;
     public datum!: Date;
     public datumRacuna!: Date;
@@ -15,6 +17,7 @@ export class IRacun {
     public fisbroj!: string;
     public iznosRacuna!: number;
     public iznosPoreza!: number;
+    public iznosSaPdv!: number;
     public kupacId!: number;
     public vrstaPlacanjaId!: number;
     public godina!: number;

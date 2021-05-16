@@ -13,7 +13,7 @@ namespace RSS_backend.Database
         }
 
         public int RacunId { get; set; }
-        public int? BrojRacuna { get; set; }
+        public string BrojRacuna { get; set; }
         public int? KlijentId { get; set; }
         public int? KorisnikId { get; set; }
         public DateTime? Datum { get; set; }
@@ -32,6 +32,7 @@ namespace RSS_backend.Database
         public bool? Placen { get; set; }
         public string Napomena { get; set; }
         public bool? Obrisan { get; set; }
+        public decimal? IznosSaPdv { get; set; }
 
         public virtual Dokument Dokument { get; set; }
         public virtual Klijent Klijent { get; set; }

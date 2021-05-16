@@ -16,7 +16,7 @@
                     <div class="form-row">
                     <div class="col-4">
                         <label>Broj računa</label>
-                        <input type="text" class="form-control" [(ngModel)]="racuni.brojRacuna" name="brojRacuna" placeholder="Broj računa">
+                        <input type="text" class="form-control" readonly value="{{racuni.brojRacuna}}" name="BrojRacuna" placeholder="Broj računa">
                     </div>
                     <div class="col-4">
                         <label>Evidencijski broj</label>
@@ -29,15 +29,15 @@
                     <div class="form-row">
                         <div class="col">
                         <label>Današnji datum</label>
-                        <input type="date" [(ngModel)]="racuni.datum" name="datum" class="form-control">
+                        <input type="datetime" readonly value="{{datum1 | date : 'dd.MM.y. HH:mm'}}" name="datum1" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum računa</label>
-                            <input type="date" [(ngModel)]="racuni.datumRacuna" name="datumRacuna" class="form-control">
+                            <input type="datetime-local" [(ngModel)]="racuni.datumRacuna" name="datumRacuna" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum dospjeća</label>
-                            <input type="date" [(ngModel)]="racuni.datumDospjeca" name="datumDospjeca" class="form-control">
+                            <input type="datetime-local" [(ngModel)]="racuni.datumDospjeca" name="datumDospjeca" class="form-control">
                         </div>
                     </div>
                 <!--third row-->
@@ -64,17 +64,18 @@
                     </div>
                 <!--fourth row-->
                 <div class="form-row">
-                    <div class="col-2">
-                        <label>PDV</label>
-                        <input type="number" [(ngModel)]="racuni.iznosRacuna" name="PDV" class="form-control" placeholder="17">
-                    </div>
+                    
                     <div class="col-2">
                     <label>Iznos bez PDV</label>
-                    <input type="text" [(ngModel)]="racuni.iznosPoreza" name="iznosBezPDV" class="form-control">
+                    <input type="number" readonly [(ngModel)]="iznosracun" name="iznosBezPDV" class="form-control"(input)="pdvIzracun()">
+                    </div>
+                    <div class="col-2">
+                        <label>PDV</label>
+                        <input type="number"readonly [(ngModel)]="pdv" name="PDV" class="form-control"(input)="pdvIzracun()">
                     </div>
                     <div class="col-2">
                         <label>Iznos sa PDV</label>
-                        <input type="text" [(ngModel)]="racuni.iznosRacuna" name="iznosSaPDV" class="form-control">
+                        <input type="number"readonly [(ngModel)]="iznosPDV" name="iznosSaPDV" class="form-control" >
                     </div>     
                 </div>
                 

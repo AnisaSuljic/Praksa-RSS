@@ -4,9 +4,11 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
+import { IRacun } from '../models/racun.model';
 import { IStavka } from '../models/stavka.model';
 import { ArtiklService } from '../services/artikl.service';
 import { JedinicamjereService } from '../services/jedinicamjere.service';
+import { RacunService } from '../services/racun.service';
 import { StavkaService } from '../services/stavka.service';
 
 @Component({
@@ -23,15 +25,19 @@ export class EditStavkaComponent implements OnInit {
   artikl: any;
   public artikli : IArtikl[] = [];
   public jediniceMjere: IJedinicaMjere[] = [];
+
+  updateRac!:IRacun;
+
   constructor(
     private modalService: NgbModal,
     private _stavkaService: StavkaService,
     private router: Router,
     private route: ActivatedRoute,
     private _artiklService: ArtiklService,
-    private _jediniceMjereService: JedinicamjereService
-    ) { 
-    this.artikl = null; 
+    private _jediniceMjereService: JedinicamjereService,
+    private _racunService:RacunService) 
+    { 
+    this.artikl = null;
    }
 
   ngOnInit(): void {
@@ -54,6 +60,17 @@ export class EditStavkaComponent implements OnInit {
 
     });
   }
+
+  OtkaziIzmjene(){
+    window.location.reload();
+  }
+  cijenaCalc():number{
+    this.stavkaZaEdit.cijenaBezPdv=this.stavkaZaEdit.kolicina*this.artikl.mpc;
+    return this.stavkaZaEdit.cijenaBezPdv;
+  }
+  pdvEditIzracun(){
+    this.updateRac.iznosSaPdv=(this.updateRac.iznosRacuna)+(this.updateRac.iznosRacuna*(this.updateRac.iznosPoreza/100));
+  }
   getArtiklById(id: any){
     console.log(id);
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
@@ -70,12 +87,26 @@ export class EditStavkaComponent implements OnInit {
     this._stavkaService.updateStavka(id,this.stavkaZaEdit).subscribe(data => this.stavkaZaEdit = data);
     let idRacuna = this.stavkaZaEdit.racunId;
     setTimeout(() =>{
-      this.router.navigate([`/adminpanel/editOutputs/${idRacuna}`]).then(()=> {
-        window.location.reload();
-      });
+      this._racunService.getRacunById(idRacuna).subscribe(res=>
+        {this.updateRac=res;          
+          this.updateRac.iznosRacuna=this.cijenaCalc();
+          this.pdvEditIzracun();
+          this._racunService.updateRacun(idRacuna,this.updateRac).subscribe(data => this.updateRac = data);
+          if(this.updateRac.skladisteIzlazId==null)
+          {
+            this.router.navigate([`/adminpanel/editInputs/${idRacuna}`]).then(()=> {
+              window.location.reload();
+            });
+          }
+          else{
+            this.router.navigate([`/adminpanel/editOutputs/${idRacuna}`]).then(()=> {
+              window.location.reload();
+            });
+          }
+        });
     },1000);
-    
   }
+
   Get(content:any) {
     this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
