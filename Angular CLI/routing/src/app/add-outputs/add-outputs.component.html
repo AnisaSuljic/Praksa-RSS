@@ -14,14 +14,20 @@
         <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
             <div class="form-group">
                     <div class="form-row">
-                    <div class="col-4">
-                        <label>Broj računa</label>
-                        <input type="text" class="form-control" readonly [(ngModel)]="racuni.brojRacuna" name="brojRacuna" placeholder="Broj računa">
-                    </div>
-                    <div class="col-4">
-                        <label>Evidencijski broj</label>
-                        <input type="text" class="form-control" [(ngModel)]="racuni.evidencijskiBroj" name = "evidencijskiBroj" placeholder="Evidencijski broj">
-                    </div>
+                        <div class="col-4">
+                            <label>Broj računa</label>
+                            <input type="text" class="form-control" readonly [(ngModel)]="racuni.brojRacuna" name="brojRacuna" placeholder="Broj računa">
+                        </div>
+                        <div class="col-4">
+                            <label>Evidencijski broj</label>
+                            <input type="text" class="form-control" [(ngModel)]="racuni.evidencijskiBroj" name = "evidencijskiBroj" placeholder="Evidencijski broj">
+                        </div>
+                        <div class="col">
+                            <label for="inputState">Kupac</label>
+                            <select id="inputState"  [(ngModel)]="racuni.kupacId" name="kupacId" class="custom-select">
+                                <option *ngFor="let item of customers" value="{{item.kupacId}}">{{item.naziv}}</option>
+                            </select>
+                        </div>
                     </div>
                     <hr> 
                 <!--second row-->
@@ -64,33 +70,9 @@
                     </div>
                 <!--fourth row-->
                 <div class="form-row">
-                    <div class="col-2">
-                        <label>PDV</label>
-                        <input type="number" [(ngModel)]="racuni.iznosRacuna" name="PDV" class="form-control">
-                    </div>
-                    <div class="col-2">
-                    <label>Iznos bez PDV</label>
-                    <input type="text" [(ngModel)]="racuni.iznosPoreza" name="iznosBezPDV" class="form-control">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-2">
+                    <div class="col-4">
                         <label >FIS broj</label>
                         <input type="number" [(ngModel)]="racuni.fisbroj" name="fisbroj" class="form-control">
-                    </div>
-                    <div class="col-2">
-                        <label>Iznos sa PDV</label>
-                        <input type="text" [(ngModel)]="racuni.iznosRacuna" name="iznosSaPDV" class="form-control">
-                    </div>
-                </div>
-                <!--fifth row-->
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" [(ngModel)]="racuni.placen" name="PlacenRacun" type="checkbox" value="" id="invalidCheck2" required>
-                            <label class="form-check-label" for="invalidCheck2">Plaćen račun
-                            </label>
-                        </div>
                     </div>
                 </div>
                 <!--Sixth row-->
