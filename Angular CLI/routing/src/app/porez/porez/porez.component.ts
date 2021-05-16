@@ -3,6 +3,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Porez } from '../../models/porez.model';
 import { PorezService } from '../../services/porez.service';
 import { data } from 'jquery';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-porez',
@@ -14,18 +16,27 @@ export class PorezComponent implements OnInit {
   closeResult:string='';
   porez2!: Porez;
   idPoreza:number=0;
-  constructor(public _porezService: PorezService, private modalService: NgbModal) { this.porez2=new Porez(); }
+  currUser!: User;
+  constructor(public _porezService: PorezService, private modalService: NgbModal,
+    private _korisnikService: UserService) { 
+      this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
+      this._porezService.getPorez().subscribe(data=>{this.porez = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+      });
+      });
+      this.porez2=new Porez(); }
 
   ngOnInit(): void {
-    this._porezService.getPorez().subscribe(data=>this.porez = data);
   }
   onSubmit(){
     this._porezService.addPorez(this.porez2)
-    .subscribe(data=> this._porezService.getPorez().subscribe(res=> this.porez = res) );
+    .subscribe(data=> this._porezService.getPorez().subscribe(data=>{this.porez = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+    })
+   );
   }
   updatePorez() {
     this._porezService.updatePorez(this._porezService.formData.porezId, this._porezService.formData)
-      .subscribe(data => this._porezService.getPorez().subscribe(res => { this.porez = []; this._porezService.getPorez().subscribe(temp => this.porez = temp); }));
+      .subscribe(data => this._porezService.getPorez().subscribe(res => { this.porez = []; this._porezService.getPorez().subscribe(data=>{this.porez = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+      }); }));
     this.ngOnInit();
   }
   DeletePorez() {
@@ -34,6 +45,8 @@ export class PorezComponent implements OnInit {
     return this._porezService.getPorez()
     .subscribe(
       (result)=>{
+        this.porez = []; this._porezService.getPorez().subscribe(data => { this.porez = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+        });
         this.ngOnInit();
         this.modalService.dismissAll();
       }

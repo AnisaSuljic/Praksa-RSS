@@ -13,6 +13,7 @@ export class IArtikl {
     public proizvodjacId!: number;
     public klijentId!: number;
     public jedinicaMjereId!: number;
+    public jedinicaMjereNaziv!: string;
     public cijenaHh!: number;
     public minKolNaSkladistu!: number;
     public opis!: string;

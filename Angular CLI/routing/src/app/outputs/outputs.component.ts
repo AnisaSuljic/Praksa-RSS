@@ -9,6 +9,11 @@ import { ValutaService } from '../services/valuta.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { ArtiklService } from '../services/artikl.service';
 import { JedinicamjereService } from '../services/jedinicamjere.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
+import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
+import { ManufacturerService } from '../services/manufacturer.service';
+import { CustomerService } from '../services/customer.service';
 
 
 
@@ -21,6 +26,7 @@ export class OutputsComponent implements OnInit {
   public racuni : IRacun[] = [];
   closeResult:string='';
   racun!: IRacun;
+  currUser!:User;
   idRacuna:number=0;
   public stavkeBaza : IStavka[] = [];
 
@@ -30,20 +36,38 @@ export class OutputsComponent implements OnInit {
      private _valuteService: ValutaService,
      private _skladisteService: SkladisteService,
      private _artiklService: ArtiklService,
-     private _jediniceMjereService: JedinicamjereService) { }
+     private _jediniceMjereService: JedinicamjereService,
+     private _korisnikService:UserService,
+     private _vrstaPlacanjaService: VrstaplacanjaService,
+     private _kupacService: CustomerService) { 
+      this._korisnikService.ucitajKorisnika().subscribe(res=>{
+        this.currUser=this._korisnikService.currUser;
+        this._racunService.getRacuni().subscribe(data => {
+          console.log(data);
+          
+          for (let i = 0; i < data.length; i++){
+            if(data[i].skladisteIzlazId!=null)
+            {
+              this.racuni.push(data[i])
+            }                
+          }
+          for(let j=0;j<this.racuni.length;j++){
+            this._skladisteService.getSkladisteById(this.racuni[j].skladisteIzlazId).subscribe(l=>{
+              this.racuni[j].nazivSkladista = l.naziv})   
+              this._vrstaPlacanjaService.getVrstaById(this.racuni[j].vrstaPlacanjaId).subscribe(v=>{
+                this.racuni[j].nazivVrstePlacanja = v.naziv})                  
+          }
+          this.racuni = this.racuni.filter(obj => 
+            obj.klijentId == this.currUser.klijentId);
+          
+        });
+      })
+      
+    }
 
   ngOnInit(): void {
-    this._racunService.getRacuni().subscribe(data => {
-          console.log(data);
-          for (let i = 0; i < data.length; i++){
-            this.racuni.push(data[i]);
-            if(this.racuni[i].skladisteIzlazId != null){
-              this._skladisteService.getSkladisteById(this.racuni[i].skladisteIzlazId).subscribe(l=>{
-                this.racuni[i].nazivSkladista = l.naziv;
-              });
-            }
-          }
-        });
+    
+        
         this._stavkaService.getStavke().subscribe(data => {
           for(let i = 0; i < data.length; i++){
             this.stavkeBaza.push(data[i]);

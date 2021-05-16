@@ -226,8 +226,9 @@
                         <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.vpc" name="vpc" class="form-control" placeholder="Veleprodajna cijena" readonly>
                     </div>
                     <div class="col-2">
-                        <label>MPC</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.ulaznaCijena" name="ulaznaCijena" class="form-control" placeholder="Maloprodajna cijena" >
+                        <label>Jedinica mjere</label>
+                        <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Jedinica mjere" readonly>
+                        <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.jedinicaMjereNaziv" name="jedinicaMjereNaziv" class="form-control" placeholder="Jedinica mjere" readonly>
                     </div>
                 </div>
                 <!--fourth row-->
@@ -240,16 +241,30 @@
                         <label>Cijena</label>
                         <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.cijenaBezPdv" name="cijenaBezPdv" class="form-control" placeholder="Cijena">
                     </div>
+                    <div class="col-2">
+                        <label>NBC</label>
+                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.nabavnaCijena" name="nabavnaCijena" class="form-control" placeholder="Nabavna cijena" >
+                    </div>
                 </div>
                 <!--Fifth row-->
                 <div class="form-row">
                     <div class="col-2">
+                        <label>Rabat</label>
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat" name="rabat" readonly class="form-control" placeholder="Rabat">
+                    </div>
+                    <div class="col-2">
                         <label>Rabat1</label>
-                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat1" name="rabat1" class="form-control" placeholder="Rabat">
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat1" name="rabat1" (keyup)="onKey($event)"   class="form-control" placeholder="Rabat1">
                     </div>
                     <div class="col-2">
                         <label>Rabat2</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat2" name="rabat2" class="form-control" placeholder="Rabat1">
+                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat2" name="rabat2" (keyup)="onKey($event)"   class="form-control" placeholder="Rabat2">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-2">
+                        <label>PDV</label>
+                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.stopaPoreza" name="stopaPoreza" class="form-control" placeholder="stopa Poreza">
                     </div>
                 </div>
                 <!--Buttons-->

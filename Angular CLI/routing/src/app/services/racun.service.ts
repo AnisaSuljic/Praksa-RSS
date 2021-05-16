@@ -11,18 +11,18 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class RacunService {
-  //currUser!:User;
+  currUser!:User;
   readonly _url:string = MyConfig.adresaServera + '/racun';
   racuni: IRacun[] = [];
   constructor(private http: HttpClient,private _korisnikService:UserService) { 
     this.racuni = []; 
-    //this._korisnikService.ucitajKorisnika().subscribe(res=>{this.currUser=this._korisnikService.currUser;})
+    this._korisnikService.ucitajKorisnika().subscribe(res=>{this.currUser=this._korisnikService.currUser;})
   }
   getRacuni(): Observable<IRacun[]>{
     return this.http.get<IRacun[]>(this._url);
   }
   addRacun(racun: IRacun) {
-    //racun.klijentId=this.currUser?.klijentId!;
+    racun.klijentId=this.currUser?.klijentId!;
     return this.http.post<any>(this._url, racun);
   }
   updateRacun(id: number, item: IRacun){
