@@ -16,7 +16,7 @@
             <div class="main-header">
             <div *ngIf="IsReistrovan==true" class="alert-success">Posjetite Email da biste verifikovali račun.</div>
 
-                <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+                <form #submitForm="ngForm" novalidate autocomplete="off" (ngSubmit)="onSubmit()">
                     <h1>Registracija</h1>
                     <h6>Podaci o firmi</h6>
                     <p><input type="text" [(ngModel)]="klijent.naziv" name="naziv" placeholder="Naziv firme"></p>
@@ -31,10 +31,12 @@
                     <h6>Podaci o administratoru</h6>
                     <p><input type="text"[(ngModel)]="korisnik.ime" name="ime" placeholder="Ime"></p>            
                     <p><input type="text" [(ngModel)]="korisnik.prezime" name="prezime"placeholder="Prezime"></p>            
-                    <p><input type="text" [(ngModel)]="korisnik.korisnickoIme" name="korisnickoIme"placeholder="Korisničko ime"></p>            
+                    <p><input type="text" [(ngModel)]="korisnik.korisnickoIme" name="korisnickoIme" 
+                        placeholder="Korisničko ime" (input)="provjeri()" required>
+                        <div *ngIf="isAvailable==false" class="alert-danger">Korisnicko ime je nedostupno</div>           
                     <p><input type="password" [(ngModel)]="korisnik.lozinka" name="lozinka"placeholder="Lozinka"></p>
 
-                    <p><button type="submit" >Registruj se</button></p>
+                    <p><button type="submit" [disabled]="submitForm.invalid" [disabled]="isAvailable==false">Registruj se</button></p>
                 </form>
             </div>
         
