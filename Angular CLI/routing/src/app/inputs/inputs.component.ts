@@ -9,6 +9,8 @@ import { ArtiklService } from '../services/artikl.service';
 import { IArtikl } from '../models/artikl.model';
 import { SkladisteService } from '../services/skladiste.service';
 import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 
 
@@ -30,6 +32,7 @@ export class InputsComponent implements OnInit {
   public artikli : IArtikl[] = [];
   EditeStavka!: IStavka;
   artikl: any;
+  currUser!: User;
 
 
   constructor(private _racunService: RacunService,
@@ -37,14 +40,21 @@ export class InputsComponent implements OnInit {
     private _stavkaService: StavkaService,
     private _artiklService:ArtiklService,
     private _skladisteService: SkladisteService,
-    private _vrstaPlacanjaService:VrstaplacanjaService) { this.artikl=null; }
+    private _vrstaPlacanjaService:VrstaplacanjaService,
+    private _korisnikService:UserService)
+    { 
+      this.artikl=null;
 
-  ngOnInit(): void {
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        console.log("klk"+this.currUser);
+
         this._racunService.getRacuni()
             .subscribe(data => {
               console.log(data);
+              console.log("user=>"+this.currUser);
               for (let i = 0; i < data.length; i++){
-                if(data[i].skladisteUlazId!=null)
+                if(data[i].skladisteUlazId!=null && data[i].klijentId==this.currUser.klijentId)
                 {
                   this.racuni.push(data[i])
                 }                
@@ -56,6 +66,11 @@ export class InputsComponent implements OnInit {
                     this.racuni[j].nazivVrstePlacanja = v.naziv})                  
               }
             });
+      });
+     }
+
+  ngOnInit(): void {
+        
         this.GetStavke();
         this._artiklService.getArtikli()
             .subscribe(data => this.artikli = data);
