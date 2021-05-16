@@ -47,6 +47,9 @@ export class ItemsComponent implements OnInit {
   }
   onSubmit(){
     console.log(this.artikl);
+    //this.artikl.mpc=this.artikl.nc-(1/this.artikl.marzaIznos);
+    //this.artikl.marzaIznos=(this.artikl.mpc-this.artikl.nc)/this.artikl.mpc;
+    //this.artikl.marza=this.artikl.mpc-this.artikl.nc;
     this._artiklService.addArtikl(this.artikl)
           .subscribe(data=>this._artiklService.getArtikli().subscribe(res=>this.artikli = res));
   }

@@ -19,6 +19,7 @@ export class ManufacturersComponent implements OnInit{
   manufacturers: Manufacturer[] = [];
   manufacturer!: Manufacturer;
   closeResult: string = '';
+  form!: Manufacturer;
   readonly url: string = MyConfig.adresaServera + '/proizvodjac';
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, 
     public service: ManufacturerService, public serviceclient: ClientService) {
@@ -46,10 +47,22 @@ export class ManufacturersComponent implements OnInit{
       this.modalService.dismissAll();
     })
   }
+  canDeactivate(): boolean {
+    if(JSON.stringify(this.form) !== JSON.stringify(this.service.formData)){
+      if (confirm("You have unsaved changes! If you leave, your changes will be lost.")) {
+        return false;
+      } else {
+        return true;
+      }
+    }else {
+      return false;
+    }
+  }
   /**Modal Add */
   Add(content: any) {
     this.manufacturer = new Manufacturer();
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+    .result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -86,6 +99,9 @@ export class ManufacturersComponent implements OnInit{
     } else {
       return `with: ${reason}`;
     }
+  }
+  private beforeDismiss(reason: any): void {
+    this.canDeactivate();
   }
 }
 

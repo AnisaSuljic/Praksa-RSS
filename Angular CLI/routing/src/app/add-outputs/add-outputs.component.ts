@@ -22,6 +22,10 @@ export class AddOutputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
+
+  racuniLista: IRacun[] = [];
+
+
   constructor(private _racunService: RacunService,
     private _skladisteService: SkladisteService,
      private router: Router,
@@ -33,6 +37,14 @@ export class AddOutputsComponent implements OnInit {
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
+
+    this._racunService.getRacuni().subscribe(data => {
+      for(let i = 0; i < data.length; i++){
+        this.racuniLista.push(data[i])
+      }
+      this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length + 1).toString();
+
+    })
   }
  
   onSubmit(){

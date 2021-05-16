@@ -38,7 +38,8 @@
                     <div class="form-row">
                         <div class="col">
                         <label>Današnji datum</label>
-                        <input type="datetime-local"  [(ngModel)]="racun.datum"  name="datum" class="form-control">
+                        <input type="datetime" readonly value="{{datum2 | date : 'dd.MM.y. HH:mm'}}" name="datum2" class="form-control">
+
                         </div>
                         <div class="col">
                             <label>Datum računa</label>
@@ -72,18 +73,18 @@
                         </div>
                     </div>
                 <!--fourth row-->
-                <div class="form-row">
-                    <div class="col-2">
-                        <label>PDV</label>
-                        <input type="text" value="17%" class="form-control">
-                    </div>
+                <div class="form-row">                    
                     <div class="col-2">
                     <label>Iznos bez PDV</label>
-                    <input type="text" [(ngModel)]="racun.iznosRacuna" name="iznosRacuna" class="form-control">
+                    <input type="number" readonly [(ngModel)]="racun.iznosRacuna" name="iznosRacuna" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <label>PDV</label>
+                        <input type="number" [(ngModel)]="racun.iznosPoreza" name="iznosPoreza" class="form-control"(input)="pdvEditIzracun()">
                     </div>
                     <div class="col-2">
                         <label>Iznos sa PDV</label>
-                        <input type="text" [(ngModel)]="racun.iznosPoreza" name="iznosPoreza" class="form-control">
+                        <input type="number" [(ngModel)]="racun.iznosSaPdv" name="iznosSaPdv" class="form-control" >
                     </div>     
                 </div>
                 <!--fifth row-->
@@ -171,7 +172,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ne</button>
-                    <button type="button" (click)="DeleteStavkaConfirm(item.stavkeId)" routerLink="/adminpanel/editOutputs/{{id}}" class="btn btn-outline-dark" >Da</button>
+                    <button type="button" (click)="DeleteStavkaConfirm(item.stavkeId,item.cijenaBezPdv)" routerLink="/adminpanel/editInputs/{{id}}" class="btn btn-outline-dark" >Da</button>
                   </div>
                 </ng-template>
                 <!--End delete modal-->
@@ -239,22 +240,27 @@
                 <div class="form-row">
                     <div class="col-2">
                         <label>Količina</label>
-                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.kolicina" name="kolicina" class="form-control" placeholder="Količina">
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.kolicina" name="kolicina" class="form-control" placeholder="Količina"
+                        (input)="cijenaCalc()">
                     </div>
                     <div class="col-2">
                         <label>Cijena</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.cijenaBezPdv" name="cijenaBezPdv" class="form-control" placeholder="Cijena">
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.cijenaBezPdv" name="cijenaBezPdv" class="form-control" placeholder="cijenaBezPdv">
                     </div>
                 </div>
                 <!--Fifth row-->
                 <div class="form-row">
                     <div class="col-2">
                         <label>Rabat1</label>
-                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat1" name="rabat1" class="form-control" placeholder="Rabat">
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat1" name="rabat1" class="form-control" placeholder="Rabat1" (input)="rabatCalc()">
                     </div>
                     <div class="col-2">
                         <label>Rabat2</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat2" name="rabat2" class="form-control" placeholder="Rabat1">
+                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat2" name="rabat2" class="form-control" placeholder="Rabat2" (input)="rabatCalc()">
+                    </div>
+                    <div class="col-2">
+                        <label>Rabat</label>
+                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat" name="rabat" class="form-control" placeholder="Rabat">
                     </div>
                 </div>
                 <!--Buttons-->

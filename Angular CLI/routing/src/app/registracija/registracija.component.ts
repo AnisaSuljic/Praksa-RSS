@@ -17,11 +17,13 @@ export class RegistracijaComponent implements OnInit {
   klijent: IKlijent;
   korisnik:User;
   IsReistrovan:boolean=false;
-
+  isAvailable:boolean=true;
+  useri: User[] = [];
   constructor(private _registracijaService: RegistracijaService,private router: Router,private _korisnikService: UserService) 
   {
     this.klijent=new IKlijent();
     this.korisnik=new User();
+    this._korisnikService.getUsers().subscribe(res=> this.useri = res);
   }
   ngOnInit(): void {
   }
@@ -33,5 +35,9 @@ export class RegistracijaComponent implements OnInit {
           { this._korisnikService.addKorisnik(this.korisnik).subscribe( (result)=>{ this.IsReistrovan=true; });
     });
 
+  }
+  provjeri(){
+    //provjerava postoji li korisnicko ime u bazi korisnika, ako postoji isAvailable se setuje na true i zakljucava button registruj se 
+    this.isAvailable = this.useri.filter(item=> this.korisnik.korisnickoIme == item.korisnickoIme).length == 0 ? true: false;
   }
 }

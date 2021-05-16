@@ -41,7 +41,7 @@ namespace RSS_backend.Services
             Database.Artikl entity = _mapper.Map<Database.Artikl>(request);
 
             entity.Obrisan = false;
-            entity.Mpc =entity.Vpc+ Decimal.Multiply((decimal)entity.Vpc, pdv);
+            //entity.Mpc =entity.Vpc+ Decimal.Multiply((decimal)entity.Vpc, pdv);
 
             set.Add(entity);
             Context.SaveChanges();
