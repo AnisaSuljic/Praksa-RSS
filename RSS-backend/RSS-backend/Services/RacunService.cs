@@ -39,11 +39,24 @@ namespace RSS_backend.Services
             var set = Context.Set<Database.Racun>();
             Database.Racun entity = _mapper.Map<Database.Racun>(request);
 
+            //entity.BrojRacuna = "2021/br" + (Get().Count() + 1).ToString();
             entity.Datum = DateTime.Now;
             entity.Godina = DateTime.Now.Year;
             entity.Obrisan = false;
 
             set.Add(entity);
+            Context.SaveChanges();
+
+            return _mapper.Map<Faktura.Model.Racun>(entity);
+        }
+        public override Faktura.Model.Racun Update(int id, Faktura.Model.Requests.RacunInsertUpdate request)
+        {
+            var set = Context.Set<Database.Racun>();
+            var entity = set.Find(id);
+
+            entity.Datum = DateTime.Now;
+            _mapper.Map(request, entity);
+
             Context.SaveChanges();
 
             return _mapper.Map<Faktura.Model.Racun>(entity);

@@ -62,7 +62,7 @@ Add(content:any) {
 
   odjavi(){
     this.service.logout();
-    //this.router.navigate(['/prijava']);
+    this.router.navigate(['prijava/0']);
   }
 
 
