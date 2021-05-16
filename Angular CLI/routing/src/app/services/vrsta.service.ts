@@ -7,20 +7,26 @@ import { Vrsta } from '../models/vrsta.model';
 import { NgForm } from '@angular/forms';
 import { ItemsComponent } from '../items/items.component';
 import { MyConfig } from '../my-config';
+import { UserService } from './user.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VrstaService {
-
+  currUser!: User;
   readonly _url:string = MyConfig.adresaServera + '/vrsta';
   Vrsta: Vrsta[] = [];
-  constructor(private http: HttpClient) { this.Vrsta = []; }
+  constructor(private http: HttpClient, private _korisnikService: UserService) 
+  {
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; });
+    this.Vrsta = []; }
   formData:Vrsta = new Vrsta();
   getVrsta(): Observable<Vrsta[]>{
     return this.http.get<Vrsta[]>(this._url);
   }
   addVrsta(Vrsta: Vrsta) {
+    Vrsta.klijentId = this.currUser?.klijentId!;
     return this.http.post<any>(this._url, Vrsta);
   }
   updateVrsta(id: number, item: Vrsta){

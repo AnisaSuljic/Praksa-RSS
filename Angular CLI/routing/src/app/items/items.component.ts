@@ -11,6 +11,8 @@ import { ManufacturerService } from '../services/manufacturer.service';
 import { GradService } from '../services/grad.service';
 import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-items',
@@ -27,20 +29,26 @@ export class ItemsComponent implements OnInit {
   artikl!: IArtikl;
   idartikl: number=0;
   private routeSub!:Subscription;
-
+  currUser!:User;
   constructor(public _artiklService: ArtiklService, public _jedinicaMjereService: JedinicamjereService,
      private modalService: NgbModal,
      private route:ActivatedRoute, public _grupeService:GroupsService, 
-     public _proizvodjacService: ManufacturerService)
+     public _proizvodjacService: ManufacturerService,
+     private _korisnikService:UserService)
   {
     this.artikl = new IArtikl();
     //this._grupeService.getGroups().subscribe(data => this.grupe = data);
     //this._proizvodjacService.get();
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; }); 
   }
   
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
-    this._artiklService.getArtikli().subscribe(data => this.artikli = data);
+    this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+    for(let i=0; i< this.artikli.length; i++){
+    this._artiklService.getArtiklById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
+      this.artikli[i].jedinicaMjereNaziv = data.naziv); }});
+    
     this._grupeService.getGroups().subscribe(data=> this.grupe = data);
     this._proizvodjacService.getManufacturers().subscribe(data=> this.proizvodjaci = data);
     this._jedinicaMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);

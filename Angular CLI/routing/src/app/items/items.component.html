@@ -123,7 +123,7 @@
             id="exampleFormControlInput1">
         </div>
 
-        <div class="form-group" style="width: 45%;float: left;">
+        <div class="form-group" style="width: 45%;">
           <label for="exampleFormControlInput1">Loyalty %</label>
           <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1">
         </div>
@@ -234,7 +234,8 @@
               <li><a class="dropdown-item" href="#">m</a></li>
             </ul> -->
             <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="">
-              <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option>
+            <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option> 
+            <option *ngFor = "let item of jediniceMjere"  value="{{item}}">{{item.naziv}}</option>
             </select>
           </div>
         </div>
@@ -245,7 +246,7 @@
             name="minKolNaSkladistu">
         </div>
 
-        <div class="form-group" style="width: 45%;float: left;">
+        <div class="form-group" style="width: 45%;">
           <label for="exampleFormControlInput1">Cijena HH</label>
           <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.cijenaHh" name="cijenaHh">
         </div>
@@ -314,7 +315,7 @@
       <th scope="row">{{item.artiklId}}</th>
       <td data-label="Šifra">{{item.sifra}}</td>
       <td data-label="Naziv">{{item.naziv}}</td>
-      <td data-label="Naziv">{{item.jedinicaMjereId}}</td>
+      <td data-label="Naziv">{{item.jedinicaMjereNaziv}}</td>
       <td data-label="Naziv">{{item.nc}}</td>
       <td data-label="Naziv">{{item.vpc}}</td>
       <td data-label="Naziv">{{item.marza}}</td>
