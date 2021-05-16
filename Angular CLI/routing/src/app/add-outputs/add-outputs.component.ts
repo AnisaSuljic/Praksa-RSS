@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Customer } from '../models/customer.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
+import { CustomerService } from '../services/customer.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { ValutaService } from '../services/valuta.service';
@@ -22,7 +24,7 @@ export class AddOutputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
-
+  customers: Customer[] = [];
   racuniLista: IRacun[] = [];
 
 
@@ -30,14 +32,15 @@ export class AddOutputsComponent implements OnInit {
     private _skladisteService: SkladisteService,
      private router: Router,
      private _vrstaPlacanja: VrstaplacanjaService,
-     private _valuteService: ValutaService) {
+     private _valuteService: ValutaService,
+     private _customerService : CustomerService) {
      this.racuni = new IRacun();
     }
   ngOnInit(): void {
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
-
+    this._customerService.getCustomers().subscribe(data => this.customers = data);
     this._racunService.getRacuni().subscribe(data => {
       for(let i = 0; i < data.length; i++){
         this.racuniLista.push(data[i])

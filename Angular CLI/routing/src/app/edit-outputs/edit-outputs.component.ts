@@ -96,11 +96,7 @@ export class EditOutputsComponent implements OnInit {
     );
   }
   
-  getArtiklById(id: any){
-    console.log(id);
-    this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
-    this.modalService.dismissAll();
-  }
+  
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = this.racun.klijentId;
@@ -131,8 +127,26 @@ export class EditOutputsComponent implements OnInit {
     });
   }
 
-  /**Modal Delete */
+  
+  onKey(event: any) {
+     let rabatCijena = 1 - (this.stavka.rabat1/100);
+     let iznosRabat2 = this.stavka.rabat2 / 100;
+     let iznosRabat1 = this.stavka.rabat1 / 100;
+     
+     this.stavka.rabat = ((rabatCijena * iznosRabat2) + iznosRabat1) * 100;
+  }
+  getArtiklById(id: any){
+    this._artiklService.getArtiklById(id).subscribe(data => {
+      this.artikl = data;
+      this._jediniceMjereService.getJedinicaMjereById(this.artikl.jedinicaMjereId).subscribe(kl => {
+        this.artikl.jedinicaMjereNaziv = kl.naziv;
+      });
+    });
 
+    console.log(this.jedinicemjere);
+    this.modalService.dismissAll();
+  }
+/**Modal Delete */
 Delete(content2:any) {
   this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
