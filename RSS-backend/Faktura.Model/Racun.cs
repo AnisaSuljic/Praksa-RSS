@@ -13,7 +13,7 @@ namespace Faktura.Model
         }
 
         public int RacunId { get; set; }
-        public int? BrojRacuna { get; set; }
+        public string BrojRacuna { get; set; }
         public int? KlijentId { get; set; }
         public int? KorisnikId { get; set; }
         public DateTime? Datum { get; set; }
@@ -23,6 +23,8 @@ namespace Faktura.Model
         public int? SkladisteIzlazId { get; set; }
         public string EvidencijskiBroj { get; set; }
         public decimal? IznosRacuna { get; set; }
+        public decimal? IznosSaPdv { get; set; }
+
         public decimal? IznosPoreza { get; set; }
         public int? KupacId { get; set; }
         public int? VrstaPlacanjaId { get; set; }

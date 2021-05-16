@@ -8,7 +8,7 @@ namespace Faktura.Model.Requests
 {
     public class RacunInsertUpdate
     {
-        public int? BrojRacuna { get; set; }
+        public string BrojRacuna { get; set; }
         public int? KlijentId { get; set; }
         public int? KorisnikId { get; set; }
         public DateTime? DatumRacuna { get; set; }
@@ -18,6 +18,8 @@ namespace Faktura.Model.Requests
         public string EvidencijskiBroj { get; set; }
         public decimal? IznosRacuna { get; set; }
         public decimal? IznosPoreza { get; set; }
+        public decimal? IznosSaPdv { get; set; }
+
         public int? KupacId { get; set; }
         public int? VrstaPlacanjaId { get; set; }
         public int? DokumentId { get; set; }
