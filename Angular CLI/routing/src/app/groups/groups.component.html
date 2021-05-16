@@ -163,8 +163,8 @@
     <tr *ngFor="let item of grupe">
       <td data-label="No." scope="row">{{item.grupaId}}</td>
       <td data-label="Naziv grupe">{{item.naziv}}</td>
-      <td data-label="Vrsta">{{item.vrstaId}}</td>
-      <td data-label="Porez">{{item.porezId}}</td>
+      <td data-label="Vrsta">{{item.vrstaNaziv}}</td>
+      <td data-label="Porez">{{item.porezNaziv}}</td>
       <td class="actions">
         <button (click)="Update(content1,item)">Uredi</button>
         <button (click)="Delete(content2,item)">Obriši</button>
