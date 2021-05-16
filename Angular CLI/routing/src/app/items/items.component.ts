@@ -39,15 +39,20 @@ export class ItemsComponent implements OnInit {
     this.artikl = new IArtikl();
     //this._grupeService.getGroups().subscribe(data => this.grupe = data);
     //this._proizvodjacService.get();
-    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; }); 
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
+    this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+      for(let i=0; i< this.artikli.length; i++){
+      this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res=>{
+        this.artikli[i].jedinicaMjereNaziv = res.naziv;
+       });
+      }
+    });
+  });
   }
   
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
-    this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
-    for(let i=0; i< this.artikli.length; i++){
-    this._artiklService.getArtiklById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
-      this.artikli[i].jedinicaMjereNaziv = data.naziv); }});
+   
     
     this._grupeService.getGroups().subscribe(data=> this.grupe = data);
     this._proizvodjacService.getManufacturers().subscribe(data=> this.proizvodjaci = data);
@@ -56,11 +61,17 @@ export class ItemsComponent implements OnInit {
   onSubmit(){
     console.log(this.artikl);
     this._artiklService.addArtikl(this.artikl)
-          .subscribe(data=>this._artiklService.getArtikli().subscribe(res=>this.artikli = res));
+          .subscribe(data=>this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+            for(let i=0; i< this.artikli.length; i++){
+            this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
+              this.artikli[i].jedinicaMjereNaziv = data.naziv); }}));
   }
   updateArtikl(){
     this._artiklService.updateArtikl(this._artiklService.formData.artiklId, this._artiklService.formData)
-        .subscribe(data=> this._artiklService.getArtikli().subscribe(res=> this.artikli = res));
+        .subscribe(data=> this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+          for(let i=0; i< this.artikli.length; i++){
+          this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
+            this.artikli[i].jedinicaMjereNaziv = data.naziv); }}));
         this.ngOnInit();
   }
   DeleteArtikl() {
@@ -69,7 +80,10 @@ export class ItemsComponent implements OnInit {
     return this._artiklService.getArtikli()
     .subscribe(
       (result)=>{
-        this.artikli = []; this._artiklService.getArtikli().subscribe(data=> this.artikli=data);
+        this.artikli = []; this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+          for(let i=0; i< this.artikli.length; i++){
+          this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
+            this.artikli[i].jedinicaMjereNaziv = data.naziv); }});
         this.ngOnInit();
         this.modalService.dismissAll();
       }
