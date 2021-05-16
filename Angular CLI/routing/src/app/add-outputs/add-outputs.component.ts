@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRacun } from '../models/racun.model';
@@ -46,7 +46,7 @@ export class AddOutputsComponent implements OnInit {
 
     })
   }
- 
+
   onSubmit(){
     this._racunService.addRacun(this.racuni).subscribe(data=> this.racuni = data);
     this.router.navigate(["/adminpanel/outputs"]);
