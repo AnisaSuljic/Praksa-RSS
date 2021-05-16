@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRacun } from '../models/racun.model';
@@ -22,7 +22,6 @@ export class AddOutputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
-
   constructor(private _racunService: RacunService,
     private _skladisteService: SkladisteService,
      private router: Router,
@@ -35,7 +34,7 @@ export class AddOutputsComponent implements OnInit {
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
   }
-
+ 
   onSubmit(){
     this._racunService.addRacun(this.racuni).subscribe(data=> this.racuni = data);
     this.router.navigate(["/adminpanel/outputs"]);
