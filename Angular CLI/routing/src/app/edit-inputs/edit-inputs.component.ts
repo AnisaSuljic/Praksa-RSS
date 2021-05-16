@@ -90,8 +90,11 @@ export class EditInputsComponent implements OnInit {
           this.stavkeLista[i].vpc = l.vpc;
           this.stavkeLista[i].mpc = l.mpc;
           this.stavkeLista[i].jedMjere = l.jedinicaMjereId;
-          this._jediniceMjereService.getJedinicaMjereById(l.jedinicaMjereId).subscribe(kl => {
+
+          this._jediniceMjereService.getJedinicaMjereById(this.stavkeLista[i].jedMjere).subscribe(kl => {
             this.stavkeLista[i].jedMjereNaziv = kl.naziv;
+        console.log(this.stavkeLista[i].jedMjereNaziv);
+            
           })
         });
       }
@@ -103,9 +106,10 @@ export class EditInputsComponent implements OnInit {
     }
   }
   getArtiklById(id: any){
-    this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
-    this.stavka.kolicina=1;
-    this.stavka.cijenaBezPdv=this.artikl.mpc;
+    this._artiklService.getArtiklById(id).subscribe(data =>{ this.artikl = data
+        this.stavka.kolicina=1;
+        this.stavka.cijenaBezPdv=this.artikl.mpc;    
+    });
     this.modalService.dismissAll();
   }
   addStavka(id: any){
@@ -127,8 +131,13 @@ export class EditInputsComponent implements OnInit {
   }
   
   rabatCalc(){
-    //((rabat.cijena*rabat2)+rabat1)*100 (prava formula)
     this.stavka.rabat=this.stavka.rabat1-this.stavka.rabat2;
+
+    let rabatCijena = 1 - (this.stavka.rabat1/100);
+     let iznosRabat2 = this.stavka.rabat2 / 100;
+     let iznosRabat1 = this.stavka.rabat1 / 100;
+     
+     this.stavka.rabat = ((rabatCijena * iznosRabat2) + iznosRabat1) * 100;
   }
   pdvEditIzracun(){
     this.racun.iznosSaPdv=(this.racun.iznosRacuna)+(this.racun.iznosRacuna*(this.racun.iznosPoreza/100));
