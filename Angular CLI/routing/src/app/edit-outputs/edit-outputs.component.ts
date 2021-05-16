@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
@@ -26,6 +26,7 @@ export class EditOutputsComponent implements OnInit {
   closeResult:string='';
   id:number = 0;
   racun!: IRacun;
+  racunZaPoredit!: IRacun;
   artikl: any;
   stavka: IStavka = new IStavka();
   stavkaZaDelete: IStavka = new IStavka();
@@ -37,6 +38,11 @@ export class EditOutputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
+
+  _routerSub = Subscription.EMPTY;
+  ifsubmit: boolean = true;
+
+
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -50,13 +56,27 @@ export class EditOutputsComponent implements OnInit {
     ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
+
+      this._routerSub = this.router.events.subscribe((ev) => {
+        if (ev instanceof NavigationStart) {
+          if (this.ifsubmit) {
+            if (this.canDeactivate()) {
+              router.navigateByUrl(router.url, { replaceUrl: true });
+            } else {
+            }
+          }
+        }
+      });
     }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'] //log the value of id
     });
-    this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
+    this._racunService.getRacunById(this.id).subscribe(data => {
+      this.racun = data;
+      this.racunZaPoredit = Object.assign({}, this.racun);
+    });
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
@@ -86,6 +106,26 @@ export class EditOutputsComponent implements OnInit {
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
   }
+  ngOnDestroy() {
+    this._routerSub.unsubscribe();
+  }
+  canDeactivate(): boolean {
+    if(JSON.stringify(this.racun) !== JSON.stringify(this.racunZaPoredit)){
+      if (confirm("You have unsaved changes! If you leave, your changes will be lost.")) {
+        return false;
+      } else {
+        return true;
+      }
+    }else {
+      return false;
+    }
+  }
+  @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      if(this.canDeactivate()){
+        return false; // ako ima promjena returning false otvara dialog
+      }return true; // ako nema promjena refresha
+    }
   DeleteStavka(idStavke: any){
     this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaZaDelete = data);
     return this._stavkaService.getStavke().subscribe(
@@ -111,6 +151,7 @@ export class EditOutputsComponent implements OnInit {
     });
   }
   updateRacun(){
+    this.ifsubmit = false;
     console.log(this.racun);
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
     this.router.navigate(["/adminpanel/outputs"]);

@@ -20,6 +20,9 @@ export class ManufacturersComponent implements OnInit{
   manufacturer!: Manufacturer;
   closeResult: string = '';
   form!: Manufacturer;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   readonly url: string = MyConfig.adresaServera + '/proizvodjac';
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, 
     public service: ManufacturerService, public serviceclient: ClientService) {
@@ -58,6 +61,11 @@ export class ManufacturersComponent implements OnInit{
       return false;
     }
   }
+  public onPageChange(pageNum: number): void {
+
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+    
+    }
   /**Modal Add */
   Add(content: any) {
     this.manufacturer = new Manufacturer();
