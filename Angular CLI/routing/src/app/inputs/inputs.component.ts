@@ -55,13 +55,13 @@ export class InputsComponent implements OnInit {
                   this._vrstaPlacanjaService.getVrstaById(this.racuni[j].vrstaPlacanjaId).subscribe(v=>{
                     this.racuni[j].nazivVrstePlacanja = v.naziv})                  
               }
-              
             });
         this.GetStavke();
         this._artiklService.getArtikli()
             .subscribe(data => this.artikli = data);
         
   }
+
   GetStavke()
   {
     this._stavkaService.getStavke().subscribe(data => {

@@ -309,6 +309,8 @@ namespace RSS_backend.Database
 
                 entity.Property(e => e.RacunId).HasColumnName("RacunID");
 
+                entity.Property(e => e.BrojRacuna).HasMaxLength(255);
+
                 entity.Property(e => e.Datum).HasColumnType("datetime");
 
                 entity.Property(e => e.DatumDospjeca).HasColumnType("datetime");
@@ -322,6 +324,8 @@ namespace RSS_backend.Database
                 entity.Property(e => e.IznosPoreza).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.IznosRacuna).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.IznosSaPdv).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
 

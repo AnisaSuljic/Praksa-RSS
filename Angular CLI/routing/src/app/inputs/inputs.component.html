@@ -16,6 +16,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Broj racuna</th>
                 <th>Evidencijski broj</th>
                 <th>Današnji datum</th>
                 <th>Datum računa</th>
@@ -29,10 +30,11 @@
         </thead>
         <tbody >
             <tr *ngFor="let item of racuni">
-                <td data-label="Evidencijski broj">{{item.brojRacuna}}</td>
-                <td data-label="Datum">{{item.datum | date: 'short'}}</td>
-                <td data-label="Današnji datum">{{item.datumRacuna | date: 'short'}}</td>
-                <td data-label="Datum dospjeća">{{item.datumDospjeca | date: 'short'}}</td>
+                <td data-label="Broj racuna">{{item.brojRacuna}}</td>
+                <td data-label="Evidencijski broj">{{item.evidencijskiBroj}}</td>
+                <td data-label="Datum">{{item.datum | date : 'dd.MM.y. HH:mm'}}</td>
+                <td data-label="Današnji datum">{{item.datumRacuna | date : 'dd.MM.y. HH:mm'}}</td>
+                <td data-label="Datum dospjeća">{{item.datumDospjeca | date : 'dd.MM.y. HH:mm'}}</td>
                 <td data-label="Skladište ulaz">{{item.nazivSkladista}}</td>
                 <td data-label="Iznos">{{item.iznosRacuna}}</td>
                 <td data-label="Vrsta plaćanja">{{item.nazivVrstePlacanja}}</td>
@@ -82,7 +84,6 @@
                     <th>Kol</th>
                     <th>Rabat</th>
                     <th>Cijena bez PDV</th>
-                    <th>Ulazna cijena</th>
                     <th>Akcije</th>
                 </tr>
                 </thead>
@@ -93,7 +94,6 @@
                       <td data-label="Kol">{{stavka.kolicina}}</td>
                       <td data-label="Rabat">{{stavka.rabat}}</td>
                       <td data-label="Cijena bez PDV">{{stavka.cijenaBezPdv}}</td>
-                      <td data-label="Ulazna cijena">{{stavka.ulaznaCijena}}</td>
                       <td class="actions">
                         <button (click)="Delete1(content3,stavka)"
                         style="font-size: 12px;

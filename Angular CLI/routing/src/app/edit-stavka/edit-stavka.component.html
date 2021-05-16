@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="mainsection">
-    <form #editStavkaForm="ngForm" (ngSubmit)="EditStavka(stavkaZaEdit.stavkeId)">
+    <form #editStavkaForm="ngForm" (ngSubmit)="EditStavka(stavkaZaEdit.stavkeId)" >
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-6">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-row">
                 <label for="exampleFormControlSelect1" class="font-weight-bold">Kolicina</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.kolicina" name="kolicina">
+                <input type="number" class="form-control" id="exampleFormControlInput1" (input)="cijenaCalc()" [(ngModel)]="stavkaZaEdit.kolicina" name="kolicina">
             </div>
             <div class="form-row">
                 <label for="inputState" class="font-weight-bold">Jedinica mjere</label>
@@ -50,7 +50,7 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Cijena</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.cijenaBezPdv" name="cijenaBezPdv">
+                    <input type="text"readonly class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.cijenaBezPdv" name="cijenaBezPdv">
                 </div>
                 <div class="col-md-6">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Rabat</label>
@@ -75,7 +75,7 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <button type="button" class="btn btn-danger">Otkaži</button>
+                    <button type="button" class="btn btn-danger" (click)="OtkaziIzmjene()">Otkaži</button>
                     <button type="submit" class="btn btn-info">Sačuvaj</button>
                 </div>
             </div>

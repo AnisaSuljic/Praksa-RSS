@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { data } from 'jquery';
 import { Subscription } from 'rxjs';
 import { IArtikl } from '../models/artikl.model';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
@@ -34,13 +35,18 @@ export class EditInputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrstaPlacanja: VrstaPlacanja[] = [];
   valuta: Valuta[] = [];
+
   stavkeLista: IStavka[] = [];
   public stavkePrikaz : IStavka[] = [];
   public jedinicemjere: IJedinicaMjere[] = [];
   stavkaBrisanje: IStavka = new IStavka();
+  stavkaBrisanjecijene: IStavka = new IStavka();
+  datum2:Date;
 
   dodavanje:boolean=false;
   uredjivanje:boolean=false;
+
+
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -52,6 +58,10 @@ export class EditInputsComponent implements OnInit {
     private _jediniceMjereService:JedinicamjereService    ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
+      this.datum2=new Date();
+
+
+      this.stavka.rabat=0;
     }
 
   ngOnInit(): void {
@@ -59,15 +69,18 @@ export class EditInputsComponent implements OnInit {
       this.id=params['id'] //log the value of id
     });
 
-    this._racunService.getRacunById(this.id).subscribe(data => this.racun = data);
+    this._racunService.getRacunById(this.id).subscribe(data =>{ this.racun = data
+     console.log(this.racun); 
+     
+    });
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
         
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
-    this._valutaService.getValuta().subscribe(data => this.valuta = data);
-  
+    this._valutaService.getValuta().subscribe(data => this.valuta = data);  
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
+
     this._stavkaService.getStavke().subscribe(data => {
       for(let i = 0; i < data.length; i++){
         this.stavkeLista.push(data[i]);
@@ -83,16 +96,16 @@ export class EditInputsComponent implements OnInit {
         });
       }
     });
-    
     for(let item of this.stavkeLista){
       if(item.racunId == this.id){
-        console.log("1");
         this.stavkePrikaz.push(item);
       }
     }
   }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
+    this.stavka.kolicina=1;
+    this.stavka.cijenaBezPdv=this.artikl.mpc;
     this.modalService.dismissAll();
   }
   addStavka(id: any){
@@ -103,13 +116,31 @@ export class EditInputsComponent implements OnInit {
     this.stavka.redniBroj = this.stavkeLista.length + 1;
     this.stavka.racunId = id;
     console.log(this.stavka);
+
+    this.racun.iznosRacuna+=this.stavka.cijenaBezPdv;
+    this.pdvEditIzracun();
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
+
+    this.updateRacun();
     window.location.reload();
     this.dodavanje=true;
   }
+  
+  rabatCalc(){
+    //((rabat.cijena*rabat2)+rabat1)*100 (prava formula)
+    this.stavka.rabat=this.stavka.rabat1-this.stavka.rabat2;
+  }
+  pdvEditIzracun(){
+    this.racun.iznosSaPdv=(this.racun.iznosRacuna)+(this.racun.iznosRacuna*(this.racun.iznosPoreza/100));
+  }
+  cijenaCalc(){
+    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.artikl.mpc;
+  }
+
   updateRacun(){
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
     this.uredjivanje=true;
+    window.location.reload();
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
@@ -119,8 +150,13 @@ export class EditInputsComponent implements OnInit {
     window.location.reload();
   }
 
-  DeleteStavkaConfirm(idStavke: any){
+  DeleteStavkaConfirm(idStavke: any,cijena:any){    
+    
+    this.racun.iznosRacuna-=cijena;
+    this.pdvEditIzracun();
     this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaBrisanje = data);
+    console.log(this.stavkaBrisanje);
+    this.updateRacun();
     return this._stavkaService.getStavke().subscribe(
       (result)=>{
         window.location.reload();
