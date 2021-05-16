@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { IArtikl } from '../models/artikl.model';
@@ -19,6 +19,7 @@ import { StavkaService } from '../services/stavka.service';
 export class EditStavkaComponent implements OnInit {
   closeResult:string='';
   stavkaZaEdit!: IStavka;
+  stavkaZaProvjerit!: IStavka;
   artiklID: number = 0;
   private routeSub!: Subscription;
   id: number = 0;
@@ -27,6 +28,9 @@ export class EditStavkaComponent implements OnInit {
   public jediniceMjere: IJedinicaMjere[] = [];
 
   updateRac!:IRacun;
+
+  _routerSub = Subscription.EMPTY;
+  ifsubmit: boolean = true;
 
   constructor(
     private modalService: NgbModal,
@@ -38,6 +42,16 @@ export class EditStavkaComponent implements OnInit {
     private _racunService:RacunService) 
     { 
     this.artikl = null;
+    this._routerSub = this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationStart) {
+        if (this.ifsubmit) {
+          if (this.canDeactivate()) {
+            router.navigateByUrl(router.url, { replaceUrl: true });
+          } else {
+          }
+        }
+      }
+    });
    }
 
   ngOnInit(): void {
@@ -56,16 +70,39 @@ export class EditStavkaComponent implements OnInit {
         this.stavkaZaEdit.mpc = l.mpc;
         this.stavkaZaEdit.sifraArtikla = l.sifra;
         this.stavkaZaEdit.vpc = l.vpc;
+        this.stavkaZaProvjerit = Object.assign({}, this.stavkaZaEdit);
       });
-
+      
     });
   }
-
+  ngOnDestroy() {
+    this._routerSub.unsubscribe();
+  }
+  canDeactivate(): boolean {
+    console.log(this.stavkaZaEdit);
+    console.log(this.stavkaZaProvjerit);
+    if(JSON.stringify(this.stavkaZaEdit) !== JSON.stringify(this.stavkaZaProvjerit)){
+      if (confirm("You have unsaved changes! If you leave, your changes will be lost.")) {
+        return false;
+      } else {
+        return true;
+      }
+    }else {
+      return false;
+    }
+  }
+  @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      if(this.canDeactivate()){
+        return false; // ako ima promjena returning false otvara dialog
+      }return true; // ako nema promjena refresha
+    }
   OtkaziIzmjene(){
     window.location.reload();
   }
   cijenaCalc():number{
     this.stavkaZaEdit.cijenaBezPdv=this.stavkaZaEdit.kolicina*this.artikl.mpc;
+    this.stavkaZaProvjerit = Object.assign({}, this.stavkaZaEdit);
     return this.stavkaZaEdit.cijenaBezPdv;
   }
   pdvEditIzracun(){
@@ -77,6 +114,7 @@ export class EditStavkaComponent implements OnInit {
     this.modalService.dismissAll();
   }
   EditStavka(id: any){
+    this.ifsubmit = false;
     this.stavkaZaEdit.artiklId = this.artikl.artiklId;
     this.stavkaZaEdit.nazivArtikla = this.artikl.naziv;
     this.stavkaZaEdit.sifraArtikla = this.artikl.sifra;

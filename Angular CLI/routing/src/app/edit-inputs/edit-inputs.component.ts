@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
 import { Subscription } from 'rxjs';
@@ -27,6 +27,7 @@ export class EditInputsComponent implements OnInit {
   closeResult:string='';
   id:number = 0;
   racun!: IRacun;
+  racunZaPoredit!: IRacun;
   artikl: any=null;
   stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
@@ -46,7 +47,8 @@ export class EditInputsComponent implements OnInit {
   dodavanje:boolean=false;
   uredjivanje:boolean=false;
 
-
+  _routerSub = Subscription.EMPTY;
+  ifsubmit: boolean = true;
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -62,7 +64,19 @@ export class EditInputsComponent implements OnInit {
 
 
       this.stavka.rabat=0;
+
+      this._routerSub = this.router.events.subscribe((ev) => {
+        if (ev instanceof NavigationStart) {
+          if (this.ifsubmit) {
+            if (this.canDeactivate()) {
+              router.navigateByUrl(router.url, { replaceUrl: true });
+            } else {
+            }
+          }
+        }
+      });
     }
+
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -71,8 +85,10 @@ export class EditInputsComponent implements OnInit {
 
     this._racunService.getRacunById(this.id).subscribe(data =>{ this.racun = data
      console.log(this.racun); 
+     this.racunZaPoredit = Object.assign({}, this.racun);
      
     });
+
     this._artiklService.getArtikli()
         .subscribe(data => this.artikli = data);
         
@@ -102,6 +118,26 @@ export class EditInputsComponent implements OnInit {
       }
     }
   }
+  ngOnDestroy() {
+    this._routerSub.unsubscribe();
+  }
+  canDeactivate(): boolean {
+    if(JSON.stringify(this.racun) !== JSON.stringify(this.racunZaPoredit)){
+      if (confirm("You have unsaved changes! If you leave, your changes will be lost.")) {
+        return false;
+      } else {
+        return true;
+      }
+    }else {
+      return false;
+    }
+  }
+  @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      if(this.canDeactivate()){
+        return false; // ako ima promjena returning false otvara dialog
+      }return true; // ako nema promjena refresha
+    }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data => this.artikl = data);
     this.stavka.kolicina=1;

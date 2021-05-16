@@ -67,24 +67,26 @@
         <button (click)="Add(content)" class="addInputs">Dodaj proizvođača</button>
     </div>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Redni broj</th>
-                <th>Naziv</th>
-                <!-- <th>Klijent</th> -->
-                <th>Akcije</th>
-            </tr>
+      <thead>
+        <tr>
+          <th>Redni broj</th>
+          <th>Naziv</th>
+          <!-- <th>Klijent</th> -->
+            <th>Akcije</th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of this.service.manufacturers; let i = index">
-                <td data-label="Redni broj">{{i+1}}</td>
-                <td data-label="Naziv">{{item.naziv}}</td>
-                <!-- <td data-label="Klijent">{{item.klijentNaziv}}</td> -->
-                <td class="actions">
-                    <button (click)="Update(content1, item)">Uredi</button>
-                    <button (click)="Delete(content2, item)">Obriši</button>
-                </td>
-            </tr>
+          <tr *ngFor="let item of this.service.manufacturers | slice: pageSize | slice: 0:itemsPerPage; let i = index">
+            <td data-label="Redni broj">{{i + (itemsPerPage * (currentPage - 1)) + 1}}</td>
+            <td data-label="Naziv">{{item.naziv}}</td>
+            <!-- <td data-label="Klijent">{{item.klijentNaziv}}</td> -->
+            <td class="actions">
+              <button (click)="Update(content1, item)">Uredi</button>
+              <button (click)="Delete(content2, item)">Obriši</button>
+            </td>
+          </tr>
         </tbody>
-    </table>
+      </table>
+      <ngb-pagination [collectionSize]="this.service.manufacturers.length" [pageSize]="itemsPerPage" 
+        [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
   </div>
