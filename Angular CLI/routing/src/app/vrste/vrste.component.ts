@@ -4,6 +4,8 @@ import { Subscriber, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Vrsta } from '../models/vrsta.model';
 import { VrstaService } from '../services/vrsta.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-vrste',
@@ -15,22 +17,29 @@ export class VrsteComponent implements OnInit {
   closeResult: string = '';
   vrsta!: Vrsta;
   idvrsta: number = 0;
-  constructor(public _vrsteService: VrstaService, private modalService: NgbModal, private router: Router) {
+  currUser!: User;
+  constructor(public _vrsteService: VrstaService, private modalService: NgbModal, private router: Router,
+    private _korisnikService: UserService) {
+    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;
+    this._vrsteService.getVrsta().subscribe(data => { this.vrste = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+    }); 
+    });
     this.vrsta = new Vrsta();
   }
 
   ngOnInit(): void {
-    this._vrsteService.getVrsta().subscribe(data => this.vrste = data);
     this.router.navigate(["/adminpanel/vrste"]);
   }
   onSubmit() {
     this._vrsteService.addVrsta(this.vrsta).subscribe(
-      data => this._vrsteService.getVrsta().subscribe(data => this.vrste = data)
+      data => this._vrsteService.getVrsta().subscribe(data => { this.vrste = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+      })
     );
   }
   updateVrsta() {
     this._vrsteService.updateVrsta(this._vrsteService.formData.vrstaId, this._vrsteService.formData)
-      .subscribe(data => this._vrsteService.getVrsta().subscribe(res => { this.vrste = []; this._vrsteService.getVrsta().subscribe(temp => this.vrste = temp); }));
+      .subscribe(data => this._vrsteService.getVrsta().subscribe(res => { this.vrste = []; this._vrsteService.getVrsta().subscribe(data => { this.vrste = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+      }); }));
     this.ngOnInit();
   }
 
@@ -40,7 +49,8 @@ export class VrsteComponent implements OnInit {
     return this._vrsteService.getVrsta()
       .subscribe(
         (result) => {
-          this.vrste = []; this._vrsteService.getVrsta().subscribe(temp => this.vrste = temp);
+          this.vrste = []; this._vrsteService.getVrsta().subscribe(data => { this.vrste = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+          });
           this.ngOnInit();
           this.modalService.dismissAll();
         }

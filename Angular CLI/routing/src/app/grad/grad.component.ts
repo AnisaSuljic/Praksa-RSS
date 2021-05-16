@@ -3,6 +3,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Grad } from '../models/grad.model';
 import { GradService } from '../services/grad.service';
 import { data } from 'jquery';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-grad',
   templateUrl: './grad.component.html',
@@ -14,19 +16,28 @@ export class GradComponent implements OnInit {
   closeResult:string='';
   grad2!: Grad;
   idGrada:number=0;
-  constructor(public _gradService: GradService, private modalService: NgbModal) { this.grad2=new Grad(); }
+  currUser!: User;
+  constructor(public _gradService: GradService, private modalService: NgbModal,
+    private _korisnikService: UserService) {
+      this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
+        this._gradService.getGrad().subscribe(data=>{ this.grad = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+        });
+      });
+      this.grad2=new Grad(); }
 
   ngOnInit(): void {
-    this._gradService.getGrad().subscribe(data=>this.grad = data);
+    
   }
   onSubmit(){
     this._gradService.addGrad(this.grad2).subscribe(data=>
-        this._gradService.getGrad().subscribe(res=>this.grad = res));
+        this._gradService.getGrad().subscribe(data=>{ this.grad = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+        }));
   }
   updateGrad() {
     console.log(this.grad);
     this._gradService.updateGrad(this._gradService.formData.gradId, this._gradService.formData)
-      .subscribe(data => this._gradService.getGrad().subscribe(res => { this.grad = []; this._gradService.getGrad().subscribe(temp => this.grad = temp); }));
+      .subscribe(data => this._gradService.getGrad().subscribe(res => { this.grad = []; this._gradService.getGrad().subscribe(data=>{ this.grad = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+      }); }));
     this.ngOnInit();
   }
 
@@ -36,6 +47,8 @@ export class GradComponent implements OnInit {
     return this._gradService.getGrad()
     .subscribe(
       (result)=>{
+        this.grad = []; this._gradService.getGrad().subscribe(data => { this.grad = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+        });
         this.ngOnInit();
         this.modalService.dismissAll();
       }
