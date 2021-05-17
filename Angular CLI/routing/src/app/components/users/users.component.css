@@ -10,20 +10,30 @@
     margin-bottom: 15px;
     border-bottom:1px solid grey;
 }
+.underHeader{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: 15px;
+}
+
+.underHeader input{
+    padding-left: 25px;
+    border-radius: 25px;
+    width: 35%;
+}
 .addInputs{
     width: 180px;
     background-color:white ;
-    border-radius: 15px;
+    border-radius: 25px;
     border:1px solid #4c2083;
     color: #4c2083;
     text-align: center;
     outline: none;    
     padding:2px 5px;
     float: right;
-    margin: 10px 25px 0px 0px;
     outline: none;
     font-size: 14px;
-
 }
 .addInputs:hover{
     transform: scale(1.01);
@@ -83,9 +93,14 @@
     margin: 50px;
 }
 
+ngb-pagination ::ng-deep ul.pagination{
+    width: 10%;
+    margin: auto;
+}
+
 ngb-pagination ::ng-deep .page-item.active .page-link {
-  border-color: black !important;
-  background-color: #b991eb !important;
+  border-color: lightgray !important;
+  background-color: #dba6f4 !important;
 }
 ngb-pagination ::ng-deep a {
   color: black !important;

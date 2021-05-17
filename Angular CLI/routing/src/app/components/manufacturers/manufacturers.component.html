@@ -77,7 +77,9 @@
         <div class="headerSpan">
             <span>Proizvođač</span>
         </div>
-        <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
+    </div>
+    <div class="underHeader">
+      <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
         <button (click)="Add(content)" class="addInputs">Dodaj proizvođača</button>
     </div>
     <table class="table">

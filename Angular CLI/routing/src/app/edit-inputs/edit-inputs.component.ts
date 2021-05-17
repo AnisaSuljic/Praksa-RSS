@@ -187,7 +187,7 @@ Search(){
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
     this.updateRacun();
 
-    //window.location.reload();
+    window.location.reload();
     this.dodavanje=true;
   }
   
