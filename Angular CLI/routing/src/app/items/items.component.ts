@@ -31,25 +31,26 @@ export class ItemsComponent implements OnInit {
   private routeSub!:Subscription;
   currUser!:User;
   constructor(public _artiklService: ArtiklService, public _jedinicaMjereService: JedinicamjereService,
-     private modalService: NgbModal,
-     private route:ActivatedRoute, public _grupeService:GroupsService, 
-     public _proizvodjacService: ManufacturerService,
-     private _korisnikService:UserService)
-  {
+    private modalService: NgbModal,
+    private route: ActivatedRoute, public _grupeService: GroupsService,
+    public _proizvodjacService: ManufacturerService,
+    private _korisnikService: UserService) {
     this.artikl = new IArtikl();
     //this._grupeService.getGroups().subscribe(data => this.grupe = data);
     //this._proizvodjacService.get();
-    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
-    this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
-      for(let i=0; i< this.artikli.length; i++){
-      this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res=>{
-        this.artikli[i].jedinicaMjereNaziv = res.naziv;
-        this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data => 
-          this.artikli[i].grupaNaziv = data.naziv);
-       });
-      }
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._artiklService.getArtikli().subscribe(data => {
+        this.artikli = data.filter(obj => obj.klijentId == this.currUser.klijentId);
+        for (let i = 0; i < this.artikli.length; i++) {
+          this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
+            this.artikli[i].jedinicaMjereNaziv = res.naziv;
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data =>
+              this.artikli[i].grupaNaziv = data.naziv);
+          });
+        }
+      });
     });
-  });
   }
   
   ngOnInit(): void {
@@ -98,6 +99,14 @@ export class ItemsComponent implements OnInit {
         this.modalService.dismissAll();
       }
     );
+  }
+  unosNC(){
+    this.artikl.marzaIznos ? this.artikl.marzaIznos : this.artikl.marzaIznos = 0;
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+  }
+  unosMarza(){
+    this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
   }
 /**Modal Add */
 Add(content:any) {
