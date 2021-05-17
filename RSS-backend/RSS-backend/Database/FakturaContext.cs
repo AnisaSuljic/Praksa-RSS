@@ -321,6 +321,8 @@ namespace RSS_backend.Database
 
                 entity.Property(e => e.EvidencijskiBroj).HasMaxLength(255);
 
+                entity.Property(e => e.Fisbroj).HasColumnName("FISbroj");
+
                 entity.Property(e => e.IznosPoreza).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.IznosRacuna).HasColumnType("decimal(18, 2)");

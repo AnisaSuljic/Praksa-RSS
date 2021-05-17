@@ -28,7 +28,7 @@ export class EditInputsComponent implements OnInit {
   id:number = 0;
   racun!: IRacun;
   racunZaPoredit!: IRacun;
-  artikl: any=null;
+  artikl: any;
   stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
@@ -185,9 +185,9 @@ Search(){
     this.racun.iznosRacuna+=this.stavka.cijenaBezPdv;
     this.pdvEditIzracun();
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
-
     this.updateRacun();
-    window.location.reload();
+
+    //window.location.reload();
     this.dodavanje=true;
   }
   
@@ -208,9 +208,9 @@ Search(){
   }
 
   updateRacun(){
+    console.log(this.racun);
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
     this.uredjivanje=true;
-    window.location.reload();
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
@@ -221,12 +221,12 @@ Search(){
   }
 
   DeleteStavkaConfirm(idStavke: any,cijena:any){    
-    
+    console.log(cijena);
     this.racun.iznosRacuna-=cijena;
     this.pdvEditIzracun();
     this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaBrisanje = data);
-    console.log(this.stavkaBrisanje);
     this.updateRacun();
+    console.log(this.stavkaBrisanje);
     return this._stavkaService.getStavke().subscribe(
       (result)=>{
         window.location.reload();
