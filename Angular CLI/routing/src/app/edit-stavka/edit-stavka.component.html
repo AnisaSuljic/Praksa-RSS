@@ -48,8 +48,12 @@
                 </select>
             </div>
             <div class="form-row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Cijena</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput1" (input)="cijenaCalc()" [(ngModel)]="stavkaZaEdit.ulaznaCijena" name="ulaznaCijena">
+                </div>
+                <div class="col-md-3">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">Ukupna cijena</label>
                     <input type="text"readonly class="form-control" id="exampleFormControlInput1" [(ngModel)]="stavkaZaEdit.cijenaBezPdv" name="cijenaBezPdv">
                 </div>
                 <div class="col-md-6">

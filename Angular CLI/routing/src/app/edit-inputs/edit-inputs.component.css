@@ -97,7 +97,6 @@
 .rowActions{
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
     margin-bottom: 15px;
     justify-content: space-between;
 }
