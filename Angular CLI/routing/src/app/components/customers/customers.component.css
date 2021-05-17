@@ -84,6 +84,30 @@
     border-right: 1px solid #e3cee43d;
 }
 
+#pageing{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+  border-color: black !important;
+  background-color: rgb(62, 62, 62) !important;
+}
+ngb-pagination ::ng-deep a {
+  color: black !important;
+}
+ngb-pagination ::ng-deep .page-item.active .sr-only, .page-link:focus .sr-only {
+    display: none;
+  }
+
+ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.1rem dimgrey !important;
+}
+
+ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.1rem dimgrey !important;
+}
 
 
 @media only screen and (max-width: 1200px)

@@ -12,13 +12,18 @@ import { Customer } from '../../models/customer.model';
 })
 export class CustomersComponent implements OnInit {
   closeResult: string = '';
-
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { 
   }
   
   ngOnInit(): void {
     this.service.get();
   }
+  public onPageChange(pageNum: number): void {
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+    }
   resetForm() {
     this.service.formData = new Customer();
   }

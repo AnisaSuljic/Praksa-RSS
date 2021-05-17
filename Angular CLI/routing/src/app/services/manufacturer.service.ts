@@ -27,8 +27,9 @@ export class ManufacturerService {
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const manufactureri = res as Manufacturer[];
-      this.manufacturers = manufactureri.filter(obj => 
-        obj.klijentId == this.currUser.klijentId);
+      console.log(this.currUser);
+      this.manufacturers = manufactureri.filter(obj =>
+        obj.klijentId == this.currUser.klijentId)
     });
   }
   getManufacturers():Observable<Manufacturer[]>{

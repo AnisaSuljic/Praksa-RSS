@@ -217,8 +217,8 @@
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let item of this.service.customers; let i = index">
-              <td data-label="Redni broj">{{i + 1}}</td>
+          <tr *ngFor="let item of this.service.customers | slice: pageSize | slice: 0:itemsPerPage; let i = index">
+              <td data-label="Redni broj">{{i + (itemsPerPage * (currentPage - 1)) + 1}}</td>
               <td data-label="Naziv">{{item.naziv}}</td>
               <td data-label="Adresa">{{item.adresa}}</td>
               <td data-label="Email">{{item.email}}</td>
@@ -234,4 +234,6 @@
           </tr>
       </tbody>
   </table>
+  <ngb-pagination id="pageing" [collectionSize]="this.service.customers.length" [pageSize]="itemsPerPage" 
+  [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
 </div>

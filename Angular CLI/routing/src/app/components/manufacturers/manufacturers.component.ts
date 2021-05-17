@@ -36,6 +36,9 @@ export class ManufacturersComponent implements OnInit{
   onSubmit() {
     this.service.postManufacturer(this.manufacturer!).subscribe(data =>
       this.service.get());
+      const paging = Math.ceil((this.service.manufacturers.length + 1) / this.itemsPerPage);
+      this.onPageChange(paging);
+      this.currentPage = paging;
   }
   uredi() {
     this.service.putManufacturer(this.service.formData.proizvodjacId!, this.service.formData)
@@ -44,7 +47,7 @@ export class ManufacturersComponent implements OnInit{
   }
   obrisi() {
     this.service.deleteManufacturer(this.manufacturer.proizvodjacId!)
-      .subscribe(res => { this.manufacturer = res });
+      .subscribe(res => { this.manufacturer = res;  this.service.get(); });
     return this.service.getManufacturers().subscribe(res => {
       this.ngOnInit();
       this.modalService.dismissAll();
@@ -62,9 +65,7 @@ export class ManufacturersComponent implements OnInit{
     }
   }
   public onPageChange(pageNum: number): void {
-
     this.pageSize = this.itemsPerPage*(pageNum - 1);
-    
     }
   /**Modal Add */
   Add(content: any) {
