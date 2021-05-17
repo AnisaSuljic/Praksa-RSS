@@ -29,12 +29,16 @@ export class AddInputsComponent implements OnInit {
   iznosracun:number=0;
   pdv:number=0;
   
+  TempRacun: IRacun;
+  GetLenght:number=0;
   BrojRacuna:string='';
   datum1:Date;
 
   constructor(private _racunService: RacunService,private router: Router, private _skladisteService:SkladisteService,
     private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService) {
      this.racuni = new IRacun();
+    this.TempRacun= new IRacun();
+
     this.datum1=new Date();
     this.iznosPDV=0;
     this.iznosracun=0;
@@ -49,8 +53,9 @@ export class AddInputsComponent implements OnInit {
       for(let i = 0; i < data.length; i++){
         this.racuniLista.push(data[i])
       }
-      this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length + 1).toString();
-
+      this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length+1).toString();       
+      
+      
     })
   }
   
