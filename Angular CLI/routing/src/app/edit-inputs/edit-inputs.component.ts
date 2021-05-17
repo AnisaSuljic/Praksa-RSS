@@ -126,7 +126,7 @@ export class EditInputsComponent implements OnInit {
   }
   canDeactivate(): boolean {
     if(JSON.stringify(this.racun) !== JSON.stringify(this.racunZaPoredit)){
-      if (confirm("You have unsaved changes! If you leave, your changes will be lost.")) {
+      if (confirm("Imate nespremljene promjene! Ako napustite prozor, vaše promjene će biti izgubljene.")) {
         return false;
       } else {
         return true;

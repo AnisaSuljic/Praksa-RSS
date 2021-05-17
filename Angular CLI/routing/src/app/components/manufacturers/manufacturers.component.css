@@ -106,6 +106,13 @@ button{
 .form-control{
     padding: 5px;
 }
+#pageing{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+
 @media only screen and (max-width: 1200px)
 {
     .addInputs{
