@@ -171,15 +171,15 @@
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">NC</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.nc" name="nc">
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.nc" name="nc" (input)="unosNCUpdate()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
         <label for="exampleFormControlSelect1">Marža</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marza" name="marza">
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marzaIznos" name="marza" (input)="unosMarzaUpdate()">
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">VPC</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc">
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc" disabled>
       </div>
       <div>
         <div class="form-group" style="width: 50%;float: left;">
@@ -196,7 +196,7 @@
               <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
             </ul> -->
             <select name="proizvodjacId" class="form-control" #proizvodjac="ngModel"
-              [(ngModel)]="_proizvodjacService.formData.proizvodjacId">
+              [(ngModel)]="this._artiklService.formData.proizvodjacId">
               <option value="0" [disabled]=true [selected]=true>Odaberite proizvodjaca</option>
               <option *ngFor="let proizvodjac of proizvodjaci" [value]="proizvodjac.proizvodjacId">
                 {{proizvodjac.naziv}} </option>
@@ -216,9 +216,9 @@
               <li><a class="dropdown-item" href="#">l</a></li>
               <li><a class="dropdown-item" href="#">m</a></li>
             </ul> -->
-            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="">
+            <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="ngModel" [(ngModel)]="this._artiklService.formData.jedinicaMjereId">
             <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option> 
-            <option *ngFor = "let item of jediniceMjere"  value="{{item}}">{{item.naziv}}</option>
+            <option *ngFor = "let item of jediniceMjere"  value="{{item.jedinicaMjereId}}">{{item.naziv}}</option>
             </select>
           </div>
         </div>
