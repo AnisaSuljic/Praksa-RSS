@@ -50,6 +50,9 @@ export class EditInputsComponent implements OnInit {
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
 
+  //search
+  artiklNaziv:any;
+
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -89,8 +92,7 @@ export class EditInputsComponent implements OnInit {
      
     });
 
-    this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
+    this.artikliPozivanje();
         
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
@@ -121,6 +123,29 @@ export class EditInputsComponent implements OnInit {
       }
     }
   }
+
+artikliPozivanje()
+{
+  this._artiklService.getArtikli()
+        .subscribe(data => this.artikli = data);
+}
+
+//search
+Search(){
+  console.log(this.artiklNaziv);
+  if(this.artiklNaziv==""){
+    this.artikliPozivanje();
+  }
+  else{
+  console.log(this.artikli);
+
+    this.artikli=this.artikli.filter(res=>{
+      return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+    });
+  }
+}
+
+
   ngOnDestroy() {
     this._routerSub.unsubscribe();
   }
@@ -138,13 +163,12 @@ export class EditInputsComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) {
       if(this.canDeactivate()){
-        return false; // ako ima promjena returning false otvara dialog
+        return true; // ako ima promjena returning false otvara dialog
       }return true; // ako nema promjena refresha
     }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data =>{ this.artikl = data
         this.stavka.kolicina=1;
-        this.stavka.cijenaBezPdv=this.artikl.mpc;    
     });
     this.modalService.dismissAll();
   }
@@ -155,7 +179,8 @@ export class EditInputsComponent implements OnInit {
     this.stavka.jedMjere = this.artikl.jedinicaMjereId;
     this.stavka.redniBroj = this.stavkeLista.length + 1;
     this.stavka.racunId = id;
-    console.log(this.stavka);
+    console.log(this.stavka.ulaznaCijena);
+    console.log(this.stavka.cijenaBezPdv);
 
     this.racun.iznosRacuna+=this.stavka.cijenaBezPdv;
     this.pdvEditIzracun();
@@ -179,7 +204,7 @@ export class EditInputsComponent implements OnInit {
     this.racun.iznosSaPdv=(this.racun.iznosRacuna)+(this.racun.iznosRacuna*(this.racun.iznosPoreza/100));
   }
   cijenaCalc(){
-    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.artikl.mpc;
+    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.stavka.ulaznaCijena;
   }
 
   updateRacun(){
@@ -231,6 +256,8 @@ Get(content:any) {
 }
 
 private getDismissReason(reason: any): string {
+  this.artiklNaziv="";
+  this.artikliPozivanje();
   if (reason === ModalDismissReasons.ESC) {
     return 'by pressing ESC';
   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

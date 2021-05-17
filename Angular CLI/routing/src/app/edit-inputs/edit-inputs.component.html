@@ -245,6 +245,11 @@
                     </div>
                     <div class="col-2">
                         <label>Cijena</label>
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.ulaznaCijena" name="ulaznaCijena" class="form-control" placeholder="ulaznaCijena"
+                        (input)="cijenaCalc()">
+                    </div>
+                    <div class="col-2">
+                        <label>Ukupna cijena</label>
                         <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.cijenaBezPdv" name="cijenaBezPdv" class="form-control" placeholder="cijenaBezPdv">
                     </div>
                 </div>
@@ -282,28 +287,16 @@
           <h4 class="modal-title" id="modal-basic-title">Artikli</h4>
         </div>
         <div class="modal-body">
-          <form>     
-              <div class="rowActions">     
-<!--dropdowngrupa-->
-
-                <div ngbDropdown class="d-inline-block">
-                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Grupe</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem>Grupa1</button>
-                    <button ngbDropdownItem>Grupa2</button>
-                    <button ngbDropdownItem>Grupa3</button>
+            <form>     
+                <div class="rowActions">    <!--Search-->
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
+                        (ngModelChange)="Search()">
+                        <div class="input-group-prepend">                        
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                        </div>
                     </div>
                 </div>
-<!--Search-->
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Artikli">
-                    <div class="input-group-prepend">                        
-                            <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
-                    </div>
-                </div>
-
-
-              </div>
                 <table class="tableModalItems table">
                   <thead>
                       <tr>
@@ -320,8 +313,8 @@
                           <td data-label="MPC">{{item.vpc}}</td>                          
                       </tr>
                   </tbody>
-              </table>
-          </form>
+                </table>
+            </form>
         </div>
       </ng-template>
 </div>

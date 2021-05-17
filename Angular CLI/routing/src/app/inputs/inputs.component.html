@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody >
-            <tr *ngFor="let item of racuni">
+            <tr *ngFor="let item of racuni | slice: pageSize | slice: 0:itemsPerPage; let i = index">
                 <td data-label="Broj racuna">{{item.brojRacuna}}</td>
                 <td data-label="Evidencijski broj">{{item.evidencijskiBroj}}</td>
                 <td data-label="Datum">{{item.datum | date : 'dd.MM.y. HH:mm'}}</td>
@@ -69,6 +69,8 @@
             </tr>
         </tbody>
     </table>
+    <ngb-pagination id="pageing" [collectionSize]="racuni.length" [pageSize]="itemsPerPage" 
+        [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
 <!--Get stavke-->
     <ng-template #content let-modal >
       <div class="modal-header">
