@@ -1,6 +1,10 @@
-<div class="add">
-  <button (click)="Add(content)">Dodaj skladište</button>
-</div>
+<div class="tableFrame">
+  <div class="header">
+      <div class="headerSpan">
+          <span>Skladište</span>
+      </div>
+      <button (click)="Add(content)" class="addInputs">Dodaj skladište</button>
+  </div>
 <!-- Add modal -->
 <ng-template #content let-modal>
   <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">

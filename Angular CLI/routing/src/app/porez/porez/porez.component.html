@@ -1,6 +1,10 @@
-<div class="add">
-  <button (click)="Add(content)" class="adding">Dodaj porez</button>
-</div>
+<div class="tableFrame">
+  <div class="header">
+      <div class="headerSpan">
+          <span>Porez</span>
+      </div>
+      <button (click)="Add(content)" class="addInputs">Dodaj porez</button>
+  </div>
 
 <!-- Add modal -->
 <ng-template #content let-modal>
