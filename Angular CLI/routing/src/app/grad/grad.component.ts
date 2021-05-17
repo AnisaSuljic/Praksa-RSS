@@ -11,7 +11,9 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./grad.component.css']
 })
 export class GradComponent implements OnInit {
-
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   public grad: Grad[] = [];
   closeResult:string='';
   grad2!: Grad;
@@ -54,7 +56,11 @@ export class GradComponent implements OnInit {
       }
     );
   }
+  public onPageChange(pageNum: number): void {
 
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+
+    }
 /**Modal Add */
 Add(content:any) {
   this.grad2 = new Grad();

@@ -16,6 +16,9 @@ export class SkladisteComponent implements OnInit {
   skladiste2!: Skladiste;
   idSkladista:number=0;
   currUser!: User;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   constructor(public _skladisteService: SkladisteService, private modalService: NgbModal,
     private _korisnikService: UserService) { 
       this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
@@ -49,6 +52,9 @@ export class SkladisteComponent implements OnInit {
       );
     }
   
+ public onPageChange(pageNum: number): void {
+  this.pageSize = this.itemsPerPage*(pageNum - 1);
+  }
   /**Modal Add */
   Add(content:any) {
     this.skladiste2 = new Skladiste();

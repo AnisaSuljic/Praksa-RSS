@@ -24,7 +24,9 @@ export class ItemsComponent implements OnInit {
   grupe: Groups[] = [];
   proizvodjaci: Manufacturer[]=[];
   jediniceMjere: IJedinicaMjere[]=[];
-   
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   closeResult:string='';
   artikl!: IArtikl;
   idartikl: number=0;
@@ -107,6 +109,10 @@ export class ItemsComponent implements OnInit {
   unosMarza(){
     this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
     this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+  }
+  
+ public onPageChange(pageNum: number): void {
+  this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
 /**Modal Add */
 Add(content:any) {

@@ -296,7 +296,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of artikli">
+    <tr *ngFor="let item of artikli | slice: pageSize | slice: 0:itemsPerPage; let i = index">
       <td data-label="Šifra">{{item.sifra}}</td>
       <td data-label="Naziv">{{item.naziv}}</td>
       <td data-label="Naziv">{{item.grupaNaziv}}</td>
@@ -312,8 +312,7 @@
         <button (click)="Delete(content2,item)">Obriši</button>
       </td>
     </tr>
-
-
-
   </tbody>
 </table>
+<ngb-pagination id="pageing" [collectionSize]="artikli.length" [pageSize]="itemsPerPage" 
+[(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>

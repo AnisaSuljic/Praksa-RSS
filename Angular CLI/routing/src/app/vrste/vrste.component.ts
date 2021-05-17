@@ -18,6 +18,9 @@ export class VrsteComponent implements OnInit {
   vrsta!: Vrsta;
   idvrsta: number = 0;
   currUser!: User;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   constructor(public _vrsteService: VrstaService, private modalService: NgbModal, private router: Router,
     private _korisnikService: UserService) {
     this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;
@@ -56,6 +59,9 @@ export class VrsteComponent implements OnInit {
         }
       );
   }
+  public onPageChange(pageNum: number): void {
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+    }
   /**Modal Add */
   Add(content: any) {
     this.vrsta = new Vrsta();
