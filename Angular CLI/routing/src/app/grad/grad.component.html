@@ -76,7 +76,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of grad">
+                  <tr *ngFor="let item of grad | slice: pageSize | slice: 0:itemsPerPage; let i = index">
                     <td data-label="Naziv grada">{{item.naziv}}</td>
                     <td class="actions">
                       <button (click)="Update(content1,item)">Uredi</button>
@@ -85,3 +85,5 @@
                   </tr>
                 </tbody>
               </table>
+              <ngb-pagination id="pageing" [collectionSize]="grad.length" [pageSize]="itemsPerPage" 
+              [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>

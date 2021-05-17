@@ -74,7 +74,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of skladiste">
+    <tr *ngFor="let item of skladiste | slice: pageSize | slice: 0:itemsPerPage; let i = index">
       <td data-label="Naziv poreza">{{item.naziv}}</td>
 
       <td class="actions">
@@ -84,3 +84,5 @@
     </tr>
   </tbody>
 </table>
+<ngb-pagination id="pageing" [collectionSize]="skladiste.length" [pageSize]="itemsPerPage" 
+[(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>

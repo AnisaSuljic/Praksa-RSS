@@ -24,6 +24,9 @@ export class GroupsComponent implements OnInit {
   closeResult:string='';
   grupa!: Groups;
   idgroup: number=0;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   uspjesnoDodavanje:boolean=false;
   private routeSub!:Subscription;
   currUser!: User;
@@ -37,8 +40,8 @@ export class GroupsComponent implements OnInit {
         this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res=>{this.grupe[i].porezNaziv = res.nazivPoreza});
       }
       });
-      this._porezService.getPorez().subscribe(data=> this.porezi = data);
-      this._vrstaService.getVrsta().subscribe(data=> this.vrste = data);
+      this._porezService.getPorez().subscribe(data =>{ this.porezi = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
+      this._vrstaService.getVrsta().subscribe(data =>{ this.vrste = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
     });
     this.grupa = new Groups();
    }
@@ -86,7 +89,9 @@ export class GroupsComponent implements OnInit {
       }
     );
   }
-
+  public onPageChange(pageNum: number): void {
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+  }
 /**Modal Add */
 Add(content:any) {
   this.grupa = new Groups();

@@ -33,5 +33,7 @@ namespace Faktura.Model
         public int? ValutaId { get; set; }
         public bool? Placen { get; set; }
         public string Napomena { get; set; }
+        public int? Fisbroj { get; set; }
+
     }
 }

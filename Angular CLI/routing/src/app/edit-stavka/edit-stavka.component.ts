@@ -32,6 +32,8 @@ export class EditStavkaComponent implements OnInit {
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
 
+  cijenaPrijeIzmjena:number=0;
+
   constructor(
     private modalService: NgbModal,
     private _stavkaService: StavkaService,
@@ -41,7 +43,8 @@ export class EditStavkaComponent implements OnInit {
     private _jediniceMjereService: JedinicamjereService,
     private _racunService:RacunService) 
     { 
-    this.artikl = null;
+    this.artikl = null;   
+
     this._routerSub = this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationStart) {
         if (this.ifsubmit) {
@@ -72,7 +75,8 @@ export class EditStavkaComponent implements OnInit {
         this.stavkaZaEdit.vpc = l.vpc;
         this.stavkaZaProvjerit = Object.assign({}, this.stavkaZaEdit);
       });
-      
+      this.cijenaPrijeIzmjena=this.stavkaZaEdit.cijenaBezPdv;
+      console.log("cijena prije"+this.cijenaPrijeIzmjena);
     });
   }
   ngOnDestroy() {
@@ -101,7 +105,7 @@ export class EditStavkaComponent implements OnInit {
     window.location.reload();
   }
   cijenaCalc():number{
-    this.stavkaZaEdit.cijenaBezPdv=this.stavkaZaEdit.kolicina*this.artikl.mpc;
+    this.stavkaZaEdit.cijenaBezPdv=this.stavkaZaEdit.kolicina*this.stavkaZaEdit.ulaznaCijena;
     this.stavkaZaProvjerit = Object.assign({}, this.stavkaZaEdit);
     return this.stavkaZaEdit.cijenaBezPdv;
   }
@@ -127,7 +131,11 @@ export class EditStavkaComponent implements OnInit {
     setTimeout(() =>{
       this._racunService.getRacunById(idRacuna).subscribe(res=>
         {this.updateRac=res;          
-          this.updateRac.iznosRacuna=this.cijenaCalc();
+          this.updateRac.iznosRacuna-=this.cijenaPrijeIzmjena;
+          console.log("iznos racuna prije "+this.updateRac.iznosRacuna);
+
+          this.updateRac.iznosRacuna+=this.stavkaZaEdit.cijenaBezPdv;
+          console.log("iznos racuna poslije "+this.updateRac.iznosRacuna);
           this.pdvEditIzracun();
           this._racunService.updateRacun(idRacuna,this.updateRac).subscribe(data => this.updateRac = data);
           if(this.updateRac.skladisteIzlazId==null)

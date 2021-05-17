@@ -28,7 +28,7 @@ export class EditInputsComponent implements OnInit {
   id:number = 0;
   racun!: IRacun;
   racunZaPoredit!: IRacun;
-  artikl: any=null;
+  artikl: any;
   stavka: IStavka = new IStavka();
   public artikli : IArtikl[] = [];
   private routeSub!: Subscription;
@@ -49,6 +49,9 @@ export class EditInputsComponent implements OnInit {
 
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
+
+  //search
+  artiklNaziv:any;
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -89,8 +92,7 @@ export class EditInputsComponent implements OnInit {
      
     });
 
-    this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
+    this.artikliPozivanje();
         
     this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
@@ -121,6 +123,29 @@ export class EditInputsComponent implements OnInit {
       }
     }
   }
+
+artikliPozivanje()
+{
+  this._artiklService.getArtikli()
+        .subscribe(data => this.artikli = data);
+}
+
+//search
+Search(){
+  console.log(this.artiklNaziv);
+  if(this.artiklNaziv==""){
+    this.artikliPozivanje();
+  }
+  else{
+  console.log(this.artikli);
+
+    this.artikli=this.artikli.filter(res=>{
+      return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+    });
+  }
+}
+
+
   ngOnDestroy() {
     this._routerSub.unsubscribe();
   }
@@ -138,13 +163,12 @@ export class EditInputsComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) {
       if(this.canDeactivate()){
-        return false; // ako ima promjena returning false otvara dialog
+        return true; // ako ima promjena returning false otvara dialog
       }return true; // ako nema promjena refresha
     }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data =>{ this.artikl = data
         this.stavka.kolicina=1;
-        this.stavka.cijenaBezPdv=this.artikl.mpc;    
     });
     this.modalService.dismissAll();
   }
@@ -155,14 +179,15 @@ export class EditInputsComponent implements OnInit {
     this.stavka.jedMjere = this.artikl.jedinicaMjereId;
     this.stavka.redniBroj = this.stavkeLista.length + 1;
     this.stavka.racunId = id;
-    console.log(this.stavka);
+    console.log(this.stavka.ulaznaCijena);
+    console.log(this.stavka.cijenaBezPdv);
 
     this.racun.iznosRacuna+=this.stavka.cijenaBezPdv;
     this.pdvEditIzracun();
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
-
     this.updateRacun();
-    window.location.reload();
+
+    //window.location.reload();
     this.dodavanje=true;
   }
   
@@ -179,13 +204,13 @@ export class EditInputsComponent implements OnInit {
     this.racun.iznosSaPdv=(this.racun.iznosRacuna)+(this.racun.iznosRacuna*(this.racun.iznosPoreza/100));
   }
   cijenaCalc(){
-    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.artikl.mpc;
+    this.stavka.cijenaBezPdv=this.stavka.kolicina*this.stavka.ulaznaCijena;
   }
 
   updateRacun(){
+    console.log(this.racun);
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
     this.uredjivanje=true;
-    window.location.reload();
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
@@ -196,12 +221,12 @@ export class EditInputsComponent implements OnInit {
   }
 
   DeleteStavkaConfirm(idStavke: any,cijena:any){    
-    
+    console.log(cijena);
     this.racun.iznosRacuna-=cijena;
     this.pdvEditIzracun();
     this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaBrisanje = data);
-    console.log(this.stavkaBrisanje);
     this.updateRacun();
+    console.log(this.stavkaBrisanje);
     return this._stavkaService.getStavke().subscribe(
       (result)=>{
         window.location.reload();
@@ -231,6 +256,8 @@ Get(content:any) {
 }
 
 private getDismissReason(reason: any): string {
+  this.artiklNaziv="";
+  this.artikliPozivanje();
   if (reason === ModalDismissReasons.ESC) {
     return 'by pressing ESC';
   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

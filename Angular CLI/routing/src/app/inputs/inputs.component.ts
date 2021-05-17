@@ -33,7 +33,10 @@ export class InputsComponent implements OnInit {
   EditeStavka!: IStavka;
   artikl: any;
   currUser!: User;
-
+//pageing
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -76,6 +79,12 @@ export class InputsComponent implements OnInit {
             .subscribe(data => this.artikli = data);
         
   }
+
+  public onPageChange(pageNum: number): void {
+
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+    
+    }
 
   GetStavke()
   {

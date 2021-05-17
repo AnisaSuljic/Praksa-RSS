@@ -24,57 +24,64 @@ export class ItemsComponent implements OnInit {
   grupe: Groups[] = [];
   proizvodjaci: Manufacturer[]=[];
   jediniceMjere: IJedinicaMjere[]=[];
-   
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   closeResult:string='';
   artikl!: IArtikl;
   idartikl: number=0;
   private routeSub!:Subscription;
   currUser!:User;
   constructor(public _artiklService: ArtiklService, public _jedinicaMjereService: JedinicamjereService,
-     private modalService: NgbModal,
-     private route:ActivatedRoute, public _grupeService:GroupsService, 
-     public _proizvodjacService: ManufacturerService,
-     private _korisnikService:UserService)
-  {
+    private modalService: NgbModal,
+    private route: ActivatedRoute, public _grupeService: GroupsService,
+    public _proizvodjacService: ManufacturerService,
+    private _korisnikService: UserService) {
     this.artikl = new IArtikl();
     //this._grupeService.getGroups().subscribe(data => this.grupe = data);
     //this._proizvodjacService.get();
-    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
-    this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
-      for(let i=0; i< this.artikli.length; i++){
-      this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res=>{
-        this.artikli[i].jedinicaMjereNaziv = res.naziv;
-       });
-      }
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._artiklService.getArtikli().subscribe(data => {
+        this.artikli = data.filter(obj => obj.klijentId == this.currUser.klijentId);
+        for (let i = 0; i < this.artikli.length; i++) {
+          this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
+            this.artikli[i].jedinicaMjereNaziv = res.naziv;
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data =>
+              this.artikli[i].grupaNaziv = data.naziv);
+          });
+        }
+      });
     });
-  });
   }
   
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
-   
-    
-    this._grupeService.getGroups().subscribe(data=> this.grupe = data);
-    this._proizvodjacService.getManufacturers().subscribe(data=> this.proizvodjaci = data);
+    this._grupeService.getGroups().subscribe(data =>{ this.grupe = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
+    this._proizvodjacService.getManufacturers().subscribe(data =>{ this.proizvodjaci = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
     this._jedinicaMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);
   }
   onSubmit(){
     console.log(this.artikl);
-    //this.artikl.mpc=this.artikl.nc-(1/this.artikl.marzaIznos);
+    this.artikl.vpc=this.artikl.nc-(1/this.artikl.marzaIznos);
     //this.artikl.marzaIznos=(this.artikl.mpc-this.artikl.nc)/this.artikl.mpc;
     //this.artikl.marza=this.artikl.mpc-this.artikl.nc;
     this._artiklService.addArtikl(this.artikl)
           .subscribe(data=>this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
             for(let i=0; i< this.artikli.length; i++){
             this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
-              this.artikli[i].jedinicaMjereNaziv = data.naziv); }}));
+              this.artikli[i].jedinicaMjereNaziv = data.naziv); 
+              this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data => 
+                this.artikli[i].grupaNaziv = data.naziv); }}));
   }
   updateArtikl(){
     this._artiklService.updateArtikl(this._artiklService.formData.artiklId, this._artiklService.formData)
         .subscribe(data=> this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
           for(let i=0; i< this.artikli.length; i++){
           this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
-            this.artikli[i].jedinicaMjereNaziv = data.naziv); }}));
+            this.artikli[i].jedinicaMjereNaziv = data.naziv);
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data => 
+              this.artikli[i].grupaNaziv = data.naziv); }}));
         this.ngOnInit();
   }
   DeleteArtikl() {
@@ -86,11 +93,26 @@ export class ItemsComponent implements OnInit {
         this.artikli = []; this._artiklService.getArtikli().subscribe(data => { this.artikli = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
           for(let i=0; i< this.artikli.length; i++){
           this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data => 
-            this.artikli[i].jedinicaMjereNaziv = data.naziv); }});
+            this.artikli[i].jedinicaMjereNaziv = data.naziv);
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data => 
+              this.artikli[i].grupaNaziv = data.naziv);
+          }});
         this.ngOnInit();
         this.modalService.dismissAll();
       }
     );
+  }
+  unosNC(){
+    this.artikl.marzaIznos ? this.artikl.marzaIznos : this.artikl.marzaIznos = 0;
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+  }
+  unosMarza(){
+    this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+  }
+  
+ public onPageChange(pageNum: number): void {
+  this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
 /**Modal Add */
 Add(content:any) {

@@ -19,6 +19,8 @@ namespace Faktura.Model.Requests
         public decimal? IznosRacuna { get; set; }
         public decimal? IznosPoreza { get; set; }
         public decimal? IznosSaPdv { get; set; }
+        public int? Fisbroj { get; set; }
+
 
         public int? KupacId { get; set; }
         public int? VrstaPlacanjaId { get; set; }
