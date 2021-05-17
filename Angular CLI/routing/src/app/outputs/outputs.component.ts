@@ -28,6 +28,10 @@ export class OutputsComponent implements OnInit {
   racun!: IRacun;
   currUser!:User;
   idRacuna:number=0;
+  //pageing
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   public stavkeBaza : IStavka[] = [];
 
   constructor(private _racunService: RacunService,
@@ -85,6 +89,11 @@ export class OutputsComponent implements OnInit {
           }
         });
   }
+  public onPageChange(pageNum: number): void {
+
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+    
+    }
 
   DeleteRacun() {
     this._racunService.deleteRacun(this.idRacuna).subscribe(data => this.racun = data);

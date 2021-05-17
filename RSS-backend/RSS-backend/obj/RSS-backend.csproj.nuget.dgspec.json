@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj": {}
+    "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj": {
+    "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
+        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
         "projectName": "Faktura.Model",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
-        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\obj\\",
+        "projectPath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -19,7 +19,7 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -67,18 +67,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj": {
+    "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj",
+        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj",
         "projectName": "RSS-backend",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj",
-        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\RSS-backend\\obj\\",
+        "projectPath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\RSS-backend\\RSS-backend.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\RSS-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -86,7 +86,7 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -102,8 +102,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj": {
-                "projectPath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj"
+              "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj": {
+                "projectPath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj"
               }
             }
           }
@@ -165,7 +165,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

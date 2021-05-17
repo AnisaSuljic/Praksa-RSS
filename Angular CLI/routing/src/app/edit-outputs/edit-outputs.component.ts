@@ -39,6 +39,9 @@ export class EditOutputsComponent implements OnInit {
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
 
+    //search
+    artiklNaziv:any;
+
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
 
@@ -135,8 +138,25 @@ export class EditOutputsComponent implements OnInit {
       }
     );
   }
-  
-  
+  artikliPozivanje()
+{
+  this._artiklService.getArtikli()
+        .subscribe(data => this.artikli = data);
+}
+  //search
+Search(){
+  console.log(this.artiklNaziv);
+  if(this.artiklNaziv==""){
+    this.artikliPozivanje();
+  }
+  else{
+  console.log(this.artikli);
+
+    this.artikli=this.artikli.filter(res=>{
+      return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+    });
+  }
+}
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = this.racun.klijentId;
