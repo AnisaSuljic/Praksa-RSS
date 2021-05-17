@@ -3,7 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+#pageing{
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    
+}
 .header{
     height: 55px;
     width: 100%;

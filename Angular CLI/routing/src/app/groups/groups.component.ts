@@ -24,6 +24,9 @@ export class GroupsComponent implements OnInit {
   closeResult:string='';
   grupa!: Groups;
   idgroup: number=0;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   uspjesnoDodavanje:boolean=false;
   private routeSub!:Subscription;
   currUser!: User;
@@ -86,7 +89,9 @@ export class GroupsComponent implements OnInit {
       }
     );
   }
-
+  public onPageChange(pageNum: number): void {
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+  }
 /**Modal Add */
 Add(content:any) {
   this.grupa = new Groups();

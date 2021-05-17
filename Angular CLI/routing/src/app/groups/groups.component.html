@@ -125,7 +125,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of grupe">
+    <tr *ngFor="let item of grupe | slice: pageSize | slice: 0:itemsPerPage; let i = index">
       <td data-label="Naziv grupe">{{item.naziv}}</td>
       <td data-label="Vrsta">{{item.vrstaNaziv}}</td>
       <td data-label="Porez">{{item.porezNaziv}}</td>
@@ -136,3 +136,5 @@
     </tr>
   </tbody>
 </table>
+<ngb-pagination id="pageing" [collectionSize]="grupe.length" [pageSize]="itemsPerPage" 
+[(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
