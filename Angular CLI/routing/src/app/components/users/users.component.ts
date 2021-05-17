@@ -26,6 +26,9 @@ export class UsersComponent implements OnInit {
   user: User = new User();
   currUser!: User;
   userObs!: Observable<boolean>;
+  currentPage = 1;
+  itemsPerPage = 10;
+  pageSize!: number;
   constructor(private http: HttpClient, private router: Router, public service: UserService, public serviceuser: UserService) {
     this.serviceuser.ucitajKorisnika().subscribe(res => {
       this.currUser = this.serviceuser.currUser;
@@ -37,8 +40,15 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onPageChange(pageNum: number): void {
+    this.pageSize = this.itemsPerPage*(pageNum - 1);
+  }
 
+  filterPoNazivu(pretraga:any){
+    this.service.getPoImePrezime(pretraga.value);
+  }
   dodaj() {
+    this.service.formData = Object.assign({}, new User());
     this.router.navigate(['/adminpanel/adduser']);
   }
   uredi(x: User) {

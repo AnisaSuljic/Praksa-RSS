@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
 import { Client } from '../../models/client.model';
 import { Manufacturer } from '../../models/manufacturer.model';
 import { MyConfig } from '../../my-config';
@@ -23,11 +24,14 @@ export class ManufacturersComponent implements OnInit{
   currentPage = 1;
   itemsPerPage = 10;
   pageSize!: number;
+  //pretraga!:string;
   readonly url: string = MyConfig.adresaServera + '/proizvodjac';
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, 
-    public service: ManufacturerService, public serviceclient: ClientService) {
+    public service: ManufacturerService, public serviceclient: ClientService, public _userService: UserService) {
       this.manufacturer = new Manufacturer();
-      this.service.get();
+      this._userService.ucitajKorisnika().subscribe(res=>{
+        this.service.get();
+      })
       //this.serviceclient.get();
     }
  
@@ -36,15 +40,18 @@ export class ManufacturersComponent implements OnInit{
   onSubmit() {
     this.service.postManufacturer(this.manufacturer!).subscribe(data =>
       this.service.get());
+      const paging = Math.ceil((this.service.manufacturers.length + 1) / this.itemsPerPage);
+      this.onPageChange(paging);
+      this.currentPage = paging;
   }
   uredi() {
     this.service.putManufacturer(this.service.formData.proizvodjacId!, this.service.formData)
       .subscribe(data => this.service.get());
-    this.ngOnInit();
+      this.ngOnInit();
   }
   obrisi() {
     this.service.deleteManufacturer(this.manufacturer.proizvodjacId!)
-      .subscribe(res => { this.manufacturer = res });
+      .subscribe(res => { this.manufacturer = res;  this.service.get(); });
     return this.service.getManufacturers().subscribe(res => {
       this.ngOnInit();
       this.modalService.dismissAll();
@@ -62,10 +69,15 @@ export class ManufacturersComponent implements OnInit{
     }
   }
   public onPageChange(pageNum: number): void {
-
     this.pageSize = this.itemsPerPage*(pageNum - 1);
-    
-    }
+  }
+
+  filterPoNazivu(pretraga:any){
+    //console.log(pretraga.value);
+    this.service.getManufacturers().subscribe(res => {
+      this.service.manufacturers = res.filter(obj=> obj.naziv?.includes(pretraga.value));
+    });
+  }
   /**Modal Add */
   Add(content: any) {
     this.manufacturer = new Manufacturer();

@@ -21,6 +21,7 @@ export class RegistracijaComponent implements OnInit {
   useri: User[] = [];
   constructor(private _registracijaService: RegistracijaService,private router: Router,private _korisnikService: UserService) 
   {
+    localStorage.setItem('token', window.btoa("test:test"));
     this.klijent=new IKlijent();
     this.korisnik=new User();
     this._korisnikService.getUsers().subscribe(res=> this.useri = res);
