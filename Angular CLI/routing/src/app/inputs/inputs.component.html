@@ -38,7 +38,7 @@
                 <td data-label="Skladište ulaz">{{item.nazivSkladista}}</td>
                 <td data-label="Iznos">{{item.iznosRacuna}}</td>
                 <td data-label="Vrsta plaćanja">{{item.nazivVrstePlacanja}}</td>
-                <td data-label="Plaćen"><input type="checkbox" [(ngModel)]="item.placen" readonly></td>
+                <td data-label="Plaćen"><input type="checkbox" [(ngModel)]="item.placen" disabled></td>
                 <td class="actions">
                     <button (click)="Get(content,item.racunId)">Stavke</button>
                     <button routerLink="/adminpanel/editInputs/{{item.racunId}}">Uredi</button>

@@ -87,6 +87,6 @@
           </tr>
         </tbody>
       </table>
-      <ngb-pagination [collectionSize]="this.service.manufacturers.length" [pageSize]="itemsPerPage" 
+      <ngb-pagination id="pageing" [collectionSize]="this.service.manufacturers.length" [pageSize]="itemsPerPage" 
         [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
   </div>

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "JgkTEFYjwcaManYUqYTSnOXK5h5liCOa2z/YFtWvEeJMYZZ+9V9rMW/U9yM4hQLt+5yjCNfjqjy6Xh21Hwumow==",
+  "dgSpecHash": "mZGEKIqGB652uzsbsm+7hFbjXYc9LJaLMprQBswyOuyIuZ8+AdEnycX07gmKO4qlxkDjGK3X18IZynHk8vcMDw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\LENOVO\\Documents\\GitHub\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\Praksa-RSS\\RSS-backend\\Faktura.Model\\Faktura.Model.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\LENOVO\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    "C:\\Users\\PC\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
