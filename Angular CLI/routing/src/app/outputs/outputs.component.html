@@ -66,6 +66,8 @@
             </tr>
         </tbody>
     </table>
+    <ngb-pagination id="pageing" [collectionSize]="racuni.length" [pageSize]="itemsPerPage" 
+        [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
 <!--Get stavke-->
     <ng-template #content let-modal >
       <div class="modal-header">
