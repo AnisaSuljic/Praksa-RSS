@@ -3,6 +3,7 @@ export class IArtikl {
     public sifra!: string;
     public naziv!: string;
     public grupaId!: number;
+    public grupaNaziv!: string;
     public kataloskiBroj!: string;
     public fisbroj!: number;
     public nc!: number;

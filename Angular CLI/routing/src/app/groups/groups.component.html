@@ -11,8 +11,6 @@
       </div>
       <button (click)="Add(content)" class="addInputs">Dodaj grupu</button>
   </div>
-
-
 <!-- Add modal -->
 <ng-template #content let-modal>
   <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
@@ -28,14 +26,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Vrsta</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite vrstu
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="grupa.vrstaId" name="vrstaId">
-            <li><a class="dropdown-item" href="#" *ngFor="let item of vrste" value="item.id">{{item.naziv}}</a></li>
-          </ul> -->
           <select name="vrstaId" class="form-control" #vrsta="ngModel" [(ngModel)]="grupa.vrstaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite vrstu</option>
             <option *ngFor="let vrsta of vrste" [value]="vrsta.vrstaId">
@@ -47,16 +37,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Porez</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite porez
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="inputState" [(ngModel)]="grupa.porezId"
-            name="porezId">
-            <li><a class="dropdown-item" href="#" *ngFor="let item of porezi" value="item.id">{{item.nazivPoreza}}</a>
-            </li>
-          </ul> -->
           <select name="porezId" class="form-control" #porez="ngModel" [(ngModel)]="grupa.porezId">
             <option value="0" [disabled]=true [selected]=true>Odaberite porez</option>
             <option *ngFor="let porez of porezi" [value]="porez.porezId">
@@ -87,14 +67,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Vrsta</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite vrstu
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="grupa.vrstaId" name="vrstaId">
-            <li><a class="dropdown-item" href="#" *ngFor="let item of vrste" value="item.id">{{item.naziv}}</a></li>
-          </ul> -->
           <select name="vrstaId" class="form-control" #vrsta="ngModel" [(ngModel)]="this._groupService.formData.vrstaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite vrstu</option>
             <option *ngFor="let vrsta of vrste" [value]="vrsta.vrstaId">
@@ -106,16 +78,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Porez</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite porez
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="inputState" [(ngModel)]="grupa.porezId"
-            name="porezId">
-            <li><a class="dropdown-item" href="#" *ngFor="let item of porezi" value="item.id">{{item.nazivPoreza}}</a>
-            </li>
-          </ul> -->
           <select name="porezId" class="form-control" #porez="ngModel" [(ngModel)]="this._groupService.formData.porezId">
             <option value="0" [disabled]=true [selected]=true>Odaberite porez</option>
             <option *ngFor="let porez of porezi" [value]="porez.porezId">
@@ -156,7 +118,6 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th scope="col">Redni broj</th>
       <th scope="col">Naziv grupe</th>
       <th scope="col">Vrsta</th>
       <th scope="col">Porez</th>
@@ -165,7 +126,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of grupe">
-      <td data-label="No." scope="row">{{item.grupaId}}</td>
       <td data-label="Naziv grupe">{{item.naziv}}</td>
       <td data-label="Vrsta">{{item.vrstaNaziv}}</td>
       <td data-label="Porez">{{item.porezNaziv}}</td>
@@ -176,29 +136,3 @@
     </tr>
   </tbody>
 </table>
-
-<!--  <ng-template #content let-modal >
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Stavke računa</h4>
-  </div>
-  <div class="modal-body">
-    <form>          
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">Naziv grupe</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-            <tbody >
-                <tr *ngFor="let item of grupe">
-                    <td data-label="No.">{{item.id}}</td>
-                    <td data-label="Naziv grupe">{{item.naziv}}</td>
-                    <td scope="col"></td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-  </div>
-</ng-template> -->

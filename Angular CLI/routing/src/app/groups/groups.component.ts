@@ -37,8 +37,8 @@ export class GroupsComponent implements OnInit {
         this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res=>{this.grupe[i].porezNaziv = res.nazivPoreza});
       }
       });
-      this._porezService.getPorez().subscribe(data=> this.porezi = data);
-      this._vrstaService.getVrsta().subscribe(data=> this.vrste = data);
+      this._porezService.getPorez().subscribe(data =>{ this.porezi = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
+      this._vrstaService.getVrsta().subscribe(data =>{ this.vrste = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
     });
     this.grupa = new Groups();
    }
