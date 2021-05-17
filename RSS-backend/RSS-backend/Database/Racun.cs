@@ -33,6 +33,7 @@ namespace RSS_backend.Database
         public string Napomena { get; set; }
         public bool? Obrisan { get; set; }
         public decimal? IznosSaPdv { get; set; }
+        public int? Fisbroj { get; set; }
 
         public virtual Dokument Dokument { get; set; }
         public virtual Klijent Klijent { get; set; }
