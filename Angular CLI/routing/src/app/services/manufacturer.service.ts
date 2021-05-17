@@ -27,13 +27,12 @@ export class ManufacturerService {
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const manufactureri = res as Manufacturer[];
-      console.log(this.currUser);
       this.manufacturers = manufactureri.filter(obj =>
-        obj.klijentId == this.currUser.klijentId)
+        obj.klijentId == this._korisnikService.currUser.klijentId)
     });
   }
   getManufacturers():Observable<Manufacturer[]>{
-    return this.http.get<Manufacturer[]>(this.url);
+    return this.http.get<Manufacturer[]>(this.url).pipe(map(res=> this.manufacturers = res.filter(obj=> obj.klijentId == this._korisnikService.currUser.klijentId)));
   }
   postManufacturer(item: Manufacturer):Observable<Manufacturer>{
     item.klijentId = this.currUser?.klijentId;

@@ -85,7 +85,7 @@
 
 ngb-pagination ::ng-deep .page-item.active .page-link {
   border-color: black !important;
-  background-color: rgb(62, 62, 62) !important;
+  background-color: #b991eb !important;
 }
 ngb-pagination ::ng-deep a {
   color: black !important;

@@ -40,7 +40,10 @@ export class CustomersComponent implements OnInit {
         this.service.deleteCustomer(x as number).subscribe(res => { this.service.get(); });
       }
   }
-
+  filterPoNazivu(pretraga:any){
+    //console.log(pretraga.value);
+    this.service.getByName(pretraga.value);
+  }
   /**Modal Add */
   Add(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {

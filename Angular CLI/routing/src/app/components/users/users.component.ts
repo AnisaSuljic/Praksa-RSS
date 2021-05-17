@@ -42,7 +42,11 @@ export class UsersComponent implements OnInit {
 
   public onPageChange(pageNum: number): void {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
-    }
+  }
+
+  filterPoNazivu(pretraga:any){
+    this.service.getPoImePrezime(pretraga.value);
+  }
   dodaj() {
     this.service.formData = Object.assign({}, new User());
     this.router.navigate(['/adminpanel/adduser']);

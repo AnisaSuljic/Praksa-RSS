@@ -17,6 +17,7 @@
         <div class="headerSpan">
             <span>Korisnici</span>
         </div>
+        <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
         <button (click)="dodaj()" class="addInputs">Dodaj korisnika</button>
     </div>
     <table class="table">
