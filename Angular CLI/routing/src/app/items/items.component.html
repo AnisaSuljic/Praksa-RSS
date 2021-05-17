@@ -1,7 +1,11 @@
 
-<div class="add">
-  <button (click)="Add(content)" class="adding">Dodaj artikl</button>
-</div>
+<div class="tableFrame">
+  <div class="header">
+      <div class="headerSpan">
+          <span>Artikli</span>
+      </div>
+      <button (click)="Add(content)" class="addInputs">Dodaj artikl</button>
+  </div>
 
 <!-- Add modal -->
 <ng-template #content let-modal>
@@ -279,7 +283,7 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th scope="col">No.</th>
+      <th scope="col">Redni broj</th>
       <th scope="col">Šifra</th>
       <th scope="col">Naziv artikla</th>
       <th scope="col">Jedinica mjere</th>
