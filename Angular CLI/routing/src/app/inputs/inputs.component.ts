@@ -38,6 +38,9 @@ export class InputsComponent implements OnInit {
   itemsPerPage = 10;
   pageSize!: number;
 
+  //search
+  racunNaziv:any;
+
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
     private _stavkaService: StavkaService,
@@ -48,28 +51,7 @@ export class InputsComponent implements OnInit {
     { 
       this.artikl=null;
 
-      this._korisnikService.ucitajKorisnika().subscribe(res => {
-        this.currUser = this._korisnikService.currUser;
-        console.log("klk"+this.currUser);
-
-        this._racunService.getRacuni()
-            .subscribe(data => {
-              console.log(data);
-              console.log("user=>"+this.currUser);
-              for (let i = 0; i < data.length; i++){
-                if(data[i].skladisteUlazId!=null && data[i].klijentId==this.currUser.klijentId)
-                {
-                  this.racuni.push(data[i])
-                }                
-              }
-              for(let j=0;j<this.racuni.length;j++){
-                this._skladisteService.getSkladisteById(this.racuni[j].skladisteUlazId).subscribe(l=>{
-                  this.racuni[j].nazivSkladista = l.naziv})   
-                  this._vrstaPlacanjaService.getVrstaById(this.racuni[j].vrstaPlacanjaId).subscribe(v=>{
-                    this.racuni[j].nazivVrstePlacanja = v.naziv})                  
-              }
-            });
-      });
+      this.RacuniPozivanje()
      }
 
   ngOnInit(): void {
@@ -80,6 +62,43 @@ export class InputsComponent implements OnInit {
         
   }
 
+  RacuniPozivanje()
+  {
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      console.log("klk"+this.currUser);
+
+      this._racunService.getRacuni()
+          .subscribe(data => {
+            console.log(data);
+            console.log("user=>"+this.currUser);
+            for (let i = 0; i < data.length; i++){
+              if(data[i].skladisteUlazId!=null && data[i].klijentId==this.currUser.klijentId)
+              {
+                this.racuni.push(data[i])
+              }                
+            }
+            for(let j=0;j<this.racuni.length;j++){
+              this._skladisteService.getSkladisteById(this.racuni[j].skladisteUlazId).subscribe(l=>{
+                this.racuni[j].nazivSkladista = l.naziv})   
+                this._vrstaPlacanjaService.getVrstaById(this.racuni[j].vrstaPlacanjaId).subscribe(v=>{
+                  this.racuni[j].nazivVrstePlacanja = v.naziv})                  
+            }
+          });
+    });
+  }
+
+  //search
+    Search(){
+      if(this.racunNaziv==""){
+        this.RacuniPozivanje();
+      }
+      else{
+        this.racuni=this.racuni.filter(res=>{
+          return res.brojRacuna.toLocaleLowerCase().match(this.racunNaziv.toLocaleLowerCase());
+        });
+      }
+    }
   public onPageChange(pageNum: number): void {
 
     this.pageSize = this.itemsPerPage*(pageNum - 1);

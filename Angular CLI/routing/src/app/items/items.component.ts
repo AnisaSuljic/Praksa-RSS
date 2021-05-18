@@ -63,7 +63,7 @@ export class ItemsComponent implements OnInit {
   }
   onSubmit(){
     console.log(this.artikl);
-    this.artikl.vpc=this.artikl.nc-(1/this.artikl.marzaIznos);
+    //this.artikl.vpc=this.artikl.nc-(1/this.artikl.marzaIznos);
     //this.artikl.marzaIznos=(this.artikl.mpc-this.artikl.nc)/this.artikl.mpc;
     //this.artikl.marza=this.artikl.mpc-this.artikl.nc;
     this._artiklService.addArtikl(this.artikl)
@@ -97,10 +97,10 @@ export class ItemsComponent implements OnInit {
             this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data => 
               this.artikli[i].grupaNaziv = data.naziv);
           }});
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      }
-    );
+          this.ngOnInit();
+          this.modalService.dismissAll();
+        }
+        );
   }
   unosNC(){
     this.artikl.marzaIznos ? this.artikl.marzaIznos : this.artikl.marzaIznos = 0;
@@ -109,6 +109,14 @@ export class ItemsComponent implements OnInit {
   unosMarza(){
     this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
     this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+  }
+  unosNCUpdate(){
+    this._artiklService.formData.marzaIznos ? this._artiklService.formData.marzaIznos : this._artiklService.formData.marzaIznos = 0;
+    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - this._artiklService.formData.marzaIznos)).toFixed(3);
+  }
+  unosMarzaUpdate(){
+    this._artiklService.formData.nc ? this._artiklService.formData.nc : this._artiklService.formData.nc = 0;
+    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - this._artiklService.formData.marzaIznos)).toFixed(3);
   }
   
  public onPageChange(pageNum: number): void {

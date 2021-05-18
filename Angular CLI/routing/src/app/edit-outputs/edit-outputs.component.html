@@ -106,7 +106,7 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <button type="button" class="btn btn-danger">Otkaži</button>
+                        <button type="button" routerLink="/adminpanel/outputs/" class="btn btn-danger">Otkaži</button>
                         <button type="submit" class="btn btn-info">Sačuvaj</button>
                     </div>
                 </div>
@@ -290,22 +290,17 @@
               <div class="rowActions">     
 <!--dropdowngrupa-->
 
-                <div ngbDropdown class="d-inline-block">
-                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Grupe</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem>Grupa1</button>
-                    <button ngbDropdownItem>Grupa2</button>
-                    <button ngbDropdownItem>Grupa3</button>
-                    </div>
-                </div>
+                
 <!--Search-->
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Artikli">
-                    <div class="input-group-prepend">                        
-                            <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                <div class="rowActions">    <!--Search-->
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
+                        (ngModelChange)="Search()">
+                        <div class="input-group-prepend">                        
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                        </div>
                     </div>
                 </div>
-
 
               </div>
                 <table class="tableModalItems table">

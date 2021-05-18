@@ -10,6 +10,10 @@
         <div class="headerSpan">
             <span>Ulazni račun</span>
         </div>
+      </div>
+      <div class="underHeader">
+        <input placeholder="Pretraži" type="text" class="form-control" name="racunNaziv" [(ngModel)]="racunNaziv"
+        (ngModelChange)="Search()">
         <button routerLink="/adminpanel/addInputs" class="addInputs">Dodaj ulazni račun</button>
     </div>
     <div *ngIf="brisanje==true" class="alert-success">Uspješno ste obrisali račun!</div>

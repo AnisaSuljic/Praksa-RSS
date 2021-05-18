@@ -40,6 +40,14 @@ export class UserService {
       this.users = useri.filter(obj => obj.klijentId == currUser.klijentId);
     });
   }
+  getPoImePrezime(pretraga: string) {
+    return this.http.get(this.url).toPromise().then(res => {
+      const useri: User[] = res as User[];
+      const currUser: User = this.currUser;
+      this.users = useri.filter(obj => obj.klijentId == currUser.klijentId);
+      this.users = this.users.filter(obj => obj.ime?.includes(pretraga) || obj.prezime?.includes(pretraga));
+    });
+  }
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url);
   }

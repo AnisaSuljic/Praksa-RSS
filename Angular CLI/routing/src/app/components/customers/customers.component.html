@@ -1,129 +1,19 @@
-<div class="add" style="display: none;">
-  <a (click)="Add(content)" class="adding"><img src="../../assets/img/plus.png" alt=""></a>
-</div>
-
-<!-- Add modal -->
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dodavanje novog kupca</h4>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Naziv</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Adresa</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="faktura@gmail.com">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Telefon</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
-      </div>
-
-      <div class="form-group" style="width: 45%;float: left;">
-        <label for="exampleFormControlSelect1">PDV broj</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
-      </div>
-
-      <div class="form-group" style="width: 45%;float: right;">
-        <label for="exampleFormControlSelect1">ID broj</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
-      </div>
-
-      <div class="form-group" style="width: 50%;float: left;">
-        <label for="exampleFormControlSelect2">Grad</label>
-        <div class="dropdown">
-          <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite grad
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Grad1</a></li>
-            <li><a class="dropdown-item" href="#">Grad2</a></li>
-            <li><a class="dropdown-item" href="#">Grad3</a></li>
-          </ul>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi</button>
-  </div>
-</ng-template>
-
-<!--Update modal-->
-<ng-template #content1 let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Naziv</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" value="Kupac1">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Adresa</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" value="Ulica bb">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" value="kupac1@gmail.com">
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Telefon</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" value="95629946">
-      </div>
-
-      <div class="form-group" style="width: 45%;float: left;">
-        <label for="exampleFormControlSelect1">PDV broj</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" value="#84659">
-      </div>
-
-      <div class="form-group" style="width: 45%;float: right;">
-        <label for="exampleFormControlSelect1">ID broj</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" value="ID46946">
-      </div>
-
-      <div class="form-group" style="width: 50%;float: left;">
-        <label for="exampleFormControlSelect2">Grad</label>
-        <div class="dropdown">
-          <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite grad
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Grad1</a></li>
-            <li><a class="dropdown-item" href="#">Grad2</a></li>
-            <li><a class="dropdown-item" href="#">Grad3</a></li>
-          </ul>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Odustani</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Snimi promjene</button>
-  </div>
-</ng-template>
-
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+</head>
+      
 <!--Delete modal-->
+
 <ng-template #content2 let-modal>
   <div class="modal-header">
   </div>
@@ -144,62 +34,17 @@
   </div>
 </ng-template>
 
-<table class="table" style="display: none;">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">No.</th>
-      <th scope="col">Naziv</th>
-      <th scope="col">Adresa</th>
-      <th scope="col">Email</th>
-      <th scope="col">Telefon</th>
-      <th scope="col">PDV broj</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Kupac1</td>
-      <td>Ulica bb</td>
-      <td>kupac1@gmail.com</td>
-      <td>6154146</td>
-      <td>#956dfcs8</td>
-      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Kupac2</td>
-      <td>Ulica bb</td>
-      <td>Kupac2@gmail.com</td>
-      <td>68564146</td>
-      <td>#48962</td>
-      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
-      </td>
-
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Kupac3</td>
-      <td>Ulica bb</td>
-      <td>Kupac3@gmail.com</td>
-      <td>5659416</td>
-      <td>#sdefe5</td>
-      <td><a (click)="Update(content1)"><i class='bx bx-edit'></i></a>
-        <a (click)="Update(content2)"><i class='bx bx-trash'></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+ 
 <div class="tableFrame">
   <div class="header">
     <div class="headerSpan">
       <span>Kupci</span>
     </div>
-      <button (click)="dodaj()" class="addInputs">Dodaj kupca</button>
+    
+  </div>
+  <div class="underHeader">
+    <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
+    <button (click)="dodaj()" class="addInputs">Dodaj kupca</button>
   </div>
   <table class="table">
       <thead>
@@ -212,13 +57,12 @@
               <th>Telefon</th>
               <th>PDV broj</th>
               <th>Grad</th>
-              <!-- <th>Klijent</th> -->
               <th>Akcije</th>
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let item of this.service.customers; let i = index">
-              <td data-label="Redni broj">{{i + 1}}</td>
+          <tr *ngFor="let item of this.service.customers | slice: pageSize | slice: 0:itemsPerPage; let i = index">
+              <td data-label="Redni broj">{{i + (itemsPerPage * (currentPage - 1)) + 1}}</td>
               <td data-label="Naziv">{{item.naziv}}</td>
               <td data-label="Adresa">{{item.adresa}}</td>
               <td data-label="Email">{{item.email}}</td>
@@ -226,7 +70,6 @@
               <td data-label="Telefon">{{item.telefon}}</td>
               <td data-label="PDV broj">{{item.pdvbroj}}</td>
               <td data-label="Grad">{{item.gradNaziv}}</td>
-              <!-- <td data-label="Klijent">{{item.klijentId}}</td> -->
               <td class="actions">
                   <button (click)="uredi(item)">Uredi</button>
                   <button (click)="obrisi(item.kupacId)">Obriši</button>
@@ -234,4 +77,6 @@
           </tr>
       </tbody>
   </table>
+  <ngb-pagination id="pageing" [collectionSize]="this.service.customers.length" [pageSize]="itemsPerPage" 
+  [(page)]="currentPage" [maxSize]="10" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
 </div>
