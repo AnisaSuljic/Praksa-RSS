@@ -13,6 +13,7 @@ export class UserService {
   readonly url = MyConfig.adresaServera + '/korisnik';
   formData: User = new User();
   currUser!: User;
+  promise!:any;
   constructor(private http: HttpClient) {
   }
   ucitaj() {
@@ -28,9 +29,12 @@ export class UserService {
     let rep: string = localStorage.getItem('token')!;
     let korisnickoIme: string = window.atob(rep).split(':', 1) as unknown as string;
     return this.http.get(this.url).pipe(map( res => {
-      const useri: User[] = res as User[];
-      this.users = useri.filter(obj => obj.korisnickoIme == korisnickoIme);
-      this.currUser = this.users[0];
+      this.promise = new Promise( (resolve, rej) => {
+          const useri: User[] = res as User[];
+          this.users = useri.filter(obj => obj.korisnickoIme == korisnickoIme);
+          this.currUser = this.users[0];
+          resolve(this.currUser);
+        })
     }));
   }
   get() {

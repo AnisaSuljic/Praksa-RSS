@@ -15,7 +15,11 @@ export class ArtiklService {
   Artikli: IArtikl[] = [];
   currUser!: User;
   constructor(private http: HttpClient, private _korisnikService: UserService) {
-    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; }); 
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this._korisnikService.promise.then(res => {
+        this.currUser = res;
+      })
+    }); 
     this.Artikli = []; }
   formData:IArtikl=new IArtikl();
   getArtikli(): Observable<IArtikl[]>{
