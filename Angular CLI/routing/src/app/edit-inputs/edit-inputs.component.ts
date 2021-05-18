@@ -182,9 +182,13 @@ Search(){
     console.log(this.stavka.ulaznaCijena);
     console.log(this.stavka.cijenaBezPdv);
 
+    this._stavkaService.addStavka(this.stavka).subscribe(data=> {
+      setTimeout(() =>{
+        this.stavka = data;
+      },1000);
+    });
     this.racun.iznosRacuna+=this.stavka.cijenaBezPdv;
     this.pdvEditIzracun();
-    this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
     this.updateRacun();
 
     window.location.reload();
@@ -209,7 +213,11 @@ Search(){
 
   updateRacun(){
     console.log(this.racun);
-    this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
+    this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data=> {
+      setTimeout(() =>{
+        this.racun = data;
+      },1000);
+    });
     this.uredjivanje=true;
   }
   ToSection(id:string){
@@ -222,9 +230,9 @@ Search(){
 
   DeleteStavkaConfirm(idStavke: any,cijena:any){    
     console.log(cijena);
-    this.racun.iznosRacuna-=cijena;
     this.pdvEditIzracun();
     this._stavkaService.deleteStavka(idStavke).subscribe(data => this.stavkaBrisanje = data);
+    this.racun.iznosRacuna-=cijena;
     this.updateRacun();
     console.log(this.stavkaBrisanje);
     return this._stavkaService.getStavke().subscribe(

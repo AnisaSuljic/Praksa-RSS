@@ -94,6 +94,7 @@
 ngb-pagination ::ng-deep ul.pagination{
     width: 10%;
     margin: auto;
+    margin-bottom: 10px;
 }
 
 ngb-pagination ::ng-deep .page-item.active .page-link {
