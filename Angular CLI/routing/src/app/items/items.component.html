@@ -58,16 +58,16 @@
         <input type="text" class="form-control" [(ngModel)]="artikl.nc" name="nc" id="exampleFormControlInput1" (input)="unosNC()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Marža</label>
+        <label for="exampleFormControlSelect1">Marža (0 - 100)</label>
         <input type="text" class="form-control" [(ngModel)]="artikl.marzaIznos" name="marzaIznos" id="exampleFormControlInput1" (input)="unosMarza()">
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">VPC</label>
-        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1" disabled>
+        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1" (input)="unosVPC()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
         <label for="exampleFormControlSelect1">Cijena</label>
-        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="mpc" id="exampleFormControlInput1" disabled>
+        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="mpc" id="exampleFormControlInput1" (input)="unosCijene()">
       </div>
       <div>
         <div class="form-group" style="width: 50%;float: left;">
@@ -174,12 +174,16 @@
         <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.nc" name="nc" (input)="unosNCUpdate()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Marža</label>
+        <label for="exampleFormControlSelect1">Marža (0 - 100)</label>
         <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marzaIznos" name="marza" (input)="unosMarzaUpdate()">
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">VPC</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc" disabled>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc" (input)="unosVPCUpdate()">
+      </div>
+      <div class="form-group" style="width: 50%;float: right;">
+        <label for="exampleFormControlSelect1">Cijena</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="mpc" (input)="unosCijeneUpdate()">
       </div>
       <div>
         <div class="form-group" style="width: 50%;float: left;">
@@ -290,7 +294,7 @@
       <th scope="col">NC</th>
       <th scope="col">Marža</th>
       <th scope="col">VPC</th>
-      <th scope="col">MPC</th>
+      <!-- <th scope="col">MPC</th> -->
       <th scope="col">Cijena HH</th>
       <th scope="col"></th>
     </tr>
@@ -303,9 +307,9 @@
       <td data-label="Naziv">{{item.jedinicaMjereNaziv}}</td>
       <td data-label="Naziv">{{item.fisbroj}}</td>
       <td data-label="Naziv">{{item.nc}}</td>
-      <td data-label="Naziv">{{item.marza}}</td>
+      <td data-label="Naziv">{{item.marzaIznos}}</td>
       <td data-label="Naziv">{{item.vpc}}</td>
-      <td data-label="Naziv">{{item.mpc}}</td>
+      <!-- <td data-label="Naziv">{{item.mpc}}</td> -->
       <td data-label="Naziv">{{item.cijenaHh}}</td>
       <td class="actions">
         <button (click)="Update(content1,item)">Uredi</button>

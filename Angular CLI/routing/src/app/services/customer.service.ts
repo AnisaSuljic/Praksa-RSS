@@ -18,19 +18,25 @@ export class CustomerService {
   currUser!: User;
   
   constructor(private http:HttpClient, private _gradService: GradService, private _korisnikService:UserService) {
-    this._korisnikService.ucitajKorisnika().subscribe(res=> {
-      this.currUser = this._korisnikService.currUser;
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this._korisnikService.promise.then(res => {
+        this.currUser = res;
+      })
     });
    }
 
   get(){
     return this.http.get(this.url).toPromise().then(res => { 
       const customeri = res as Customer[];
-      this.customers = customeri.filter(obj => obj.klijentId == this._korisnikService.currUser.klijentId);
-      for(let i=0; i< this.customers.length;i++){
-        this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
-            this.customers[i].gradNaziv = data.naziv)
-      }
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this._korisnikService.promise.then(res => {
+          this.customers = customeri.filter(obj => obj.klijentId == res.klijentId);
+        })
+        for(let i=0; i< this.customers.length;i++){
+          this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
+              this.customers[i].gradNaziv = data.naziv)
+        }
+      });
     });
   }
   getByName(pretraga:string){
