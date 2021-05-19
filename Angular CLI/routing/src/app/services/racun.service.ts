@@ -21,6 +21,9 @@ export class RacunService {
   getRacuni(): Observable<IRacun[]>{
     return this.http.get<IRacun[]>(this._url);
   }
+  getSviRacuni(): Observable<IRacun[]>{
+    return this.http.get<IRacun[]>(this._url);
+  }
   addRacun(racun: IRacun) {
     racun.klijentId=this.currUser?.klijentId!;
     return this.http.post<any>(this._url, racun);
