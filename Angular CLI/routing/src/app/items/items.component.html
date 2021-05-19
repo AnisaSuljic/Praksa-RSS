@@ -16,8 +16,7 @@
     <div class="modal-body">
       <div class="form-group">
         <label for="exampleFormControlInput1">Šifra artikla</label>
-        <input type="text" class="form-control" [(ngModel)]="artikl.sifra" name="sifra" id="exampleFormControlInput1"
-          placeholder="#00000">
+        <input type="text" class="form-control" [(ngModel)]="artikl.sifra" name="sifra" id="exampleFormControlInput1">
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Naziv artikla</label>
@@ -58,8 +57,8 @@
         <input type="text" class="form-control" [(ngModel)]="artikl.nc" name="nc" id="exampleFormControlInput1" (input)="unosNC()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Marža (0 - 100)</label>
-        <input type="text" class="form-control" [(ngModel)]="artikl.marzaIznos" name="marzaIznos" id="exampleFormControlInput1" (input)="unosMarza()">
+        <label for="exampleFormControlSelect1">Marža</label>
+        <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1" (input)="unosMarza()">
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">VPC</label>
@@ -67,7 +66,7 @@
       </div>
       <div class="form-group" style="width: 50%;float: right;">
         <label for="exampleFormControlSelect1">Cijena</label>
-        <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="mpc" id="exampleFormControlInput1" (input)="unosCijene()">
+        <input type="text" class="form-control" [(ngModel)]="artikl.mpc" name="mpc" id="exampleFormControlInput1" (input)="unosCijene()">
       </div>
       <div>
         <div class="form-group" style="width: 50%;float: left;">
@@ -106,10 +105,10 @@
             id="exampleFormControlInput1">
         </div>
 
-        <div class="form-group" style="width: 45%;">
+       <!-- <div class="form-group" style="width: 45%;">
           <label for="exampleFormControlInput1">Loyalty %</label>
           <input type="text" class="form-control" [(ngModel)]="artikl.marza" name="marza" id="exampleFormControlInput1">
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label for="exampleFormControlInput1">Opis artikla</label>
@@ -143,16 +142,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Grupa</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite grupu
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Grupa1</a></li>
-            <li><a class="dropdown-item" href="#">Grupa2</a></li>
-            <li><a class="dropdown-item" href="#">Grupa3</a></li>
-          </ul> -->
           <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="_artiklService.formData.grupaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
             <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
@@ -174,8 +163,8 @@
         <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.nc" name="nc" (input)="unosNCUpdate()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Marža (0 - 100)</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marzaIznos" name="marza" (input)="unosMarzaUpdate()">
+        <label for="exampleFormControlSelect1">Marža</label>
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.marza" name="marza" (input)="unosMarzaUpdate()">
       </div>
       <div class="form-group" style="width: 45%;float: left;">
         <label for="exampleFormControlSelect1">VPC</label>
@@ -183,22 +172,12 @@
       </div>
       <div class="form-group" style="width: 50%;float: right;">
         <label for="exampleFormControlSelect1">Cijena</label>
-        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="mpc" (input)="unosCijeneUpdate()">
+        <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.mpc" name="mpc" (input)="unosCijeneUpdate()">
       </div>
       <div>
         <div class="form-group" style="width: 50%;float: left;">
           <label for="exampleFormControlSelect2">Proizvođač</label>
           <div class="dropdown">
-            <!-- <button class="btn button-transparent dropdown-toggle"
-              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Odaberite grupu
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Proizvođač1</a></li>
-              <li><a class="dropdown-item" href="#">Proizvođač2</a></li>
-              <li><a class="dropdown-item" href="#">Proizvođač3</a></li>
-            </ul> -->
             <select name="proizvodjacId" class="form-control" #proizvodjac="ngModel"
               [(ngModel)]="this._artiklService.formData.proizvodjacId">
               <option value="0" [disabled]=true [selected]=true>Odaberite proizvodjaca</option>
@@ -210,16 +189,6 @@
         <div class="form-group" style="width: 50%;float: right;">
           <label for="exampleFormControlSelect2">Jedinica mjere</label>
           <div class="dropdown">
-            <!-- <button class="btn button-transparent dropdown-toggle"
-              style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Odaberite grupu
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">kg</a></li>
-              <li><a class="dropdown-item" href="#">l</a></li>
-              <li><a class="dropdown-item" href="#">m</a></li>
-            </ul> -->
             <select name="jedinicaMjereId" class="form-control" #jedinicaMjere="ngModel" [(ngModel)]="this._artiklService.formData.jedinicaMjereId">
             <option value="0" [disabled]=true [selected]=true>Odaberite jedinicu mjere</option> 
             <option *ngFor = "let item of jediniceMjere"  value="{{item.jedinicaMjereId}}">{{item.naziv}}</option>
@@ -237,16 +206,6 @@
           <label for="exampleFormControlInput1">Cijena HH</label>
           <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.cijenaHh" name="cijenaHh">
         </div>
-
-        <!-- <div class="form-group" style="width: 45%;float: left;">
-          <label for="exampleFormControlInput1">Loyalty %</label>
-          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.loyalty" name="Loyalty">
-        </div> -->
-
-        <!-- <div class="form-group" style="width: 45%;float: right;">
-          <label for="exampleFormControlInput1">Prioritet</label>
-          <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.prioritet" name="prioritet">
-        </div> -->
         <div class="form-group">
           <label for="exampleFormControlInput1">Opis artikla</label>
           <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.opis" name="opis" />
@@ -307,7 +266,7 @@
       <td data-label="Naziv">{{item.jedinicaMjereNaziv}}</td>
       <td data-label="Naziv">{{item.fisbroj}}</td>
       <td data-label="Naziv">{{item.nc}}</td>
-      <td data-label="Naziv">{{item.marzaIznos}}</td>
+      <td data-label="Naziv">{{item.marza}}</td>
       <td data-label="Naziv">{{item.vpc}}</td>
       <!-- <td data-label="Naziv">{{item.mpc}}</td> -->
       <td data-label="Naziv">{{item.cijenaHh}}</td>
