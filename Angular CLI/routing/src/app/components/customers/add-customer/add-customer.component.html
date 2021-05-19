@@ -22,6 +22,11 @@
                 <input type="hidden" name="kupacID" [value]="service.formData.kupacId">
                 <div class="form-row">
                     <div class="col">
+                        <label>Sifra</label>
+                        <input type="text" class="form-control" name="sifra" placeholder="Sifra" #sifra="ngModel"
+                        [(ngModel)]="service.formData.sifra">
+                    </div>
+                    <div class="col">
                         <label>Naziv</label>
                         <input type="text" class="form-control" name="naziv" placeholder="Naziv" #naziv="ngModel" 
                         [(ngModel)]="service.formData.naziv">
@@ -40,11 +45,6 @@
                         [(ngModel)]="service.formData.email">
                     </div>
                     <div class="col">
-                        <label>Sifra</label>
-                        <input type="text" class="form-control" name="sifra" placeholder="Sifra" #sifra="ngModel"
-                        [(ngModel)]="service.formData.sifra">
-                    </div>
-                    <div class="col">
                         <label>Telefon</label>
                         <input type="text" class="form-control" name="telefon" placeholder="Telefon" #telefon="ngModel"
                         [(ngModel)]="service.formData.telefon">
@@ -56,6 +56,11 @@
                         <label>PDV broj</label>
                         <input type="text" class="form-control" name="pdvbroj" placeholder="PDV broj" #pdvbroj="ngModel" 
                         [(ngModel)]="service.formData.pdvbroj">
+                    </div>
+                    <div class="col">
+                        <label>ID broj</label>
+                        <input type="text" class="form-control" name="idbroj" placeholder="ID broj" #idbroj="ngModel" 
+                        [(ngModel)]="service.formData.idbroj">
                     </div>
                     <div class="col">
                         <label>Grad</label>
