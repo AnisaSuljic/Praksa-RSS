@@ -24,6 +24,12 @@ namespace RSS_backend.Services
             var list = set.ToList();
             return _mapper.Map<List<T>>(list);
         }
+        //public virtual List<T> GetAll()
+        //{
+        //    var set = Context.Set<Tdb>();
+        //    var list = set.ToList();
+        //    return _mapper.Map<List<T>>(list);
+        //}
         public virtual T GetById(int id)
         {
             var set = Context.Set<Tdb>();

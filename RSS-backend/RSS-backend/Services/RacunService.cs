@@ -34,6 +34,7 @@ namespace RSS_backend.Services
             var list = set.Where(x => x.Obrisan == false).ToList(); //samo ako nije obrisan da se prikazuje
             return _mapper.Map<List<Faktura.Model.Racun>>(list);
         }
+
         public override Faktura.Model.Racun Insert(Faktura.Model.Requests.RacunInsertUpdate request)
         {
             var set = Context.Set<Database.Racun>();

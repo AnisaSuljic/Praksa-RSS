@@ -5,11 +5,13 @@ import { Router } from '@angular/router';
 import { Customer } from '../models/customer.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
+import { User } from '../models/user.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
 import { CustomerService } from '../services/customer.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
+import { UserService } from '../services/user.service';
 import { ValutaService } from '../services/valuta.service';
 import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
 
@@ -27,27 +29,54 @@ export class AddOutputsComponent implements OnInit {
   customers: Customer[] = [];
   racuniLista: IRacun[] = [];
 
+  currUser!: User;
 
   constructor(private _racunService: RacunService,
     private _skladisteService: SkladisteService,
      private router: Router,
      private _vrstaPlacanja: VrstaplacanjaService,
      private _valuteService: ValutaService,
-     private _customerService : CustomerService) {
+     private _customerService : CustomerService,private _korisnikService:UserService) {
      this.racuni = new IRacun();
     }
   ngOnInit(): void {
-    this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
-    this._customerService.getCustomers().subscribe(data => this.customers = data);
-    this._racunService.getRacuni().subscribe(data => {
-      for(let i = 0; i < data.length; i++){
-        this.racuniLista.push(data[i])
-      }
-      this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length + 1).toString();
 
-    })
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      //skladista
+      this._skladisteService.getSkladiste().subscribe(s => {
+        for(let i = 0; i < s.length; i++)
+        {
+          if(s[i].klijentId==this.currUser.klijentId)
+          {
+            this.skladista.push(s[i])
+          }
+        }
+      })
+      //kupci
+       this._customerService.getCustomers().subscribe(k => {
+        for(let i = 0; i < k.length; i++)
+        {
+          if(k[i].klijentId==this.currUser.klijentId)
+          {
+            this.customers.push(k[i])
+          }
+        }
+      })
+
+      this._racunService.getRacuni().subscribe(data => {
+        for(let i = 0; i < data.length; i++){
+          if(data[i].skladisteIzlazId!=null && data[i].klijentId==this.currUser.klijentId)
+          {
+              this.racuniLista.push(data[i])
+          }
+        }
+        this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length + 1).toString();
+
+      })
+  })
   }
 
   onSubmit(){

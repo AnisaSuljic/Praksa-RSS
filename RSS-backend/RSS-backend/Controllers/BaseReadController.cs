@@ -23,6 +23,11 @@ namespace RSS_backend.Controllers
         {
             return _service.Get(search);
         }
+        //[HttpGet]
+        //public virtual List<T> GetAll()
+        //{
+        //    return _service.GetAll();
+        //}
         [HttpGet("{id}")]
         public virtual T GetById(int id)
         {
