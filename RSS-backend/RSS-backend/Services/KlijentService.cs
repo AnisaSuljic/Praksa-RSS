@@ -62,7 +62,7 @@ namespace RSS_backend.Services
             message.To.Add(new MailAddress(client.Email));
             message.Subject = "Test";
             message.IsBodyHtml = true; //to make message body as html  
-            message.Body =string.Format($"<a href=\"http://localhost:4200/prijava/\'{client.KlijentId}\'\">Potvrdite email klikom na ovaj link<a>");
+            message.Body =string.Format($"<a href=\"http://rss-praksa.ml/prijava/\'{client.KlijentId}\'\">Potvrdite email klikom na ovaj link<a>");
             smtp.Port = 587;
             smtp.Host = "smtp.gmail.com"; //for gmail host  
             smtp.EnableSsl = true;
