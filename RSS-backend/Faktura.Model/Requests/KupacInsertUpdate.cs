@@ -15,6 +15,8 @@ namespace Faktura.Model.Requests
         public string Telefon { get; set; }
         public string Pdvbroj { get; set; }
         public int? GradId { get; set; }
+        public string Idbroj { get; set; }
+
         public int? KlijentId { get; set; }
     }
 }
