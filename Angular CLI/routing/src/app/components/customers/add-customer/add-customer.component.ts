@@ -7,6 +7,8 @@ import { Grad } from '../../../models/grad.model';
 import { CustomerService } from '../../../services/customer.service';
 import { GradService } from '../../../services/grad.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-add-customer',
@@ -18,9 +20,16 @@ export class AddCustomerComponent implements OnInit{
   form!: Customer;
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
-  constructor(public service: CustomerService, public serviceclient: ClientService, public servicegrad: GradService, private router: Router) {
-    this.serviceclient.get();
-    this.servicegrad.getGrad().subscribe(data => this.grad = data);
+  currUser!: User;
+  constructor(public service: CustomerService, public serviceclient: ClientService, public servicegrad: GradService, private router: Router, private _korisnikService: UserService) {
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this._korisnikService.promise.then(res => {
+        this.currUser = res;
+        this.servicegrad.getGrad().subscribe(data => {
+          this.grad = data.filter(obj=> obj.klijentId == this.currUser.klijentId);
+        });
+      })
+    });
     this.form = Object.assign({}, this.service.formData);
     this._routerSub = this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationStart) {

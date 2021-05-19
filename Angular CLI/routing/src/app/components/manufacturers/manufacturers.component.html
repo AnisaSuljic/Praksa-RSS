@@ -85,15 +85,13 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Redni broj</th>
           <th>Naziv</th>
           <!-- <th>Klijent</th> -->
             <th>Akcije</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of this.service.manufacturers | slice: pageSize | slice: 0:itemsPerPage; let i = index">
-            <td data-label="Redni broj">{{i + (itemsPerPage * (currentPage - 1)) + 1}}</td>
+          <tr *ngFor="let item of this.service.manufacturers | slice: pageSize | slice: 0:itemsPerPage">
             <td data-label="Naziv">{{item.naziv}}</td>
             <!-- <td data-label="Klijent">{{item.klijentNaziv}}</td> -->
             <td class="actions">

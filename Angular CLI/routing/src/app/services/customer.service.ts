@@ -31,11 +31,11 @@ export class CustomerService {
       this._korisnikService.ucitajKorisnika().subscribe(res => {
         this._korisnikService.promise.then(res => {
           this.customers = customeri.filter(obj => obj.klijentId == res.klijentId);
+          for(let i=0; i< this.customers.length;i++){
+            this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
+                this.customers[i].gradNaziv = data.naziv)
+          }
         })
-        for(let i=0; i< this.customers.length;i++){
-          this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
-              this.customers[i].gradNaziv = data.naziv)
-        }
       });
     });
   }
