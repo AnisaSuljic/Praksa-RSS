@@ -246,6 +246,10 @@ namespace RSS_backend.Database
 
                 entity.Property(e => e.GradId).HasColumnName("GradID");
 
+                entity.Property(e => e.Idbroj)
+                    .HasMaxLength(255)
+                    .HasColumnName("IDBroj");
+
                 entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
 
                 entity.Property(e => e.Naziv).HasMaxLength(255);

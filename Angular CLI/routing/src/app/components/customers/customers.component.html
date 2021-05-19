@@ -49,26 +49,26 @@
   <table class="table">
       <thead>
           <tr>
-              <th>Redni broj</th>
+            <th>Sifra</th>
               <th>Naziv</th>
               <th>Adresa</th>
               <th>Email</th>
-              <th>Sifra</th>
               <th>Telefon</th>
               <th>PDV broj</th>
+              <th>ID broj</th>
               <th>Grad</th>
               <th>Akcije</th>
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let item of this.service.customers | slice: pageSize | slice: 0:itemsPerPage; let i = index">
-              <td data-label="Redni broj">{{i + (itemsPerPage * (currentPage - 1)) + 1}}</td>
+          <tr *ngFor="let item of this.service.customers | slice: pageSize | slice: 0:itemsPerPage">
+            <td data-label="Sifra">{{item.sifra}}</td>
               <td data-label="Naziv">{{item.naziv}}</td>
               <td data-label="Adresa">{{item.adresa}}</td>
               <td data-label="Email">{{item.email}}</td>
-              <td data-label="Sifra">{{item.sifra}}</td>
               <td data-label="Telefon">{{item.telefon}}</td>
               <td data-label="PDV broj">{{item.pdvbroj}}</td>
+              <td data-label="ID broj">{{item.idbroj}}</td>
               <td data-label="Grad">{{item.gradNaziv}}</td>
               <td class="actions">
                   <button (click)="uredi(item)">Uredi</button>

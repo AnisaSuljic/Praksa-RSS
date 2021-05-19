@@ -16,10 +16,10 @@ export class CustomersComponent implements OnInit {
   itemsPerPage = 10;
   pageSize!: number;
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, public service: CustomerService) { 
+    this.service.get();
   }
   
   ngOnInit(): void {
-    this.service.get();
   }
   public onPageChange(pageNum: number): void {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
@@ -29,6 +29,9 @@ export class CustomersComponent implements OnInit {
   }
   dodaj(){
     this.resetForm();
+    if(this.service.customers.length > 0){
+      this.service.formData.sifra = (Number.parseInt(this.service.customers[this.service.customers.length - 1].sifra!) + 1).toString();
+    }
     this.router.navigate(['/adminpanel/addcustomer']);
   }
   uredi(x: Customer) {

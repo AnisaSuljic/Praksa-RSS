@@ -9,5 +9,7 @@ namespace RSS_backend.Services
     {
         List<T> Get(TSearch search = null);
         T GetById(int id);
+        //List<T> GetAll();
+
     }
 }

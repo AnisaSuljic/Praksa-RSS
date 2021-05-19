@@ -21,5 +21,7 @@ namespace Faktura.Model
         public string Pdvbroj { get; set; }
         public int? GradId { get; set; }
         public int? KlijentId { get; set; }
+        public string Idbroj { get; set; }
+
     }
 }
