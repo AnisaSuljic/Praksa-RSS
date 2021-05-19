@@ -47,8 +47,9 @@ export class ItemsComponent implements OnInit {
         for (let i = 0; i < this.artikli.length; i++) {
           this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
             this.artikli[i].jedinicaMjereNaziv = res.naziv;
-            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data =>
-              this.artikli[i].grupaNaziv = data.naziv);
+          });
+          this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(result =>{
+            this.artikli[i].grupaNaziv = result.naziv;
           });
         }
       });
@@ -57,8 +58,14 @@ export class ItemsComponent implements OnInit {
   
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{this.idartikl=params['id']});
-    this._grupeService.getGroups().subscribe(data =>{ this.grupe = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
-    this._proizvodjacService.getManufacturers().subscribe(data =>{ this.proizvodjaci = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
+    this._grupeService.getGroups().subscribe(data =>{
+      this._korisnikService.promise.then(res => {
+        this.grupe = data.filter(obj=>obj.klijentId == res.klijentId); });
+      })
+    this._proizvodjacService.getManufacturers().subscribe(data =>{ 
+      this._korisnikService.promise.then(res => {
+        this.proizvodjaci = data.filter(obj=>obj.klijentId == res.klijentId); });
+      })
     this._jedinicaMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);
   }
   onSubmit(){
@@ -104,19 +111,39 @@ export class ItemsComponent implements OnInit {
   }
   unosNC(){
     this.artikl.marzaIznos ? this.artikl.marzaIznos : this.artikl.marzaIznos = 0;
-    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - (this.artikl.marzaIznos / 100))).toFixed(3);
   }
   unosMarza(){
     this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
-    this.artikl.vpc= +(this.artikl.nc / ( 1 - this.artikl.marzaIznos)).toFixed(3);
+    this.artikl.vpc= +(this.artikl.nc / ( 1 - (this.artikl.marzaIznos / 100))).toFixed(3);
   }
   unosNCUpdate(){
     this._artiklService.formData.marzaIznos ? this._artiklService.formData.marzaIznos : this._artiklService.formData.marzaIznos = 0;
-    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - this._artiklService.formData.marzaIznos)).toFixed(3);
+    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - (this._artiklService.formData.marzaIznos/100))).toFixed(3);
   }
   unosMarzaUpdate(){
     this._artiklService.formData.nc ? this._artiklService.formData.nc : this._artiklService.formData.nc = 0;
-    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - this._artiklService.formData.marzaIznos)).toFixed(3);
+    this._artiklService.formData.vpc= +(this._artiklService.formData.nc / ( 1 - (this._artiklService.formData.marzaIznos/100))).toFixed(3);
+  }
+  unosVPC(){
+    if(this.artikl.nc !== 0 && this.artikl.vpc !== 0){
+      this.artikl.marzaIznos = +((1 - (this.artikl.nc / this.artikl.vpc)) * 100).toFixed(3);
+    }
+  }
+  unosCijene(){
+    if(this.artikl.nc !== 0 && this.artikl.vpc !== 0){
+      this.artikl.marzaIznos = +((1 - (this.artikl.nc / this.artikl.vpc)) * 100).toFixed(3);
+    }
+  }
+  unosVPCUpdate(){
+    if(this._artiklService.formData.nc !== 0 && this._artiklService.formData.vpc !== 0){
+      this._artiklService.formData.marzaIznos = +((1 - (this._artiklService.formData.nc / this._artiklService.formData.vpc)) * 100).toFixed(3);
+    }
+  }
+  unosCijeneUpdate(){
+    if(this._artiklService.formData.nc !== 0 && this._artiklService.formData.vpc !== 0){
+      this._artiklService.formData.marzaIznos = +((1 - (this._artiklService.formData.nc / this._artiklService.formData.vpc)) * 100).toFixed(3);
+    }
   }
   
  public onPageChange(pageNum: number): void {

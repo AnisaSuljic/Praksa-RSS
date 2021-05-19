@@ -67,15 +67,15 @@
                     
                     <div class="col-2">
                     <label>Iznos bez PDV</label>
-                    <input type="number" readonly [(ngModel)]="iznosracun" name="iznosBezPDV" class="form-control"(input)="pdvIzracun()">
+                    <input type="number" [(ngModel)]="iznosracun" name="iznosBezPDV" class="form-control"(input)="pdvIzracun()">
                     </div>
                     <div class="col-2">
                         <label>PDV</label>
-                        <input type="number"readonly [(ngModel)]="pdv" name="PDV" class="form-control"(input)="pdvIzracun()">
+                        <input type="number" [(ngModel)]="pdv" name="PDV" class="form-control"(input)="pdvIzracun()">
                     </div>
                     <div class="col-2">
                         <label>Iznos sa PDV</label>
-                        <input type="number"readonly [(ngModel)]="iznosPDV" name="iznosSaPDV" class="form-control" >
+                        <input type="number" [(ngModel)]="iznosPDV" name="iznosSaPDV" class="form-control" >
                     </div>     
                 </div>
                 
