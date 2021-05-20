@@ -16,6 +16,8 @@ import { ValutaService } from '../services/valuta.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-edit-outputs',
@@ -38,6 +40,7 @@ export class EditOutputsComponent implements OnInit {
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
+  currUser!: User;
 
     //search
     artiklNaziv:any;
@@ -55,7 +58,8 @@ export class EditOutputsComponent implements OnInit {
     private _vrstaPlacanja: VrstaplacanjaService,
     private _valuteService: ValutaService,
     private _skladisteService: SkladisteService,
-    private _jediniceMjereService: JedinicamjereService
+    private _jediniceMjereService: JedinicamjereService,
+    private _korisnikService:UserService
     ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
@@ -80,8 +84,18 @@ export class EditOutputsComponent implements OnInit {
       this.racun = data;
       this.racunZaPoredit = Object.assign({}, this.racun);
     });
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+
     this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
+        .subscribe(data => {
+          for(let i=0; i < data.length; i++){
+            if(this.currUser.klijentId == data[i].klijentId){
+              this.artikli.push(data[i]);
+            }
+          }
+              });
+            })
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
     this._stavkaService.getStavke().subscribe(data => {
       for(let i = 0; i < data.length; i++){
@@ -138,16 +152,16 @@ export class EditOutputsComponent implements OnInit {
       }
     );
   }
-  artikliPozivanje()
-{
-  this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
-}
+//   artikliPozivanje()
+// {
+//   this._artiklService.getArtikli()
+//         .subscribe(data => this.artikli = data);
+// }
   //search
 Search(){
   console.log(this.artiklNaziv);
   if(this.artiklNaziv==""){
-    this.artikliPozivanje();
+    this.ngOnInit();
   }
   else{
   console.log(this.artikli);
@@ -217,6 +231,7 @@ Delete(content2:any) {
 }
 
   private getDismissReason(reason: any): string {
+    this.ngOnInit();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

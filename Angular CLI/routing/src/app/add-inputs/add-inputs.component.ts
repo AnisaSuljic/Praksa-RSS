@@ -26,7 +26,6 @@ export class AddInputsComponent implements OnInit {
   racuniLista: IRacun[] = [];
   vrstaPlacanja: VrstaPlacanja[] = [];
   valuta: Valuta[] = [];
-  uspjesnoDodavanje:boolean=false;
   SkladisteId:number=0;
   iznosPDV:number=0;
   iznosracun:number=0;
@@ -38,6 +37,8 @@ export class AddInputsComponent implements OnInit {
   datum1:Date;
 
   currUser!: User;
+
+  ID:number=0;
 
 
   constructor(private _racunService: RacunService,private router: Router, private _skladisteService:SkladisteService,
@@ -102,12 +103,11 @@ export class AddInputsComponent implements OnInit {
     this.racuni.iznosPoreza=this.pdv;
     this.racuni.iznosSaPdv=this.iznosPDV;
 
-    return this._racunService.addRacun(this.racuni).subscribe(
-      (result)=>{
-        this.router.navigate(["/adminpanel/inputs"]);
-        this.uspjesnoDodavanje=true;
-      }
-    );
+    return this._racunService.addRacun(this.racuni).subscribe(data=>{this.TempRacun=data
+      let idrac=this.TempRacun.racunId;
+      this.router.navigate([`/adminpanel/editInputs/${idrac}`]);      
+    });
+      
   }
 
   pdvIzracun(){
