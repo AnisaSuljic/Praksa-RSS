@@ -19,7 +19,7 @@
     </div>
     <div *ngIf="uredjivanje==true" class="alert-success">Uspješno ste ažurirali račun!</div>
     <div class="mainsection">
-        <form #updateForm="ngForm" (ngSubmit)="updateRacun()">
+        <form #updateForm="ngForm" (ngSubmit)="updateRacun()" autocomplete="off">
         <!--firs red-->
             <div class="form-group">
                 <div class="form-row">
@@ -160,7 +160,7 @@
                   <div class="modal-header">
                   </div>
                   <div class="modal-body">
-                    <form>
+                    <form autocomplete="off">
                       <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-append">
@@ -192,7 +192,7 @@
     <div *ngIf="dodavanje==true" class="alert-success">Uspješno ste dodali stavku računa!</div>
     <div id="AddItems" class="mainsection">
          <!--firs row-->
-        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)">
+        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)" autocomplete="off">
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
@@ -287,7 +287,7 @@
           <h4 class="modal-title" id="modal-basic-title">Artikli</h4>
         </div>
         <div class="modal-body">
-            <form>     
+            <form autocomplete="off">     
                 <div class="rowActions">    <!--Search-->
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
