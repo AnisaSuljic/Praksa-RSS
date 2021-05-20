@@ -96,10 +96,29 @@ export class EditInputsComponent implements OnInit {
      this.racunZaPoredit = Object.assign({}, this.racun);
      
     });
-
-    this.artikliPozivanje();
-        
-    this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
+      console.log("artikli");
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        //skladista
+        this._skladisteService.getSkladiste().subscribe(s => {
+          for(let i = 0; i < s.length; i++)
+          {
+            if(s[i].klijentId==this.currUser.klijentId)
+            {
+              this.skladista.push(s[i])
+            }
+          }
+        })
+        this._artiklService.getArtikli().subscribe(a => {
+          for(let i=0; i < a.length; i++)
+          {
+            if(this.currUser.klijentId == a[i].klijentId)
+            {
+              this.artikli.push(a[i]);
+            }
+          }
+        });
+    })
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
     this._valutaService.getValuta().subscribe(data => this.valuta = data);  
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
@@ -129,23 +148,16 @@ export class EditInputsComponent implements OnInit {
     }
   }
 
-artikliPozivanje()
-{
-  this._artiklService.getArtikli()
-  .subscribe(data => {
-    for(let i=0; i < data.length; i++){
-      if(this.currUser.klijentId == data[i].klijentId){
-        this.artikli.push(data[i]);
-      }
-    }
-        });
-}
+// artikliPozivanje()
+// {
+//   this._artiklService.getArtikli().subscribe(data=>this.artikli=data);
+// }
 
 //search
 Search(){
   console.log(this.artiklNaziv);
   if(this.artiklNaziv==""){
-    this.artikliPozivanje();
+    this.ngOnInit();
   }
   else{
   console.log(this.artikli);
@@ -276,7 +288,7 @@ Get(content:any) {
 
 private getDismissReason(reason: any): string {
   this.artiklNaziv="";
-  this.artikliPozivanje();
+  this.ngOnInit();
   if (reason === ModalDismissReasons.ESC) {
     return 'by pressing ESC';
   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
