@@ -156,7 +156,7 @@ export class ItemsComponent implements OnInit {
       this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
         this._porezService.getPorezById(res.porezId).subscribe(resu => {
           stopa = resu.stopa;
-          this.artikl.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
+          this._artiklService.formData.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
         })
       });
     }
@@ -169,7 +169,7 @@ export class ItemsComponent implements OnInit {
       this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
         this._porezService.getPorezById(res.porezId).subscribe(resu => {
           stopa = resu.stopa;
-          this.artikl.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
+          this._artiklService.formData.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
         })
       });
     }
@@ -205,7 +205,7 @@ export class ItemsComponent implements OnInit {
       this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
         this._porezService.getPorezById(res.porezId).subscribe( resu=> {
           stopa = resu.stopa;
-          this.artikl.mpc= +(this._artiklService.formData.vpc * ( 1 + stopa / 100)).toFixed(3);
+          this._artiklService.formData.mpc= +(this._artiklService.formData.vpc * ( 1 + stopa / 100)).toFixed(3);
         })
       });
     }
