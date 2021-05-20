@@ -13,7 +13,7 @@
 </head>
 <!-- Add modal -->
 <ng-template #content let-modal>
-    <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Dodavanje proizvodjaca</h4>
     </div>
@@ -33,7 +33,7 @@
 
   <!--Update modal-->
   <ng-template #content1 let-modal>
-    <form #updateForm="ngForm" (ngSubmit)="uredi()"> 
+    <form #updateForm="ngForm" (ngSubmit)="uredi()" autocomplete="off"> 
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Ažuriranje podataka</h4>
       </div>

@@ -28,6 +28,7 @@ export class AddOutputsComponent implements OnInit {
   valute: Valuta[] = [];
   customers: Customer[] = [];
   racuniLista: IRacun[] = [];
+  dodavanje:boolean=false;
 
   TempRacun:IRacun;
 
@@ -81,7 +82,16 @@ export class AddOutputsComponent implements OnInit {
       })
   })
   }
-
+  getLastRacunID(brojRacuna : string){
+    if(this.racuniLista != null){
+      for(let i=0; i < this.racuniLista.length; i++){
+        if(this.racuniLista[i].brojRacuna == brojRacuna){
+          return this.racuniLista[i].racunId;
+        }
+      }
+    }
+    return 0;
+  }
   onSubmit(){
     this._racunService.addRacun(this.racuni).subscribe(data=> {this.TempRacun=data;
     let ID=this.TempRacun.racunId;

@@ -9,9 +9,10 @@
     <div class="header">
         <span>Novi izlazni račun</span>
     </div>
+    <div *ngIf="dodavanje==true" class="alert-success">Uspješno ste ažurirali račun!</div>
     <div class="mainsection">
         <!--firs red-->
-        <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+        <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()" autocomplete="off">
             <div class="form-group">
                     <div class="form-row">
                         <div class="col-4">

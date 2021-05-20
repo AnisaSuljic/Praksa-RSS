@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="mainsection">
-        <form #updateForm="ngForm" (ngSubmit)="updateRacun()">
+        <form #updateForm="ngForm" (ngSubmit)="updateRacun()" autocomplete="off">
         <!--firs red-->
             <div class="form-group">
                 <div class="form-row">
@@ -158,7 +158,7 @@
                   <div class="modal-header">
                   </div>
                   <div class="modal-body">
-                    <form>
+                    <form autocomplete="off">
                       <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-append">
@@ -187,7 +187,7 @@
     </div>
     <div id="AddItems" class="mainsection">
          <!--firs row-->
-        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)">
+        <form #submitStavka="ngForm" novalidate (ngSubmit)="addStavka(racun.racunId)" autocomplete="off">
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
