@@ -161,21 +161,49 @@ export class ItemsComponent implements OnInit {
   unosVPC(){
     if(this.artikl.nc > 0 && this.artikl.vpc > 0){
       this.artikl.marza = +(((this.artikl.vpc - this.artikl.nc)/this.artikl.nc)*100).toFixed(3);
+      let stopa: number;
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
+        this._porezService.getPorezById(res.porezId).subscribe( resu=> {
+          stopa = resu.stopa;
+          this.artikl.mpc= +(this.artikl.vpc * ( 1 + stopa / 100)).toFixed(3);
+        })
+      });
     }
   }
   unosCijene(){
     if(this.artikl.nc > 0 && this.artikl.vpc > 0){
-      this.artikl.marza = +(((this.artikl.vpc - this.artikl.nc)/this.artikl.nc)*100).toFixed(3);
+      let stopa: number;
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
+        this._porezService.getPorezById(res.porezId).subscribe( resu=> {
+          stopa = resu.stopa;
+          this.artikl.vpc= +(this.artikl.mpc / (1 + stopa / 100)).toFixed(3);
+          this.artikl.marza = +((((this.artikl.mpc / (1 + stopa /100)) / this.artikl.nc) - 1) * 100).toFixed(3);
+        })
+      });
     }
   }
   unosVPCUpdate(){
     if(this._artiklService.formData.nc > 0 && this._artiklService.formData.vpc > 0){
       this._artiklService.formData.marza = +(((this._artiklService.formData.vpc - this._artiklService.formData.nc)/this._artiklService.formData.nc) * 100).toFixed(3);
+      let stopa: number;
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
+        this._porezService.getPorezById(res.porezId).subscribe( resu=> {
+          stopa = resu.stopa;
+          this.artikl.mpc= +(this._artiklService.formData.vpc * ( 1 + stopa / 100)).toFixed(3);
+        })
+      });
     }
   }
   unosCijeneUpdate(){
     if(this._artiklService.formData.nc > 0 && this._artiklService.formData.vpc > 0){
-      this._artiklService.formData.marza = +(((this._artiklService.formData.vpc - this._artiklService.formData.nc)/this._artiklService.formData.nc) * 100).toFixed(3);
+      let stopa: number;
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
+        this._porezService.getPorezById(res.porezId).subscribe( resu=> {
+          stopa = resu.stopa;
+          this._artiklService.formData.vpc= +(this._artiklService.formData.mpc / (1 + stopa / 100)).toFixed(3);
+          this._artiklService.formData.marza = +((((this._artiklService.formData.mpc / (1 + stopa /100)) / this._artiklService.formData.nc) - 1) * 100).toFixed(3);
+        })
+      });
     }
   }
   

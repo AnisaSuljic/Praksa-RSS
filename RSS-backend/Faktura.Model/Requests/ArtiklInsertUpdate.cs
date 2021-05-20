@@ -17,7 +17,7 @@ namespace Faktura.Model.Requests
         public decimal? Marza { get; set; }
         public decimal? MarzaIznos { get; set; }
         public decimal? Vpc { get; set; }
-        //public decimal? Mpc { get; set; } racuna se automatski
+        public decimal? Mpc { get; set; } 
         public int? ProizvodjacId { get; set; }
         public int? KlijentId { get; set; }
         public int? JedinicaMjereId { get; set; }
