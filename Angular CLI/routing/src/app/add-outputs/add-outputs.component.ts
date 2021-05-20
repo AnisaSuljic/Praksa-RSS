@@ -30,6 +30,8 @@ export class AddOutputsComponent implements OnInit {
   racuniLista: IRacun[] = [];
   dodavanje:boolean=false;
 
+  TempRacun:IRacun;
+
   currUser!: User;
 
   constructor(private _racunService: RacunService,
@@ -39,6 +41,7 @@ export class AddOutputsComponent implements OnInit {
      private _valuteService: ValutaService,
      private _customerService : CustomerService,private _korisnikService:UserService) {
      this.racuni = new IRacun();
+     this.TempRacun=new IRacun();
     }
   ngOnInit(): void {
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
@@ -90,9 +93,12 @@ export class AddOutputsComponent implements OnInit {
     return 0;
   }
   onSubmit(){
-    this._racunService.addRacun(this.racuni).subscribe(data=> this.racuni = data);
-    this.dodavanje=true;
-    this.router.navigate([`/adminpanel/outputs`]);
+    this._racunService.addRacun(this.racuni).subscribe(data=> {this.TempRacun=data;
+    let ID=this.TempRacun.racunId;
+    
+    this.router.navigate([`/adminpanel/editOutputs/${ID}`]);      
+
+    });
   }
 
 }

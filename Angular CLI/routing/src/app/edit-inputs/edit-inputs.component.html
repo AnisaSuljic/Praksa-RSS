@@ -76,7 +76,7 @@
                 <div class="form-row">                    
                     <div class="col-2">
                     <label>Iznos bez PDV</label>
-                    <input type="number"  [(ngModel)]="racun.iznosRacuna" name="iznosRacuna" class="form-control">
+                    <input type="number"  [(ngModel)]="racun.iznosRacuna" name="iznosRacuna" class="form-control"(input)="pdvEditIzracun()">
                     </div>
                     <div class="col-2">
                         <label>PDV</label>
