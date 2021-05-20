@@ -135,7 +135,7 @@
         <div class="dropdown">
           <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="_artiklService.formData.grupaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
-            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
+            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId" (click)="odabranaGrupaUpdate()">
               {{grupa.naziv}} </option>
           </select>
         </div>
