@@ -42,18 +42,20 @@ export class ItemsComponent implements OnInit {
     //this._grupeService.getGroups().subscribe(data => this.grupe = data);
     //this._proizvodjacService.get();
     this._korisnikService.ucitajKorisnika().subscribe(res => {
-      this.currUser = this._korisnikService.currUser;
-      this._artiklService.getArtikli().subscribe(data => {
-        this.artikli = data.filter(obj => obj.klijentId == this.currUser.klijentId);
-        for (let i = 0; i < this.artikli.length; i++) {
-          this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
-            this.artikli[i].jedinicaMjereNaziv = res.naziv;
-          });
-          this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(result =>{
-            this.artikli[i].grupaNaziv = result.naziv;
-          });
-        }
-      });
+      this._korisnikService.promise.then(result=> {
+        this.currUser = result;
+        this._artiklService.getArtikli().subscribe(data => {
+          this.artikli = data.filter(obj => obj.klijentId == result.klijentId);
+          for (let i = 0; i < this.artikli.length; i++) {
+            this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
+              this.artikli[i].jedinicaMjereNaziv = res.naziv;
+            });
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(result =>{
+              this.artikli[i].grupaNaziv = result.naziv;
+            });
+          }
+        });
+      })
     });
   }
   
@@ -70,7 +72,6 @@ export class ItemsComponent implements OnInit {
     this._jedinicaMjereService.getJedinicaMjere().subscribe(data => this.jediniceMjere = data);
   }
   onSubmit(){
-    console.log(this.artikl);
     //this.artikl.vpc=this.artikl.nc-(1/this.artikl.marza);
     //this.artikl.marza=(this.artikl.mpc-this.artikl.nc)/this.artikl.mpc;
     //this.artikl.marza=this.artikl.mpc-this.artikl.nc;
@@ -110,53 +111,68 @@ export class ItemsComponent implements OnInit {
         }
         );
   }
-  unosNC(){
+  odabranaGrupa(){
+    if (this.artikl.grupaId) {
+      let stopa: number;
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
+        this._porezService.getPorezById(res.porezId).subscribe(resu => {
+          stopa = resu.stopa;
+          this.artikl.mpc = +(this.artikl.vpc * (1 + stopa / 100)).toFixed(3);
+        })
+      });
+    }
+  }
+  unosNC() {
     this.artikl.marza ? this.artikl.marza : this.artikl.marza = 0;
-    this.artikl.vpc= +(this.artikl.nc * ( 1 + this.artikl.marza / 100)).toFixed(3);
+    this.artikl.vpc = +(this.artikl.nc * (1 + this.artikl.marza / 100)).toFixed(3);
     let stopa: number;
-    if(this.artikl.grupaId){
-    this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
-      this._porezService.getPorezById(res.porezId).subscribe( resu=> {
-        stopa = resu.stopa;
-        this.artikl.mpc= +(this.artikl.vpc * ( 1 + stopa / 100)).toFixed(3);
-      })
-    });
+    if (this.artikl.grupaId) {
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
+        this._porezService.getPorezById(res.porezId).subscribe(resu => {
+          stopa = resu.stopa;
+          this.artikl.mpc = +(this.artikl.vpc * (1 + stopa / 100)).toFixed(3);
+        })
+      });
+    }
   }
-  }
-  unosMarza(){
+  unosMarza() {
     this.artikl.nc ? this.artikl.nc : this.artikl.nc = 0;
-    this.artikl.vpc= +(this.artikl.nc * ( 1 + this.artikl.marza / 100)).toFixed(3);
+    this.artikl.vpc = +(this.artikl.nc * (1 + this.artikl.marza / 100)).toFixed(3);
     let stopa: number;
-    if(this.artikl.grupaId){
-    this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
-      this._porezService.getPorezById(res.porezId).subscribe( resu=> {
-        stopa = resu.stopa;
-        this.artikl.mpc= +(this.artikl.vpc * ( 1 + stopa / 100)).toFixed(3);
-      })
-    });
+    if (this.artikl.grupaId) {
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
+        this._porezService.getPorezById(res.porezId).subscribe(resu => {
+          stopa = resu.stopa;
+          this.artikl.mpc = +(this.artikl.vpc * (1 + stopa / 100)).toFixed(3);
+        })
+      });
+    }
   }
-  }
-  unosNCUpdate(){
+  unosNCUpdate() {
     this._artiklService.formData.marza ? this._artiklService.formData.marza : this._artiklService.formData.marza = 0;
-    this._artiklService.formData.vpc= +(this._artiklService.formData.nc * (1 + this._artiklService.formData.marza/100)).toFixed(3);
-     let stopa: number;
-     this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
-       this._porezService.getPorezById(res.porezId).subscribe( resu=> {
-         stopa = resu.stopa;
-         this.artikl.mpc= +(this._artiklService.formData.vpc * ( 1 + stopa / 100)).toFixed(3);
-       })
-     });
+    this._artiklService.formData.vpc = +(this._artiklService.formData.nc * (1 + this._artiklService.formData.marza / 100)).toFixed(3);
+    let stopa: number;
+    if (this.artikl.grupaId) {
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
+        this._porezService.getPorezById(res.porezId).subscribe(resu => {
+          stopa = resu.stopa;
+          this.artikl.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
+        })
+      });
+    }
   }
-  unosMarzaUpdate(){
+  unosMarzaUpdate() {
     this._artiklService.formData.nc ? this._artiklService.formData.nc : this._artiklService.formData.nc = 0;
-    this._artiklService.formData.vpc= +(this._artiklService.formData.nc * (1 + this._artiklService.formData.marza/100)).toFixed(3);
-     let stopa: number;
-     this._grupeService.getGroupsById(this.artikl.grupaId).subscribe( res=> {
-       this._porezService.getPorezById(res.porezId).subscribe( resu=> {
-         stopa = resu.stopa;
-         this.artikl.mpc= +(this._artiklService.formData.vpc * ( 1 + stopa / 100)).toFixed(3);
-       })
-     });
+    this._artiklService.formData.vpc = +(this._artiklService.formData.nc * (1 + this._artiklService.formData.marza / 100)).toFixed(3);
+    let stopa: number;
+    if (this.artikl.grupaId) {
+      this._grupeService.getGroupsById(this.artikl.grupaId).subscribe(res => {
+        this._porezService.getPorezById(res.porezId).subscribe(resu => {
+          stopa = resu.stopa;
+          this.artikl.mpc = +(this._artiklService.formData.vpc * (1 + stopa / 100)).toFixed(3);
+        })
+      });
+    }
   }
   unosVPC(){
     if(this.artikl.nc > 0 && this.artikl.vpc > 0){
