@@ -8,6 +8,7 @@ import { IJedinicaMjere } from '../models/jedinicamjere.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
 import { IStavka } from '../models/stavka.model';
+import { User } from '../models/user.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
 import { ArtiklService } from '../services/artikl.service';
@@ -15,6 +16,7 @@ import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { StavkaService } from '../services/stavka.service';
+import { UserService } from '../services/user.service';
 import { ValutaService } from '../services/valuta.service';
 import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
 
@@ -43,6 +45,7 @@ export class EditInputsComponent implements OnInit {
   stavkaBrisanje: IStavka = new IStavka();
   stavkaBrisanjecijene: IStavka = new IStavka();
   datum2:Date;
+  currUser!: User;
 
   dodavanje:boolean=false;
   uredjivanje:boolean=false;
@@ -60,7 +63,9 @@ export class EditInputsComponent implements OnInit {
     private _stavkaService: StavkaService,
     private router: Router,private _skladisteService:SkladisteService,
     private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService,
-    private _jediniceMjereService:JedinicamjereService    ) { 
+    private _jediniceMjereService:JedinicamjereService,
+    private _korisnikService:UserService
+       ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
       this.datum2=new Date();
@@ -127,7 +132,13 @@ export class EditInputsComponent implements OnInit {
 artikliPozivanje()
 {
   this._artiklService.getArtikli()
-        .subscribe(data => this.artikli = data);
+  .subscribe(data => {
+    for(let i=0; i < data.length; i++){
+      if(this.currUser.klijentId == data[i].klijentId){
+        this.artikli.push(data[i]);
+      }
+    }
+        });
 }
 
 //search
