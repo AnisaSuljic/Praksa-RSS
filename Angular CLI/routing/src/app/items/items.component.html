@@ -25,15 +25,6 @@
       <div class="form-group" style="width: 50%;float: left;">
         <label for="exampleFormControlSelect2">Grupa</label>
         <div class="dropdown">
-          <!-- <button class="btn button-transparent dropdown-toggle"
-            style="border:1px solid lightgray;outline: none; width: 90%;" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Odaberite grupu
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" [(ngModel)]="artikl.grupaId" name="artikli">
-            <li><a class="dropdown-item" href="#" *ngFor="let item of grupe" selected
-                value="item.grupaId">{{item.naziv}}</a></li>
-          </ul> -->
           <select name="grupaId" class="form-control" #grupa="ngModel" 
             [(ngModel)]="artikl.grupaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
@@ -65,7 +56,7 @@
         <input type="text" class="form-control" [(ngModel)]="artikl.vpc" name="vpc" id="exampleFormControlInput1" (input)="unosVPC()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Cijena</label>
+        <label for="exampleFormControlSelect1">MPC</label>
         <input type="text" class="form-control" [(ngModel)]="artikl.mpc" name="mpc" id="exampleFormControlInput1" (input)="unosCijene()">
       </div>
       <div>
@@ -144,7 +135,7 @@
         <div class="dropdown">
           <select name="grupaId" class="form-control" #grupa="ngModel" [(ngModel)]="_artiklService.formData.grupaId">
             <option value="0" [disabled]=true [selected]=true>Odaberite grupu</option>
-            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId">
+            <option *ngFor="let grupa of grupe" [value]="grupa.grupaId" (click)="odabranaGrupaUpdate()">
               {{grupa.naziv}} </option>
           </select>
         </div>
@@ -171,7 +162,7 @@
         <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.vpc" name="vpc" (input)="unosVPCUpdate()">
       </div>
       <div class="form-group" style="width: 50%;float: right;">
-        <label for="exampleFormControlSelect1">Cijena</label>
+        <label for="exampleFormControlSelect1">MPC</label>
         <input type="text" class="form-control" [(ngModel)]="this._artiklService.formData.mpc" name="mpc" (input)="unosCijeneUpdate()">
       </div>
       <div>
@@ -253,7 +244,7 @@
       <th scope="col">NC</th>
       <th scope="col">Marža</th>
       <th scope="col">VPC</th>
-      <!-- <th scope="col">MPC</th> -->
+      <th scope="col">MPC</th> 
       <th scope="col">Cijena HH</th>
       <th scope="col"></th>
     </tr>
@@ -268,7 +259,7 @@
       <td data-label="Naziv">{{item.nc}}</td>
       <td data-label="Naziv">{{item.marza}}</td>
       <td data-label="Naziv">{{item.vpc}}</td>
-      <!-- <td data-label="Naziv">{{item.mpc}}</td> -->
+     <td data-label="Naziv">{{item.mpc}}</td> 
       <td data-label="Naziv">{{item.cijenaHh}}</td>
       <td class="actions">
         <button (click)="Update(content1,item)">Uredi</button>
