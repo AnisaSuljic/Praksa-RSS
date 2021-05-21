@@ -44,6 +44,7 @@ export class EditOutputsComponent implements OnInit {
 
     //search
     artiklNaziv:any;
+    public artikliFilter : IArtikl[] = [];
 
   _routerSub = Subscription.EMPTY;
   ifsubmit: boolean = true;
@@ -87,15 +88,19 @@ export class EditOutputsComponent implements OnInit {
     this._korisnikService.ucitajKorisnika().subscribe(res => {
       this.currUser = this._korisnikService.currUser;
 
-    this._artiklService.getArtikli()
-        .subscribe(data => {
-          for(let i=0; i < data.length; i++){
-            if(this.currUser.klijentId == data[i].klijentId){
-              this.artikli.push(data[i]);
-            }
+      this.artikliPozivanje(this.currUser);
+      //skladista
+      this._skladisteService.getSkladiste().subscribe(s => {
+        for(let i = 0; i < s.length; i++)
+        {
+          if(s[i].klijentId==this.currUser.klijentId)
+          {
+            this.skladista.push(s[i])
           }
-              });
-            })
+        }
+      })
+    });
+
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
     this._stavkaService.getStavke().subscribe(data => {
       for(let i = 0; i < data.length; i++){
@@ -119,7 +124,7 @@ export class EditOutputsComponent implements OnInit {
         this.stavkeZaPrikazSaId.push(item);
       }
     }
-    this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
+    // this._skladisteService.getSkladiste().subscribe(data => this.skladista = data);
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
     this._valuteService.getValuta().subscribe(data => this.valute = data);
   }
@@ -152,25 +157,37 @@ export class EditOutputsComponent implements OnInit {
       }
     );
   }
-//   artikliPozivanje()
-// {
-//   this._artiklService.getArtikli()
-//         .subscribe(data => this.artikli = data);
-// }
-  //search
-Search(){
-  console.log(this.artiklNaziv);
-  if(this.artiklNaziv==""){
-    this.ngOnInit();
+  artikliPozivanje(user:User)
+  {
+   console.log("trenutni1->"+this.currUser.ime);
+   this.artikliFilter=[];
+   this._artiklService.getArtikli().subscribe(a => {
+     for(let i=0; i < a.length; i++)
+     {
+       if(user.klijentId == a[i].klijentId)
+       {
+         this.artikliFilter.push(a[i]);
+       }
+     }
+     console.log("trenutniniz->"+a);
+   });
+   
   }
-  else{
-  console.log(this.artikli);
-
-    this.artikli=this.artikli.filter(res=>{
-      return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
-    });
+ 
+ //search
+  Search(){
+    console.log(this.artiklNaziv);
+    if(this.artiklNaziv==""){
+         this.artikliPozivanje(this.currUser);
+    }
+    else{
+    console.log(this.artikliFilter);
+ 
+      this.artikliFilter=this.artikliFilter.filter(res=>{
+        return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+      });
+     }
   }
-}
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = this.racun.klijentId;

@@ -306,7 +306,7 @@
                       </tr>
                   </thead>
                   <tbody >
-                      <tr *ngFor="let item of artikli" id="trArtikl" (click)="getArtiklById(item.artiklId)"
+                      <tr *ngFor="let item of artikliFilter" id="trArtikl" (click)="getArtiklById(item.artiklId)"
                       style="cursor: pointer;">
                           <td data-label="Rbr">{{item.artiklId}}</td>
                           <td data-label="Naziv">{{item.naziv}}</td>
