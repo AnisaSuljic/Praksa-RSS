@@ -55,6 +55,8 @@ export class EditInputsComponent implements OnInit {
 
   //search
   artiklNaziv:any;
+  public artikliFilter : IArtikl[] = [];
+
 
   constructor(private _racunService: RacunService,
     private modalService: NgbModal,
@@ -109,15 +111,8 @@ export class EditInputsComponent implements OnInit {
             }
           }
         })
-        this._artiklService.getArtikli().subscribe(a => {
-          for(let i=0; i < a.length; i++)
-          {
-            if(this.currUser.klijentId == a[i].klijentId)
-            {
-              this.artikli.push(a[i]);
-            }
-          }
-        });
+        console.log("trenutni->"+this.currUser.ime);
+        this.artikliPozivanje(this.currUser);        
     })
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrstaPlacanja = data);
     this._valutaService.getValuta().subscribe(data => this.valuta = data);  
@@ -148,25 +143,37 @@ export class EditInputsComponent implements OnInit {
     }
   }
 
-// artikliPozivanje()
-// {
-//   this._artiklService.getArtikli().subscribe(data=>this.artikli=data);
-// }
+ artikliPozivanje(user:User)
+ {
+  console.log("trenutni1->"+this.currUser.ime);
+  this.artikliFilter=[];
+  this._artiklService.getArtikli().subscribe(a => {
+    for(let i=0; i < a.length; i++)
+    {
+      if(user.klijentId == a[i].klijentId)
+      {
+        this.artikliFilter.push(a[i]);
+      }
+    }
+    console.log("trenutniniz->"+a);
+  });
+  
+ }
 
 //search
-Search(){
-  console.log(this.artiklNaziv);
-  if(this.artiklNaziv==""){
-    this.ngOnInit();
-  }
-  else{
-  console.log(this.artikli);
+ Search(){
+   console.log(this.artiklNaziv);
+   if(this.artiklNaziv==""){
+        this.artikliPozivanje(this.currUser);
+   }
+   else{
+   console.log(this.artikliFilter);
 
-    this.artikli=this.artikli.filter(res=>{
-      return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
-    });
-  }
-}
+     this.artikliFilter=this.artikliFilter.filter(res=>{
+       return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+     });
+    }
+ }
 
 
   ngOnDestroy() {
@@ -190,7 +197,8 @@ Search(){
       }return true; // ako nema promjena refresha
     }
   getArtiklById(id: any){
-    this._artiklService.getArtiklById(id).subscribe(data =>{ this.artikl = data
+    this._artiklService.getArtiklById(id).subscribe(data =>{ 
+        this.artikl = data;
         this.stavka.kolicina=1;
     });
     this.modalService.dismissAll();
@@ -288,7 +296,6 @@ Get(content:any) {
 
 private getDismissReason(reason: any): string {
   this.artiklNaziv="";
-  this.ngOnInit();
   if (reason === ModalDismissReasons.ESC) {
     return 'by pressing ESC';
   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
