@@ -221,11 +221,17 @@ export class EditOutputsComponent implements OnInit {
 
   
   onKey(event: any) {
-     let rabatCijena = 1 - (this.stavka.rabat1/100);
-     let iznosRabat2 = this.stavka.rabat2 / 100;
-     let iznosRabat1 = this.stavka.rabat1 / 100;
+    //  let rabatCijena = 1 - (this.stavka.rabat1/100);
+    //  let iznosRabat2 = this.stavka.rabat2 / 100;
+    //  let iznosRabat1 = this.stavka.rabat1 / 100;
+
      
-     this.stavka.rabat = ((rabatCijena * iznosRabat2) + iznosRabat1) * 100;
+    //  this.stavka.rabat = (((rabatCijena * iznosRabat2) + iznosRabat1) * 100)/2;
+
+    let rabatCijena = this.stavka.kolicina * this.stavka.cijenaBezPdv * this.stavka.rabat1 / 100;
+    let rabat2 = (this.stavka.kolicina*this.stavka.cijenaBezPdv-rabatCijena) * this.stavka.rabat2 / 100;
+    let rabat = rabatCijena + rabat2;
+    this.stavka.rabat = rabat;
   }
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data => {
