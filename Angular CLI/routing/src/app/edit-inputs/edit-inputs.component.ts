@@ -227,16 +227,21 @@ export class EditInputsComponent implements OnInit {
   }
   
   rabatCalc(){
-    this.stavka.rabat=this.stavka.rabat1-this.stavka.rabat2;
+    // this.stavka.rabat=this.stavka.rabat1-this.stavka.rabat2;
 
-    let rabatCijena = 1 - (this.stavka.rabat1/100);
-     let iznosRabat2 = this.stavka.rabat2 / 100;
-     let iznosRabat1 = this.stavka.rabat1 / 100;
+    // let rabatCijena = 1 - (this.stavka.rabat1/100);
+    //  let iznosRabat2 = this.stavka.rabat2 / 100;
+    //  let iznosRabat1 = this.stavka.rabat1 / 100;
      
-     this.stavka.rabat = ((rabatCijena * iznosRabat2) + iznosRabat1) * 100;
+    //  this.stavka.rabat = ((rabatCijena * iznosRabat2) + iznosRabat1) * 100;
+
+    let rabatCijena = this.stavka.kolicina * this.stavka.cijenaBezPdv * this.stavka.rabat1 / 100;
+    let rabat2 = (this.stavka.kolicina*this.stavka.cijenaBezPdv-rabatCijena) * this.stavka.rabat2 / 100;
+    let rabat = rabatCijena + rabat2;
+    this.stavka.rabat = rabat;
   }
   pdvEditIzracun(){
-    this.racun.iznosSaPdv=(this.racun.iznosRacuna)+(this.racun.iznosRacuna*(this.racun.iznosPoreza/100));
+    this.racun.iznosSaPdv=this.racun.iznosRacuna+this.racun.iznosPoreza;
   }
   cijenaCalc(){
     this.stavka.cijenaBezPdv=this.stavka.kolicina*this.stavka.ulaznaCijena;

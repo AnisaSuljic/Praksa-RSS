@@ -111,7 +111,7 @@ export class AddInputsComponent implements OnInit {
   }
 
   pdvIzracun(){
-    this.iznosPDV=(this.iznosracun)+(this.iznosracun*(this.pdv/100));
+    this.iznosPDV=this.iznosracun+this.pdv;
   }
 
   Zatvori(){
