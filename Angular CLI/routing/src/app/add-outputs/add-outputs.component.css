@@ -41,3 +41,6 @@
 .form-row .col button:last-child{
     float: right;
 }
+.form-control{
+    text-align: start;
+}

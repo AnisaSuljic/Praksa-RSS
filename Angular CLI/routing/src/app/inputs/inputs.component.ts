@@ -11,6 +11,7 @@ import { SkladisteService } from '../services/skladiste.service';
 import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { JedinicamjereService } from '../services/jedinicamjere.service';
 
 
 
@@ -47,7 +48,7 @@ export class InputsComponent implements OnInit {
     private _artiklService:ArtiklService,
     private _skladisteService: SkladisteService,
     private _vrstaPlacanjaService:VrstaplacanjaService,
-    private _korisnikService:UserService)
+    private _korisnikService:UserService,private _jediniceMjereService:JedinicamjereService)
     { 
       this.artikl=null;
 
@@ -88,17 +89,6 @@ export class InputsComponent implements OnInit {
     });
   }
 
-  //search
-    Search(){
-      if(this.racunNaziv==""){
-        this.RacuniPozivanje();
-      }
-      else{
-        this.racuni=this.racuni.filter(res=>{
-          return res.brojRacuna.toLocaleLowerCase().match(this.racunNaziv.toLocaleLowerCase());
-        });
-      }
-    }
   public onPageChange(pageNum: number): void {
 
     this.pageSize = this.itemsPerPage*(pageNum - 1);
@@ -112,12 +102,17 @@ export class InputsComponent implements OnInit {
       {
       
         this.stavkeBaza.push(data[i]);
-        var articlebyid=this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId);
-              this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
-                this.stavkeBaza[i].nazivArtikla = l.naziv;});
-              
-              this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
-                this.stavkeBaza[i].sifraArtikla = l.sifra;});
+        this._artiklService.getArtiklById(this.stavkeBaza[i].artiklId).subscribe(l => {
+          this.stavkeBaza[i].nazivArtikla = l.naziv;
+          this.stavkeBaza[i].sifraArtikla = l.sifra;
+          this.stavkeBaza[i].vpc = l.vpc;
+          this.stavkeBaza[i].mpc = l.mpc;
+          this.stavkeBaza[i].jedMjere = l.jedinicaMjereId;
+          this._jediniceMjereService.getJedinicaMjereById(l.jedinicaMjereId).subscribe(kl => {
+            this.stavkeBaza[i].jedMjereNaziv = kl.naziv;
+          })
+        });
+        
       }
     });
   }

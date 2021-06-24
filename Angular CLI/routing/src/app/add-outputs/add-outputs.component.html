@@ -25,9 +25,12 @@
                         </div>
                         <div class="col">
                             <label for="inputState">Kupac</label>
-                            <select id="inputState"  [(ngModel)]="racuni.kupacId" name="kupacId" class="custom-select">
+                            <!-- <select id="inputState"  [(ngModel)]="racuni.kupacId" name="kupacId" class="custom-select">
                                 <option *ngFor="let item of customers" value="{{item.kupacId}}">{{item.naziv}}</option>
-                            </select>
+                            </select> -->
+                            <input type="button" value="Dodaj kupca" readonly class="form-control" *ngIf="cust==null" (click)="Get(content)" >
+
+                            <input type="button" readonly class="form-control"  *ngIf="cust!=null" [(ngModel)]="cust.naziv" name="cust" name="naziv" (click)="Get(content)">
                         </div>
                     </div>
                     <hr> 
@@ -36,15 +39,15 @@
                     <div class="form-row">
                         <div class="col">
                         <label>Današnji datum</label>
-                        <input type="datetime-local" [(ngModel)]="racuni.datum" name="datum" class="form-control">
+                        <input type="datetime" readonly value="{{datum1 | date : 'dd.MM.y. HH:mm'}}" name="datum1" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum računa</label>
-                            <input type="datetime-local" [(ngModel)]="racuni.datumRacuna" name="datumRacuna" class="form-control">
+                            <input type="date" [(ngModel)]="racuni.datumRacuna" name="datumRacuna" class="form-control">
                         </div>
                         <div class="col">
                             <label>Datum dospjeća</label>
-                            <input type="datetime-local" [(ngModel)]="racuni.datumDospjeca" name="datumDospjeca" class="form-control">
+                            <input type="date" [(ngModel)]="racuni.datumDospjeca" name="datumDospjeca" class="form-control">
                         </div>
                     </div>
                 <!--third row-->
@@ -94,4 +97,48 @@
         </form>
             
     </div>
+
+    <ng-template #content let-modal >
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Kupci</h4>
+        </div>
+        <div class="modal-body">
+          <form>     
+              <div class="rowActions">     
+<!--dropdowngrupa-->
+
+                
+<!--Search-->
+                <div class="rowActions">    <!--Search-->
+                    <div class="input-group">
+                        <!--<input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
+                        (ngModelChange)="Search()">-->
+                        <div class="input-group-prepend">                        
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+                <table class="tableModalItems table">
+                  <thead>
+                      <tr>
+                          <th>Šifra</th>
+                          <th>Naziv</th>
+                          <th>Adresa</th>
+                          <th>Mjesto</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                      <tr *ngFor="let item of customers" (click)="getCustomerById(item.kupacId)">
+                          <td data-label="Šifra">{{item.sifra}}</td>
+                          <td data-label="Naziv">{{item.naziv}}</td>
+                          <td data-label="Adresa">{{item.adresa}}</td>                          
+                          <td data-label="Mjesto">{{item.gradNaziv}}</td>                          
+                      </tr>
+                  </tbody>
+              </table>
+          </form>
+        </div>
+      </ng-template>
 </div>
