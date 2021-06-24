@@ -8,10 +8,6 @@ export class IKlijent {
     public telefon!: string;
     public odgovornaOsoba!: string;
     public email!: string;
-<<<<<<< Updated upstream
-    public brojBankovnogRacuna?: string = '';
-=======
-    public bankRacun!: string;
->>>>>>> Stashed changes
+    public brojBankovnogRacuna!: string;
     public potvrdjenMail!: boolean;
 }
