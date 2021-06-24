@@ -175,18 +175,10 @@ export class EditOutputsComponent implements OnInit {
   }
  
  //search
-  Search(){
-    console.log(this.artiklNaziv);
-    if(this.artiklNaziv==""){
-         this.artikliPozivanje(this.currUser);
-    }
-    else{
-    console.log(this.artikliFilter);
- 
-      this.artikliFilter=this.artikliFilter.filter(res=>{
-        return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
-      });
-     }
+  Search(pretraga:any){
+      this._artiklService.getArtikli().subscribe(res=> {
+        this.artikliFilter=res.filter( fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()))
+      })
   }
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;

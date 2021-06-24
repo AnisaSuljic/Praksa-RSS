@@ -3,8 +3,11 @@
       <div class="headerSpan">
           <span>Porez</span>
       </div>
+    </div>
+    <div class="underHeader">
+      <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
       <button (click)="Add(content)" class="addInputs">Dodaj porez</button>
-  </div>
+</div>
 
 <!-- Add modal -->
 <ng-template #content let-modal>

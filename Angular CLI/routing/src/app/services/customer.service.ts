@@ -43,7 +43,7 @@ export class CustomerService {
     return this.http.get(this.url).toPromise().then(res => { 
       const customeri = res as Customer[];
       this.customers = customeri.filter(obj => obj.klijentId == this._korisnikService.currUser.klijentId);
-      this.customers = this.customers.filter(obj => obj.naziv?.includes(pretraga));
+      this.customers = this.customers.filter(obj => obj.naziv?.toLowerCase()?.includes(pretraga.toLowerCase()));
       for(let i=0; i< this.customers.length;i++){
         this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
             this.customers[i].gradNaziv = data.naziv)

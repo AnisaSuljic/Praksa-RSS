@@ -49,7 +49,7 @@ export class UserService {
       const useri: User[] = res as User[];
       const currUser: User = this.currUser;
       this.users = useri.filter(obj => obj.klijentId == currUser.klijentId);
-      this.users = this.users.filter(obj => obj.ime?.includes(pretraga) || obj.prezime?.includes(pretraga));
+      this.users = this.users.filter(obj => obj.ime?.toLowerCase()?.includes(pretraga.toLowerCase()) || obj.prezime?.toLowerCase()?.includes(pretraga.toLowerCase()));
     });
   }
   getUsers(): Observable<User[]> {

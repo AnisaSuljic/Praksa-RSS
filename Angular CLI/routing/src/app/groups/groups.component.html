@@ -9,7 +9,10 @@
       <div class="headerSpan">
           <span>Grupe</span>
       </div>
-      <button (click)="Add(content)" class="addInputs">Dodaj grupu</button>
+    </div>
+    <div class="underHeader">
+      <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
+    <button (click)="Add(content)" class="addInputs">Dodaj grupu</button>
   </div>
 <!-- Add modal -->
 <ng-template #content let-modal>
