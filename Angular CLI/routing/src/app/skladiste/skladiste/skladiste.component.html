@@ -3,8 +3,11 @@
       <div class="headerSpan">
           <span>Skladište</span>
       </div>
+    </div>
+    <div class="underHeader">
+      <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
       <button (click)="Add(content)" class="addInputs">Dodaj skladište</button>
-  </div>
+</div>
 <!-- Add modal -->
 <ng-template #content let-modal>
   <form #submitForm="ngForm" novalidate (ngSubmit)="onSubmit()">

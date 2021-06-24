@@ -61,6 +61,9 @@ export class GradComponent implements OnInit {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
 
     }
+    filterPoNazivu(pretraga:any){
+      this._gradService.getGrad().subscribe(data=> this.grad=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+    }
 /**Modal Add */
 Add(content:any) {
   this.grad2 = new Grad();

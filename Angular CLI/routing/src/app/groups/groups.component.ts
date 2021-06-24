@@ -92,6 +92,15 @@ export class GroupsComponent implements OnInit {
   public onPageChange(pageNum: number): void {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
+  filterPoNazivu(pretraga:any){
+    this._groupService.getGroups().subscribe(data=> {
+      this.grupe=data.filter(fil=>fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+      for(let i=0; i< this.grupe.length; i++){
+        this._vrstaService.getVrstaById(this.grupe[i].vrstaId!).subscribe(res=>{this.grupe[i].vrstaNaziv = res.naziv});
+        this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res=>{this.grupe[i].porezNaziv = res.nazivPoreza});
+      }
+    });
+  }
 /**Modal Add */
 Add(content:any) {
   this.grupa = new Groups();

@@ -75,7 +75,7 @@ export class ManufacturersComponent implements OnInit{
   filterPoNazivu(pretraga:any){
     //console.log(pretraga.value);
     this.service.getManufacturers().subscribe(res => {
-      this.service.manufacturers = res.filter(obj=> obj.naziv?.includes(pretraga.value));
+      this.service.manufacturers = res.filter(obj=> obj.naziv?.toLowerCase()?.includes(pretraga.value.toLowerCase()));
     });
   }
   /**Modal Add */

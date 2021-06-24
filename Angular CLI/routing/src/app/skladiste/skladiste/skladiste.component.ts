@@ -55,6 +55,9 @@ export class SkladisteComponent implements OnInit {
  public onPageChange(pageNum: number): void {
   this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
+  filterPoNazivu(pretraga:any){
+    this._skladisteService.getSkladiste().subscribe(data=> this.skladiste=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+  }
   /**Modal Add */
   Add(content:any) {
     this.skladiste2 = new Skladiste();

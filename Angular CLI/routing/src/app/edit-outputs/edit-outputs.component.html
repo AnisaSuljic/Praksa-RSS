@@ -294,8 +294,7 @@
 <!--Search-->
                 <div class="rowActions">    <!--Search-->
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
-                        (ngModelChange)="Search()">
+                        <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="Search(pretraga)">
                         <div class="input-group-prepend">                        
                                 <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
                         </div>

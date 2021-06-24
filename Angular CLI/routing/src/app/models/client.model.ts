@@ -8,5 +8,6 @@ export class Client {
     telefon?: string = '';
     odgovornaOsoba?: string = '';
     email?: string = '';
+    brojBankovnogRacuna?: string = '';
     isPotvrdjen?: boolean = false;
 }

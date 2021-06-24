@@ -58,6 +58,9 @@ export class PorezComponent implements OnInit {
   public onPageChange(pageNum: number): void {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
     }
+    filterPoNazivu(pretraga:any){
+      this._porezService.getPorez().subscribe(data=> this.porez=data.filter(fil=> fil.nazivPoreza.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+    }
 /**Modal Add */
 Add(content:any) {
   this.porez2 = new Porez();

@@ -62,6 +62,9 @@ export class VrsteComponent implements OnInit {
   public onPageChange(pageNum: number): void {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
     }
+    filterPoNazivu(pretraga:any){
+      this._vrsteService.getVrsta().subscribe(data=> this.vrste=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+    }
   /**Modal Add */
   Add(content: any) {
     this.vrsta = new Vrsta();
