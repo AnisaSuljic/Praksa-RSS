@@ -8,6 +8,10 @@ export class Client {
     telefon?: string = '';
     odgovornaOsoba?: string = '';
     email?: string = '';
+<<<<<<< Updated upstream
     brojBankovnogRacuna?: string = '';
+=======
+    bankRacun?:string='';
+>>>>>>> Stashed changes
     isPotvrdjen?: boolean = false;
 }
