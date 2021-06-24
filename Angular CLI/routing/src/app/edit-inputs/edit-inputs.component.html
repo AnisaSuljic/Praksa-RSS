@@ -11,10 +11,10 @@
             <span>Ulazni račun</span>
         </div>
         <div class="actionButtons">
-            <button (click)=Get(content) class="addInputs">Pregled stavki</button>
+            <button (click)="ToSection('ListaStavki')" class="addInputs">Pregled stavki</button>
             <button (click)="ToSection('AddItems')" class="addInputs">Dodaj stavke</button>
             <button routerLink="/adminpanel/addInputs" class="addInputs">Dodaj račun</button>
-            <button routerLink="/adminpanel/addInputs" class="addInputs">Printaj račun</button>
+            <!-- <button routerLink="/adminpanel/addInputs" class="addInputs">Printaj račun</button> -->
         </div>
     </div>
     <div *ngIf="uredjivanje==true" class="alert-success">Uspješno ste ažurirali račun!</div>
@@ -117,12 +117,12 @@
     </div>
 
 <!--stavke lista -->
-<div class="header">
+<div id="ListaStavki" class="header">
     <div class="headerSpan">
         <span>Lista stavki</span>
     </div>
 </div>
-<div class="mainsection">
+<div  class="mainsection">
     <table class="table">
         <thead>
             <tr>
@@ -153,7 +153,8 @@
                 <td data-label="MPC">{{item.mpc}}</td>
                 <td class="actions">
                     <button (click)="DeleteStavka(contentstavka)">Obriši</button>
-                    <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button>
+                    <!-- treba popraviti formu -->
+                    <!-- <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button> -->
                 </td>
               <!--Delete modal-->
               <ng-template #contentstavka let-modal>
@@ -234,6 +235,11 @@
                         <label>MPC</label>
                         <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Maloprodajna cijena" readonly>
                         <input type="text" *ngIf="artikl!=null" readonly [(ngModel)]="artikl.mpc" name="mpc" class="form-control" placeholder="Maloprodajna cijena" >
+                    </div>
+                    <div class="col-2">
+                        <label>Jedinica mjere</label>
+                        <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Jedinica mjere" readonly>
+                        <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.jedinicaMjereNaziv" name="jedinicaMjereNaziv" class="form-control" placeholder="Jedinica mjere" readonly>
                     </div>
                 </div>
                 <!--fourth row-->

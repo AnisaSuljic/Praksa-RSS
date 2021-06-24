@@ -50,6 +50,10 @@ export class CustomerService {
       }
     });
   }
+  getCustomerById(id: number): Observable<Customer>{
+    const url = `${this.url}/${id}`;
+    return this.http.get<Customer>(url);
+  }
   getCustomers(): Observable<Customer[]>{
     //return this.http.get<Customer[]>(this.url).pipe(map(res=> this.customers = res.filter(obj=> obj.klijentId == this._korisnikService.currUser.klijentId)));
     return this.http.get<Customer[]>(this.url).pipe(map(res=> this.customers = res.filter(obj=> obj.klijentId == this._korisnikService.currUser.klijentId)));

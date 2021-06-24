@@ -18,6 +18,8 @@ import { JedinicamjereService } from '../services/jedinicamjere.service';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { Customer } from '../models/customer.model';
+import { CustomerService } from '../services/customer.service';
 
 @Component({
   selector: 'app-edit-outputs',
@@ -41,6 +43,9 @@ export class EditOutputsComponent implements OnInit {
   vrsteplacanja: VrstaPlacanja[] = [];
   valute: Valuta[] = [];
   currUser!: User;
+  cust:any;
+  customers: Customer[] = [];
+  promjenaCust:boolean=false;
 
     //search
     artiklNaziv:any;
@@ -60,10 +65,11 @@ export class EditOutputsComponent implements OnInit {
     private _valuteService: ValutaService,
     private _skladisteService: SkladisteService,
     private _jediniceMjereService: JedinicamjereService,
-    private _korisnikService:UserService
+    private _korisnikService:UserService,private _customerService:CustomerService
     ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
+      this.cust=null;
 
       this._routerSub = this.router.events.subscribe((ev) => {
         if (ev instanceof NavigationStart) {
@@ -83,6 +89,7 @@ export class EditOutputsComponent implements OnInit {
     });
     this._racunService.getRacunById(this.id).subscribe(data => {
       this.racun = data;
+      this.dobaviCust();
       this.racunZaPoredit = Object.assign({}, this.racun);
     });
     this._korisnikService.ucitajKorisnika().subscribe(res => {
@@ -99,7 +106,22 @@ export class EditOutputsComponent implements OnInit {
           }
         }
       })
+     // this.cust.kupacId=this.racun.kupacId;
+
+     console.log("trenutni customer=> "+this.racun.kupacId);
+      //kupci
+      this._customerService.getCustomers().subscribe(k => {
+        for(let i = 0; i < k.length; i++)
+        {
+          if(k[i].klijentId==this.currUser.klijentId)
+          {
+            this.customers.push(k[i]);
+          }
+        }
+      })
     });
+
+    
 
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
     this._stavkaService.getStavke().subscribe(data => {
@@ -157,6 +179,9 @@ export class EditOutputsComponent implements OnInit {
       }
     );
   }
+  dobaviCust(){
+    this.cust=this.getCustomerById(this.racun.kupacId);
+  }
   artikliPozivanje(user:User)
   {
    console.log("trenutni1->"+this.currUser.ime);
@@ -189,15 +214,17 @@ export class EditOutputsComponent implements OnInit {
     this.stavka.racunId = id;
     console.log(this.stavka);
     this._stavkaService.addStavka(this.stavka).subscribe(data=> this.stavka = data);
-    this.router.navigate(["/adminpanel/outputs"]).then(()=> {
+    //this.router.navigate(["/adminpanel/outputs"]).then(()=> {
       window.location.reload();
-    });
+    //});
   }
   updateRacun(){
     this.ifsubmit = false;
+    this.racun.kupacId=this.cust.kupacId;
     console.log(this.racun);
     this._racunService.updateRacun(this.racun.racunId,this.racun).subscribe(data => this.racun = data);
-    this.router.navigate(["/adminpanel/outputs"]);
+    //this.router.navigate(["/adminpanel/outputs"]);
+    window.location.reload();
   }
   ToSection(id:string){
     document.getElementById(id)?.scrollIntoView();
@@ -246,7 +273,11 @@ Delete(content2:any) {
 }
 
   private getDismissReason(reason: any): string {
-    this.ngOnInit();
+    this.cust=null;
+    if(this.promjenaCust==false)
+    {
+      this.dobaviCust();
+    }
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -254,5 +285,19 @@ Delete(content2:any) {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  getCustomerById(id: any){
+    if(id!=this.racun.kupacId)
+    {
+      this.promjenaCust=true;
+    }
+    this._customerService.getCustomerById(id).subscribe(data => {
+      this.cust = data;
+    });
+    console.log(this.cust);
+
+    this.modalService.dismissAll();
+    console.log(this.cust);
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Customer } from '../models/customer.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
@@ -9,6 +10,7 @@ import { User } from '../models/user.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
 import { CustomerService } from '../services/customer.service';
+import { GradService } from '../services/grad.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { UserService } from '../services/user.service';
@@ -21,7 +23,7 @@ import { VrstaplacanjaService } from '../services/vrstaplacanja.service';
   styleUrls: ['./add-outputs.component.css']
 })
 export class AddOutputsComponent implements OnInit {
-
+  closeResult:string='';
   racuni: IRacun;
   skladista: Skladiste[] = [];
   vrsteplacanja: VrstaPlacanja[] = [];
@@ -29,6 +31,8 @@ export class AddOutputsComponent implements OnInit {
   customers: Customer[] = [];
   racuniLista: IRacun[] = [];
   dodavanje:boolean=false;
+  datum1:Date;
+  cust:any;
 
   TempRacun:IRacun;
 
@@ -39,9 +43,13 @@ export class AddOutputsComponent implements OnInit {
      private router: Router,
      private _vrstaPlacanja: VrstaplacanjaService,
      private _valuteService: ValutaService,
-     private _customerService : CustomerService,private _korisnikService:UserService) {
+     private _customerService : CustomerService,private _korisnikService:UserService,
+    private modalService: NgbModal, private _gradService:GradService) {
      this.racuni = new IRacun();
      this.TempRacun=new IRacun();
+     this.datum1=new Date();
+     this.cust=null;
+
     }
   ngOnInit(): void {
     this._vrstaPlacanja.getVrsta().subscribe(data => this.vrsteplacanja = data);
@@ -65,7 +73,7 @@ export class AddOutputsComponent implements OnInit {
         {
           if(k[i].klijentId==this.currUser.klijentId)
           {
-            this.customers.push(k[i])
+            this.customers.push(k[i]);
           }
         }
       })
@@ -93,6 +101,7 @@ export class AddOutputsComponent implements OnInit {
     return 0;
   }
   onSubmit(){
+    this.racuni.kupacId=this.cust.kupacId;
     this._racunService.addRacun(this.racuni).subscribe(data=> {this.TempRacun=data;
     let ID=this.TempRacun.racunId;
     
@@ -101,4 +110,29 @@ export class AddOutputsComponent implements OnInit {
     });
   }
 
+  /**Modal GetStavke */
+  Get(content:any) {
+    this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    this.cust=null;
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  getCustomerById(id: any){
+    this._customerService.getCustomerById(id).subscribe(data => {
+      this.cust = data;
+    });
+
+    this.modalService.dismissAll();
+  }
 }

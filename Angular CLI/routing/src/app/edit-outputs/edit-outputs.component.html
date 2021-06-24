@@ -11,10 +11,10 @@
             <span>Izlazni račun</span>
         </div>
         <div class="actionButtons">
-            <button (click)=Get(content) class="addInputs">Pregled stavki</button>
+            <button (click)="ToSection('ListaStavki')" class="addInputs">Pregled stavki</button>
             <button (click)="ToSection('AddItems')" class="addInputs">Dodaj stavke</button>
             <button routerLink="/adminpanel/addOutputs" class="addInputs">Dodaj račun</button>
-            <button routerLink="/adminpanel/addOutputs" class="addInputs">Printaj račun</button>
+            <!-- <button routerLink="/adminpanel/addOutputs" class="addInputs">Printaj račun</button> -->
         </div>
     </div>
     <div class="mainsection">
@@ -28,9 +28,14 @@
                     </div>
                     <div class="col-4">
                         <label>Evidencijski broj</label>
-                        <input type="text" class="form-control" [(ngModel)]="racun.evidencijskiBroj" name="evidencijskiBroj" placeholder="Evidencijski broj" readonly>
+                        <input type="text" class="form-control" [(ngModel)]="racun.evidencijskiBroj" name="evidencijskiBroj" placeholder="Evidencijski broj" >
                     </div>
-                    </div>
+                    <div class="col">
+                        <label for="inputState">Kupac</label>
+                        <input type="button" value="Dodaj kupca" readonly class="form-control" *ngIf="cust==null" (click)="Get(content1)" >
+                        <input type="button" readonly class="form-control"  *ngIf="cust!=null" [(ngModel)]="cust.naziv" name="naziv" (click)="Get(content1)">
+                    </div>            
+            </div>
                     <hr>
                 <!--second row-->
 
@@ -71,7 +76,7 @@
                         </div>
                     </div>
                 <!--fourth row-->
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="col-2">
                         <label>PDV</label>
                         <input type="text" value="17%" class="form-control">
@@ -84,9 +89,9 @@
                         <label>Iznos sa PDV</label>
                         <input type="text" [(ngModel)]="racun.iznosPoreza" name="iznosPoreza" class="form-control">
                     </div>     
-                </div>
+                </div> -->
                 <!--fifth row-->
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="col">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" [(ngModel)]="racun.placen" name="placen" id="invalidCheck2" required>
@@ -94,7 +99,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--Sixth row-->
                 <div class="form-row">
                     <div class="col">
@@ -115,7 +120,7 @@
     </div>
 
 <!--stavke lista -->
-<div class="header">
+<div id="ListaStavki" class="header">
     <div class="headerSpan">
         <span>Lista stavki</span>
     </div>
@@ -145,12 +150,14 @@
                 <td data-label="Kolicina">{{item.kolicina}}</td>
                 <td data-label="Jedinica mjere">{{item.jedMjereNaziv}}</td>
                 <td data-label="Cijena">{{item.cijenaBezPdv}}</td>
-                <td data-label="Rabat">{{item.rabat1}}</td>
+                <td data-label="Rabat">{{item.rabat}}</td>
                 <td data-label="VPC">{{item.vpc}}</td>
                 <td data-label="PDV">17</td>
                 <td data-label="MPC">{{item.mpc}}</td>
                 <td class="actions">
-                    <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button>
+
+                    <!-- treba popraviti formu -->
+                    <!-- <button routerLink="/adminpanel/editStavka/{{item.stavkeId}}">Uredi</button> -->
                     <button (click)="Delete(content2)">Obriši</button>
                 </td>
               <!--Delete modal-->
@@ -226,10 +233,16 @@
                         <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.vpc" name="vpc" class="form-control" placeholder="Veleprodajna cijena" readonly>
                     </div>
                     <div class="col-2">
+                        <label>MPC</label>
+                        <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Maloprodajna cijena" readonly>
+                        <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.mpc" name="mpc" class="form-control" placeholder="Maloprodajna cijena" readonly>
+                    </div>
+                    <div class="col-2">
                         <label>Jedinica mjere</label>
                         <input type="text" *ngIf="artikl==null" class="form-control" placeholder="Jedinica mjere" readonly>
                         <input type="text" *ngIf="artikl!=null" [(ngModel)]="artikl.jedinicaMjereNaziv" name="jedinicaMjereNaziv" class="form-control" placeholder="Jedinica mjere" readonly>
                     </div>
+
                 </div>
                 <!--fourth row-->
                 <div class="form-row">
@@ -241,17 +254,10 @@
                         <label>Cijena</label>
                         <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.cijenaBezPdv" name="cijenaBezPdv" class="form-control" placeholder="Cijena">
                     </div>
-                    <div class="col-2">
-                        <label>NBC</label>
-                        <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.nabavnaCijena" name="nabavnaCijena" class="form-control" placeholder="Nabavna cijena" >
-                    </div>
+                    
                 </div>
                 <!--Fifth row-->
                 <div class="form-row">
-                    <div class="col-2">
-                        <label>Rabat</label>
-                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat" name="rabat" readonly class="form-control" placeholder="Rabat">
-                    </div>
                     <div class="col-2">
                         <label>Rabat1</label>
                         <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat1" name="rabat1" (keyup)="onKey($event)"   class="form-control" placeholder="Rabat1">
@@ -259,6 +265,10 @@
                     <div class="col-2">
                         <label>Rabat2</label>
                         <input type="text" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat2" name="rabat2" (keyup)="onKey($event)"   class="form-control" placeholder="Rabat2">
+                    </div>
+                    <div class="col-2">
+                        <label>Rabat</label>
+                        <input type="number" *ngIf="stavka!=null" [(ngModel)]="stavka.rabat" name="rabat" readonly class="form-control" placeholder="Rabat">
                     </div>
                 </div>
                 <div class="form-row">
@@ -315,6 +325,52 @@
                           <td data-label="Rbr">{{item.artiklId}}</td>
                           <td data-label="Naziv">{{item.naziv}}</td>
                           <td data-label="MPC">{{item.vpc}}</td>                          
+                      </tr>
+                  </tbody>
+              </table>
+          </form>
+        </div>
+      </ng-template>
+
+
+<!-- kupci modal -->
+      <ng-template #content1 let-modal >
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Kupci</h4>
+        </div>
+        <div class="modal-body">
+          <form>     
+              <div class="rowActions">     
+<!--dropdowngrupa-->
+
+                
+<!--Search-->
+                <div class="rowActions">    <!--Search-->
+                    <div class="input-group">
+                        <!--<input type="text" class="form-control" placeholder="Naziv artikla" name="artiklNaziv" [(ngModel)]="artiklNaziv"
+                        (ngModelChange)="Search()">-->
+                        <div class="input-group-prepend">                        
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' ></i></span>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+                <table class="tableModalItems table">
+                  <thead>
+                      <tr>
+                          <th>Šifra</th>
+                          <th>Naziv</th>
+                          <th>Adresa</th>
+                          <th>Mjesto</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                      <tr *ngFor="let item of customers" (click)="getCustomerById(item.kupacId)">
+                          <td data-label="Šifra">{{item.sifra}}</td>
+                          <td data-label="Naziv">{{item.naziv}}</td>
+                          <td data-label="Adresa">{{item.adresa}}</td>                          
+                          <td data-label="Mjesto">{{item.gradNaziv}}</td>                          
                       </tr>
                   </tbody>
               </table>

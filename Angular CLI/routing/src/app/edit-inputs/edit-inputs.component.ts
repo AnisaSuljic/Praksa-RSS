@@ -199,8 +199,9 @@ export class EditInputsComponent implements OnInit {
   getArtiklById(id: any){
     this._artiklService.getArtiklById(id).subscribe(data =>{ 
         this.artikl = data;
-        this.stavka.kolicina=1;
-    });
+        this._jediniceMjereService.getJedinicaMjereById(this.artikl.jedinicaMjereId).subscribe(kl => {
+          this.artikl.jedinicaMjereNaziv = kl.naziv;
+        });    });
     this.modalService.dismissAll();
   }
   addStavka(id: any){

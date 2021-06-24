@@ -35,6 +35,7 @@ namespace RSS_backend.Database
         public string Email { get; set; }
         public bool? Obrisan { get; set; }
         public bool? PotvrdjenMail { get; set; }
+        public string BankovniRacun { get; set; }
 
         public virtual ICollection<Artikl> Artikls { get; set; }
         public virtual ICollection<Grad> Grads { get; set; }

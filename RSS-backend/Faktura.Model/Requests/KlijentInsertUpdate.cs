@@ -16,6 +16,8 @@ namespace Faktura.Model.Requests
         public string Telefon { get; set; }
         public string OdgovornaOsoba { get; set; }
         public string Email { get; set; }
+        public string BankovniRacun { get; set; }
+
 
     }
 }
