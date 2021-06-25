@@ -128,3 +128,6 @@ C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\RSS-backend\obj\Debug\ne
 C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\RSS-backend\obj\Debug\net5.0\ref\RSS-backend.dll
 C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\RSS-backend\obj\Debug\net5.0\RSS-backend.pdb
 C:\Users\LENOVO\Documents\GitHub\Praksa-RSS\RSS-backend\RSS-backend\obj\Debug\net5.0\RSS-backend.genruntimeconfig.cache
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\RSS-backend\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\RSS-backend\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\PC\Desktop\Praksa-RSS\RSS-backend\RSS-backend\bin\Debug\net5.0\System.IO.Pipelines.dll

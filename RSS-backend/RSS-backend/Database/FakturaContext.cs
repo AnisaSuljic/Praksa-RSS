@@ -193,7 +193,9 @@ namespace RSS_backend.Database
 
                 entity.Property(e => e.Adresa).HasMaxLength(255);
 
-                entity.Property(e => e.BankovniRacun).HasMaxLength(255);
+                entity.Property(e => e.BrojBankovnogRacuna)
+                    .HasMaxLength(255)
+                    .HasColumnName("brojBankovnogRacuna");
 
                 entity.Property(e => e.Email).HasMaxLength(255);
 
