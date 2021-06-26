@@ -55,6 +55,7 @@ export class OutputsComponent implements OnInit {
               this.racuni.push(data[i])
             }                
           }
+          console.log(this.racuni);
           for(let j=0;j<this.racuni.length;j++){
             this._skladisteService.getSkladisteById(this.racuni[j].skladisteIzlazId).subscribe(l=>{
               this.racuni[j].nazivSkladista = l.naziv})   
@@ -94,7 +95,19 @@ export class OutputsComponent implements OnInit {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
     
     }
-
+    filterPoNazivu(pretraga:any){
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        this._racunService.getRacuni().subscribe(data => {
+          this.racuni = data.filter(obj => obj.klijentId == this.currUser.klijentId && 
+                obj.brojRacuna.toLowerCase()?.includes(pretraga.value.toLowerCase()) && 
+                    obj.skladisteIzlazId != null);
+          for (let i = 0; i < this.racuni.length; i++) {
+            this._skladisteService.getSkladisteById(this.racuni[i].skladisteIzlazId!).subscribe(res => { this.racuni[i].nazivSkladista = res.naziv });
+          }
+        });
+      });
+    }
   DeleteRacun() {
     this._racunService.deleteRacun(this.idRacuna).subscribe(data => this.racun = data);
     return this._racunService.getRacuni().subscribe(

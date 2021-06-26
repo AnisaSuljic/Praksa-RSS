@@ -10,6 +10,21 @@
     margin-bottom: 15px;
     border-bottom:1px solid grey;
 }
+.underHeader{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: 15px;
+}
+.underHeader span{
+    width: 100%;
+    text-align: left;
+}
+.underHeader input{
+    padding-left: 25px;
+    border-radius: 25px;
+    width: 35%;
+}
 .addInputs{
     width: 180px;
     background-color:white ;

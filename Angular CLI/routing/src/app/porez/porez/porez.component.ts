@@ -22,10 +22,12 @@ export class PorezComponent implements OnInit {
   pageSize!: number;
   constructor(public _porezService: PorezService, private modalService: NgbModal,
     private _korisnikService: UserService) { 
-      this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser;  
-      this._porezService.getPorez().subscribe(data=>{this.porez = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._porezService.getPorez().subscribe(data => {
+        this.porez = data.filter(obj => obj.klijentId == this.currUser.klijentId);
       });
-      });
+    });
       this.porez2=new Porez(); }
 
   ngOnInit(): void {
@@ -59,7 +61,12 @@ export class PorezComponent implements OnInit {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
     }
     filterPoNazivu(pretraga:any){
-      this._porezService.getPorez().subscribe(data=> this.porez=data.filter(fil=> fil.nazivPoreza.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        this._porezService.getPorez().subscribe(data => {
+          this.porez = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.nazivPoreza.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+        });
+      });
     }
 /**Modal Add */
 Add(content:any) {

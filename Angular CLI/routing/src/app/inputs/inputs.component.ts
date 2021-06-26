@@ -94,7 +94,20 @@ export class InputsComponent implements OnInit {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
     
     }
-
+    filterPoNazivu(pretraga:any){
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        this._racunService.getRacuni().subscribe(data => {
+          this.racuni = data.filter(obj => obj.klijentId == this.currUser.klijentId && 
+                obj.brojRacuna.toLowerCase()?.includes(pretraga.value.toLowerCase()) && 
+                    obj.skladisteUlazId != null);
+          for (let i = 0; i < this.racuni.length; i++) {
+            this._skladisteService.getSkladisteById(this.racuni[i].skladisteUlazId!).subscribe(res => { this.racuni[i].nazivSkladista = res.naziv });
+            this._vrstaPlacanjaService.getVrstaById(this.racuni[i].vrstaPlacanjaId).subscribe(v=>{ this.racuni[i].nazivVrstePlacanja = v.naziv})  
+          }
+        });
+      });
+    }
   GetStavke()
   {
     this._stavkaService.getStavke().subscribe(data => {

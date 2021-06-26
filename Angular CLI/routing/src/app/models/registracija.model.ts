@@ -8,6 +8,6 @@ export class IKlijent {
     public telefon!: string;
     public odgovornaOsoba!: string;
     public email!: string;
-    public brojBankovnogRacuna!: string;
+    public bankovniRacun!: string;
     public potvrdjenMail!: boolean;
 }

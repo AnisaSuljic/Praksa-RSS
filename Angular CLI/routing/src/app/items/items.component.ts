@@ -122,14 +122,21 @@ export class ItemsComponent implements OnInit {
       );
   }
   filterPoNazivu(pretraga:any){
-    this._artiklService.getArtikli().subscribe(data=> {
-      this.artikli=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
-      for (let i = 0; i < this.artikli.length; i++) {
-        this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(data =>
-          this.artikli[i].jedinicaMjereNaziv = data.naziv);
-        this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(data =>
-          this.artikli[i].grupaNaziv = data.naziv);
-      }
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this._korisnikService.promise.then(result => {
+        this.currUser = result;
+        this._artiklService.getArtikli().subscribe(data => {
+          this.artikli = data.filter(obj => obj.klijentId == result.klijentId && obj.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+          for (let i = 0; i < this.artikli.length; i++) {
+            this._jedinicaMjereService.getJedinicaMjereById(this.artikli[i].jedinicaMjereId!).subscribe(res => {
+              this.artikli[i].jedinicaMjereNaziv = res.naziv;
+            });
+            this._grupeService.getGroupsById(this.artikli[i].grupaId!).subscribe(result => {
+              this.artikli[i].grupaNaziv = result.naziv;
+            });
+          }
+        });
+      })
     });
   }
   odabranaGrupa() {
