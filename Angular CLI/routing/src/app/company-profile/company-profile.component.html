@@ -3,23 +3,22 @@
         <div class="col-md-5 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <form>
-                    <h3>Unesite sliku</h3>
-                    <div class="form-group m-form__group">
-                        <br/>
-                        <input type="file" (change)="fileChangeEvent($event)" />
-                        
+                    <div class="imageframe">
+                        <img [src]="ImageM" alt="greska pri ucitavanju"style="width: 100%;height: 100%;" class="mobileForPicture">
                     </div>
-                       <img [src]="imageUrl"  style="width: 250px;display: block;">
-            
+                    <br>
+                    <input type="file" (change)="fileChangeEvent($event)" />                        
                 </form>
-                <button type="button" style="background-color: #1082df ;" class="btn btn-primary" (click)="UpdateForImage()" >Spremi </button>
-
+                <br>
+                <button type="button" id="spasi" style="background-color: #1082df ;" class="btn btn-primary" (click)="UpdateForImage()" >Spremi sliku </button>
+                <br>
                 <span class="font-weight-bold">Odgovorna osoba: {{this?.currClient?.odgovornaOsoba}}</span><span class="text-black-50">{{this?.currClient?.email}}</span><span> </span>
             </div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
-                <div class="col-md-12"><label class="labels">ID broj</label><input type="text" class="form-control" value="{{this?.currClient?.idbroj}}"></div>
+                <td style="width: 10px;" class="mobileTdForPicture">
+                </td>                <div class="col-md-12"><label class="labels">ID broj</label><input type="text" class="form-control" value="{{this?.currClient?.idbroj}}"></div>
                 <div class="row mt-2">
                     <div class="col-md-6"><label class="labels">Ime</label><input type="text" class="form-control" value="{{this?.currUser?.ime}}"></div>
                     <div class="col-md-6"><label class="labels">Prezime</label><input type="text" class="form-control" value="{{this?.currUser?.prezime}}"></div>
