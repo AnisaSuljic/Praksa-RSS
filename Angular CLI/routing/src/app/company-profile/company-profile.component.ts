@@ -8,6 +8,8 @@ import { Client } from '../models/client.model';
 import { User } from '../models/user.model';
 import { ClientService } from '../services/client.service';
 import { UserService } from '../services/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -22,72 +24,53 @@ export class CompanyProfileComponent implements OnInit {
   currClient1?: Client;
   imageUrl:string='/assets/img/profile.png';
   fileToUpload:File=null as any;
+  ImageM: any = '';
 
-  constructor(private _clientService: ClientService, public _korisnikService: UserService) {
+  constructor(private _sanitizer: DomSanitizer,private _clientService: ClientService, public _korisnikService: UserService) {
     this._korisnikService.ucitajKorisnika().subscribe(res=> {
       this.currUser = this._korisnikService.currUser;
       this._clientService.getClientById(this._korisnikService.currUser?.klijentId).pipe(map(res => this.currClient = res)).subscribe(res => {
-        console.log(atob(res.image as string));
+        this.ImageM= this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+        + atob(res.image!));
        });
     })
   }
  
- //public base64Slika: string='';
 
   ngOnInit(): void {
   }
-   /*
-  upload(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const files = target.files as FileList;
-    
-    
-    this.fileToUpload=files.item(0) as any;
-
-    var reader=new FileReader();
-
-    reader.onload=(event:any)=>{
-      this.imageUrl=event.target.result;
-
-    }
-    reader.readAsDataURL(this.fileToUpload);
-
-    
-
-}
-OnSubmit(Image){
-  console.log("slika=>> "+Image);
-}*/
-// public base64Slika: string='';
-
-//   handleReaderLoaded(readerEvt) {
-//     var binaryString = readerEvt.target.result;
-//     this.base64Slika = btoa(binaryString);
-//   }
 imageChangedEvent: any = '';
   public base64Slika: string='';
-  ImageM: any = '';
 
   handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.base64Slika = btoa(binaryString);
   }
   fileChangeEvent($event) {
-
-    this.imageChangedEvent = event;
+    
+    //this.imageChangedEvent = event;
     var file: File = $event.target.files[0];
+    
+    
+    var reader = new FileReader();
+    reader.onload = this.handleReaderLoaded.bind(this);
+    reader.readAsBinaryString(file);
+    
+    
     var reader1 = new FileReader();
-
+    
     reader1.onload=(event:any)=>{
-      this.imageUrl=event.target.result;
+      this.ImageM=event.target.result;
     }
     reader1.readAsDataURL(file);
-    
-    }
+  }
 
   UpdateForImage() {
+
     this._clientService.getClientById(this.currUser?.klijentId).subscribe(f => {
       this.currClient1=f;
+      this.currClient1.image=btoa(this.base64Slika);
+
       this._clientService.updateClient(f.klijentId as number,this.currClient1).subscribe(f => {
         location.reload()
       })
