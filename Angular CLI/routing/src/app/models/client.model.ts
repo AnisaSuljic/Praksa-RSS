@@ -9,6 +9,6 @@ export class Client {
     image?: string = '';
     odgovornaOsoba?: string = '';
     email?: string = '';
-    bankovniRacun?: string = '';
+    brojBankovnogRacuna?: string = '';
     isPotvrdjen?: boolean = false;
 }
