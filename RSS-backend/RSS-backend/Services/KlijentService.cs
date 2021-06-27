@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Policy;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace RSS_backend.Services
 {
@@ -43,7 +46,6 @@ namespace RSS_backend.Services
             Database.Klijent entity = _mapper.Map<Database.Klijent>(request);
 
             entity.Obrisan = false;
-            //entity.PotvrdjenMail = false;
 
             set.Add(entity);
             Context.SaveChanges();
@@ -52,6 +54,37 @@ namespace RSS_backend.Services
 
             return _mapper.Map<Faktura.Model.Klijent>(entity);
         }
+
+       
+        public override Faktura.Model.Klijent Update(int id, Faktura.Model.Requests.KlijentInsertUpdate request)
+        {
+            var set = Context.Set<Database.Klijent>();
+            var entity = set.Find(id);
+
+
+            //if(request.SlikaFile!=null)
+            //{
+            //    string ekstenzija = Path.GetExtension(request.SlikaFile.FileName);
+            //    string contentTyle = request.SlikaFile.ContentType;
+
+            //    var filename = $"{Guid.NewGuid()}{ekstenzija}";
+            //    string folder = "Image";
+            //    bool exists = System.IO.Directory.Exists(folder);
+            //    if (!exists)
+            //        System.IO.Directory.CreateDirectory(folder);
+
+            //    request.SlikaFile.CopyTo(new FileStream(folder + filename, FileMode.Create));
+            //    request.Slika = filename;
+            //}
+
+            _mapper.Map(request, entity);
+
+            Context.SaveChanges();
+
+            return _mapper.Map<Faktura.Model.Klijent>(entity);
+
+        }
+
         public async void VerifikacijaMejla(Klijent client)
         {
             var link = "localhost:4200/prijava/" + client.KlijentId;

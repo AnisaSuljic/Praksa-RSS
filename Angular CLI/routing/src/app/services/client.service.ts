@@ -45,4 +45,8 @@ export class ClientService {
   deleteClient(id:number): Observable<Client>{
     return this.http.delete<Client>(`${this.url}/${id}`);
   }
+  updateClient(id: number, item: Client){
+    const url = `${this.url}/${id}`;
+    return this.http.put<Client>(url,item);
+  }
 }

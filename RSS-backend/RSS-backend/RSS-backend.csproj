@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Faktura.Model\Faktura.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Image\" />
+  </ItemGroup>
+
 </Project>

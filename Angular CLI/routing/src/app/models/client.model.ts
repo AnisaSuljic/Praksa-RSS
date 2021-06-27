@@ -6,6 +6,7 @@ export class Client {
     pdvbroj?: string = '';
     idbroj?: string = '';
     telefon?: string = '';
+    image?: string = '';
     odgovornaOsoba?: string = '';
     email?: string = '';
     bankovniRacun?: string = '';

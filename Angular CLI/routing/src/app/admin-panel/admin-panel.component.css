@@ -166,7 +166,9 @@ header{
 }
 .social-icons img{
   width: 32px;
+  height: 32px;
   margin:5px;
+  border-radius: 25px;
 }
 .search-wrapper input{
   border:0;

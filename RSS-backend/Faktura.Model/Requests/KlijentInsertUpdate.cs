@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,8 @@ namespace Faktura.Model.Requests
         public string Telefon { get; set; }
         public string OdgovornaOsoba { get; set; }
         public string Email { get; set; }
-        public string BankovniRacun { get; set; }
-
-
+        public string BrojBankovnogRacuna { get; set; }
+        public byte[] Image { get; set; }
     }
 }
 
