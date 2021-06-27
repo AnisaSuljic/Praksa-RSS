@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from 'jquery';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { IArtikl } from '../models/artikl.model';
 import { IJedinicaMjere } from '../models/jedinicamjere.model';
 import { IRacun } from '../models/racun.model';
@@ -170,7 +171,7 @@ export class EditInputsComponent implements OnInit {
    console.log(this.artikliFilter);
 
      this.artikliFilter=this.artikliFilter.filter(res=>{
-       return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase());
+       return res.naziv.toLocaleLowerCase().match(this.artiklNaziv.toLocaleLowerCase()) && res.klijentId == this.currUser.klijentId;
      });
     }
  }
