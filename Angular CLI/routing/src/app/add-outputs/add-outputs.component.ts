@@ -109,6 +109,18 @@ export class AddOutputsComponent implements OnInit {
 
     });
   }
+  filterPoNazivuKupac(pretraga: any){
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._customerService.getCustomers().subscribe(data => {
+        this.customers = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.naziv?.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+        for (let i = 0; i < this.customers.length; i++) {
+          this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
+            this.customers[i].gradNaziv = data.naziv)
+        }
+      });
+    });
+  }
 
   /**Modal GetStavke */
   Get(content:any) {

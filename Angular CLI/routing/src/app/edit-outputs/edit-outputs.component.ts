@@ -20,6 +20,7 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { Customer } from '../models/customer.model';
 import { CustomerService } from '../services/customer.service';
+import { GradService } from '../services/grad.service';
 
 @Component({
   selector: 'app-edit-outputs',
@@ -65,7 +66,7 @@ export class EditOutputsComponent implements OnInit {
     private _valuteService: ValutaService,
     private _skladisteService: SkladisteService,
     private _jediniceMjereService: JedinicamjereService,
-    private _korisnikService:UserService,private _customerService:CustomerService
+    private _korisnikService:UserService,private _customerService:CustomerService, private _gradService:GradService
     ) { 
       this.artikl = null; 
       this.stavka = new IStavka();
@@ -120,7 +121,9 @@ export class EditOutputsComponent implements OnInit {
         }
       })
     });
-
+    this._customerService.getCustomers().subscribe(data => {
+      this.customers = data.filter(obj => obj.klijentId == this.currUser.klijentId);
+    });
     
 
     this._jediniceMjereService.getJedinicaMjere().subscribe(data => this.jedinicemjere = data);
@@ -201,10 +204,26 @@ export class EditOutputsComponent implements OnInit {
  
  //search
   Search(pretraga:any){
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
       this._artiklService.getArtikli().subscribe(res=> {
-        this.artikliFilter=res.filter( fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()))
+        this.artikliFilter=res.filter( fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()) && fil.klijentId == this.currUser.klijentId)
       })
+    });
   }
+  filterPoNazivuKupac(pretraga: any){
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        this._customerService.getCustomers().subscribe(data => {
+          this.customers = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.naziv?.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+          for (let i = 0; i < this.customers.length; i++) {
+            this._gradService.getGradById(this.customers[i].gradId!).subscribe(data=>
+              this.customers[i].gradNaziv = data.naziv)
+          }
+        });
+      });
+    }
+  
   addStavka(id: any){
     this.stavka.artiklId = this.artikl.artiklId;
     this.stavka.klijentId = this.racun.klijentId;

@@ -4,11 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
+import { Customer } from '../models/customer.model';
 import { IRacun } from '../models/racun.model';
 import { Skladiste } from '../models/skladiste.model';
 import { User } from '../models/user.model';
 import { Valuta } from '../models/valuta.model';
 import { VrstaPlacanja } from '../models/vrstaplacanja.model';
+import { CustomerService } from '../services/customer.service';
+import { GradService } from '../services/grad.service';
 import { RacunService } from '../services/racun.service';
 import { SkladisteService } from '../services/skladiste.service';
 import { UserService } from '../services/user.service';
@@ -30,7 +33,7 @@ export class AddInputsComponent implements OnInit {
   iznosPDV:number=0;
   iznosracun:number=0;
   pdv:number=0;
-  
+  customers: Customer[] = [];
   TempRacun: IRacun;
   GetLenght:number=0;
   BrojRacuna:string='';
@@ -42,7 +45,8 @@ export class AddInputsComponent implements OnInit {
 
 
   constructor(private _racunService: RacunService,private router: Router, private _skladisteService:SkladisteService,
-    private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService,private _korisnikService:UserService) {
+    private _vrstaPlacanja:VrstaplacanjaService,private _valutaService:ValutaService,private _korisnikService:UserService, private _customerService:CustomerService,
+    private _gradService:GradService) {
      this.racuni = new IRacun();
     this.TempRacun= new IRacun();
 
@@ -96,8 +100,7 @@ export class AddInputsComponent implements OnInit {
       this.racuni.brojRacuna= "2021/br"+(this.racuniLista.length+1).toString();            
     })
   })
-  }
-  
+}  
   onSubmit(){
     this.racuni.iznosRacuna=this.iznosracun;
     this.racuni.iznosPoreza=this.pdv;
