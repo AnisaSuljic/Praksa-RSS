@@ -33,12 +33,14 @@ export class GroupsComponent implements OnInit {
   constructor(public _groupService: GroupsService, private modalService: NgbModal, private router:Router,
    private _porezService:PorezService, private _vrstaService:VrstaService, private _korisnikService: UserService) 
   {
-    this._korisnikService.ucitajKorisnika().subscribe(res=> { this.currUser = this._korisnikService.currUser; 
-      this._groupService.getGroups().subscribe(data =>{ this.grupe = data.filter(obj=>obj.klijentId == this.currUser.klijentId);
-      for(let i=0; i< this.grupe.length; i++){
-        this._vrstaService.getVrstaById(this.grupe[i].vrstaId!).subscribe(res=>{this.grupe[i].vrstaNaziv = res.naziv});
-        this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res=>{this.grupe[i].porezNaziv = res.nazivPoreza});
-      }
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._groupService.getGroups().subscribe(data => {
+        this.grupe = data.filter(obj => obj.klijentId == this.currUser.klijentId);
+        for (let i = 0; i < this.grupe.length; i++) {
+          this._vrstaService.getVrstaById(this.grupe[i].vrstaId!).subscribe(res => { this.grupe[i].vrstaNaziv = res.naziv });
+          this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res => { this.grupe[i].porezNaziv = res.nazivPoreza });
+        }
       });
       this._porezService.getPorez().subscribe(data =>{ this.porezi = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
       this._vrstaService.getVrsta().subscribe(data =>{ this.vrste = data.filter(obj=>obj.klijentId == this.currUser.klijentId); });
@@ -93,12 +95,15 @@ export class GroupsComponent implements OnInit {
     this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
   filterPoNazivu(pretraga:any){
-    this._groupService.getGroups().subscribe(data=> {
-      this.grupe=data.filter(fil=>fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
-      for(let i=0; i< this.grupe.length; i++){
-        this._vrstaService.getVrstaById(this.grupe[i].vrstaId!).subscribe(res=>{this.grupe[i].vrstaNaziv = res.naziv});
-        this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res=>{this.grupe[i].porezNaziv = res.nazivPoreza});
-      }
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._groupService.getGroups().subscribe(data => {
+        this.grupe = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+        for (let i = 0; i < this.grupe.length; i++) {
+          this._vrstaService.getVrstaById(this.grupe[i].vrstaId!).subscribe(res => { this.grupe[i].vrstaNaziv = res.naziv });
+          this._porezService.getPorezById(this.grupe[i].porezId!).subscribe(res => { this.grupe[i].porezNaziv = res.nazivPoreza });
+        }
+      });
     });
   }
 /**Modal Add */

@@ -62,7 +62,12 @@ export class GradComponent implements OnInit {
 
     }
     filterPoNazivu(pretraga:any){
-      this._gradService.getGrad().subscribe(data=> this.grad=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+      this._korisnikService.ucitajKorisnika().subscribe(res => {
+        this.currUser = this._korisnikService.currUser;
+        this._gradService.getGrad().subscribe(data => {
+          this.grad = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+        });
+      });
     }
 /**Modal Add */
 Add(content:any) {

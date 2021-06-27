@@ -56,7 +56,12 @@ export class SkladisteComponent implements OnInit {
   this.pageSize = this.itemsPerPage*(pageNum - 1);
   }
   filterPoNazivu(pretraga:any){
-    this._skladisteService.getSkladiste().subscribe(data=> this.skladiste=data.filter(fil=> fil.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase())));
+    this._korisnikService.ucitajKorisnika().subscribe(res => {
+      this.currUser = this._korisnikService.currUser;
+      this._skladisteService.getSkladiste().subscribe(data => {
+        this.skladiste = data.filter(obj => obj.klijentId == this.currUser.klijentId && obj.naziv.toLowerCase()?.includes(pretraga.value.toLowerCase()));
+      });
+    });
   }
   /**Modal Add */
   Add(content:any) {

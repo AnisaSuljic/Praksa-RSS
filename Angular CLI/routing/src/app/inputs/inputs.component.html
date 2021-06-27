@@ -12,8 +12,7 @@
         </div>
       </div>
       <div class="underHeader">
-        <input placeholder="Pretraži" type="text" class="form-control" name="racunNaziv" [(ngModel)]="racunNaziv">
-        <!-- (ngModelChange)="Search()"> -->
+        <input placeholder="Pretraži" type="text" class="form-control" #pretraga (input)="filterPoNazivu(pretraga)">
         <button routerLink="/adminpanel/addInputs" class="addInputs">Dodaj ulazni račun</button>
     </div>
     <div *ngIf="brisanje==true" class="alert-success">Uspješno ste obrisali račun!</div>
