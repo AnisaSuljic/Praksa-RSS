@@ -14,7 +14,7 @@
     justify-content: space-between; 
 }
 #trArtikl:hover{
-    background-color:rgba(160, 160, 160, 0.384);
+    background-color:rgba(156, 141, 141, 0.384);
     cursor: pointer;
 }
 .header .headerSpan{
@@ -112,16 +112,7 @@
     border-right: 1px solid #e3cee43d;
 }
 
-.rowActions{
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    margin-bottom: 15px;
-    justify-content: space-between;
-}
-.rowActions .input-group{
-    width: 70%;
-}
+
 
 
 @media only screen and (max-width: 1200px)
