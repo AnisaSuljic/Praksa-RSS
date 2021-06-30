@@ -1,9 +1,7 @@
-// const hamburger = document.querySelector(".hamburger");
-// const mobile = document.querySelector('.header .nav-bar .nav-list ul');
-// const header = document.querySelector('.header');
+const hamburger = document.getElementsByClassName("hamburger");
+const mobile = document.getElementsByClassName("headerNav");
 
 var head=document.getElementsByClassName("header");
-
 
 document.addEventListener('scroll',()=>{
     var scroll_pos=window.scrollY;
@@ -16,12 +14,11 @@ document.addEventListener('scroll',()=>{
     }
 });
 
-var hamDiv=document.getElementsByClassName("hamburger");
-var mobDiv=document.getElementsByClassName("headerNav");
-
 document.addEventListener('click',() => {
-    //hamDiv[0].classList.toggle('active');
-    //mobDiv[0].classList.toggle('active');
+    console.log(hamburger);
+    console.log(mobile);
+    hamburger[0].classList.toggle('active');
+    mobile[0].classList.toggle('active');
 });
 
 
